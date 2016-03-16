@@ -26,6 +26,21 @@ public class ApZipCode extends ApComponentBase {
 		this.plus4Code = plus4Code;
 	}
 	
+	
+	@Override
+	public String getValue() {
+		
+		if (zipCode == null) {
+			return "";
+		}
+		
+		String resultValue = zipCode;
+		if (plus4Code != null) {
+			resultValue += "-" + plus4Code;
+		}
+		return resultValue;
+	}
+	
 
 	
 }

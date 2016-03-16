@@ -17,7 +17,7 @@ public class ApStreet extends ApComponentBase {
 	
     private ApStreetStreetName streetName; // Street Name
     private ApStreetSuffix streetSuffix;
-    private String postDirection;
+//    private ApDirectionalEnum postDirection;
     
     
     
@@ -40,11 +40,31 @@ public class ApStreet extends ApComponentBase {
 	public void setStreetSuffix(ApStreetSuffix streetSuffix) {
 		this.streetSuffix = streetSuffix;
 	}
-	public String getPostDirection() {
-		return postDirection;
-	}
-	public void setPostDirection(String postDirection) {
-		this.postDirection = postDirection;
+
+	
+	@Override
+	public String getValue() {
+
+		StringBuilder resultSb = new StringBuilder();
+
+		String separatorPrefix = "";
+		
+		if (primaryNumber != null) {
+			resultSb.append(primaryNumber.getValue());
+			separatorPrefix = " ";
+		}
+		
+		if (streetName != null) {
+			resultSb.append(separatorPrefix).append(streetName.getValue());
+			separatorPrefix = " ";
+		}
+		
+		if (streetSuffix != null) {
+			resultSb.append(separatorPrefix).append(streetSuffix.getValue());
+			separatorPrefix = " ";
+		}
+		
+		return resultSb.toString();
 	}
     
 

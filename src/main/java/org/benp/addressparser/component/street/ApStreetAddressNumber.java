@@ -30,4 +30,9 @@ public class ApStreetAddressNumber extends ApComponentBase {
 	public void setNumber(String number) {
 		this.number = number;
 	}
+
+	@Override
+	public String getValue() {
+		return number;
+	}
 }

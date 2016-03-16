@@ -17,14 +17,6 @@ Usually I believe in the, don't optimize until you need to but this class might 
 ## Requirements:
 * This requires Java 1.7 or above
 
-##Release Notes:
-
-### 0.5.1: First Commit to github
-* Working version at 99% success rate
-
-
-
-
 
 ## References:
 Address Components Defintion:
@@ -43,6 +35,18 @@ http://results.openaddresses.io/
 
 
 
-## TODO:
+
+## Release Notes
+
+### 0.6.1
+* Added LICENSE.txt
+* Added getValue to ApComponentBase - This changes a lot
+* Moved PostDirectional to Street Name (with PreDirectional)
+
+### 0.5.1
+* Initial Check-in
+Working version - Parses simple addresses
+
+
 
 

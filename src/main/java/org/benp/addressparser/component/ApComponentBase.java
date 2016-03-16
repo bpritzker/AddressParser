@@ -8,6 +8,8 @@ public abstract class ApComponentBase {
 	private boolean isValid;
 	
 	private List<Integer> splitterIndecies = new ArrayList<>();
+	
+	public abstract String getValue();
 
 	/**
 	 * Always default to false.
@@ -60,6 +62,8 @@ public abstract class ApComponentBase {
 			this.splitterIndecies.addAll(inComponent.getSplitterIndecies());
 		}
 	}
+	
+
 
 
 

@@ -14,6 +14,11 @@ public class ApStreetSuffix extends ApComponentBase {
 	public void setStreetSuffix(ApStreetSuffixEnum streetSuffix) {
 		this.streetSuffix = streetSuffix;
 	}
+
+	@Override
+	public String getValue() {
+		return streetSuffix.getName();
+	}
 	
 
 }

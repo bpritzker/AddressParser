@@ -11,6 +11,9 @@ public class ApAddressParserConfig {
 	private String defaultCountryCode;
 	private ApState defaultState;
 	
+	// This will have all the getValue() method to use proper case (first letter capitalized)
+	// private boolean getValueProperCase
+	
 	
 	private File dataDirectory;
 	

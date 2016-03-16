@@ -55,6 +55,13 @@ public class ApStreetParserTest {
 		splitter = new ApSplitter("1643015 Dent NOTFOUND");
 		actualStreet = parser.parse(splitter);
 		assertTrue(actualStreet.isValid());
+		
+//		splitter = new ApSplitter("742 Evergreen Terrace S");
+//		actualStreet = parser.parse(splitter);
+//		assertTrue(actualStreet.isValid());
+//		assertEquals("E", actualStreet.getPostDirection().getValue());
+		
+		
 	}
 
 }

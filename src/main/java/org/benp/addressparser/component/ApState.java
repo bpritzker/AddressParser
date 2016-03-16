@@ -15,5 +15,13 @@ public class ApState extends ApComponentBase  {
 		this.stateDefinition = stateDefinition;
 	}
 
+	@Override
+	public String getValue() {
+		if (stateDefinition == null) {
+			return "";
+		}
+		return stateDefinition.getCode();
+	}
+
 
 }

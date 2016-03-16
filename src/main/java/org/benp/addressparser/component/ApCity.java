@@ -18,6 +18,14 @@ public class ApCity extends ApComponentBase {
 		this.cityValue = cityValue;
 	}
 
+	@Override
+	public String getValue() {
+		if (cityValue == null) {
+			return "";
+		}
+		return cityValue.getName();
+	}
+
 
 
 }

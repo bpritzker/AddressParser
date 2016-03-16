@@ -14,4 +14,9 @@ public class ApDirectional extends ApComponentBase {
 		this.directional = directional;
 	}
 
+	@Override
+	public String getValue() {
+		return directional.getValue();
+	}
+
 }
