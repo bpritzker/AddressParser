@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is the production version of the config file. It logs everything to a log file. -->
+<configuration status="OFF">
+  <appenders>
+	<RollingFile name="RollingFile" 
+			fileName="/opt/jboss/wildfly-8.1.0.Final/standalone/log/WellsFargo.log" 
+			filePattern="/opt/jboss/wildfly-8.1.0.Final/standalone/log/WellsFargo-%d{yyyy-MM-dd-}.log"
+            ignoreExceptions="false">
+      <PatternLayout>
+      	<!-- %highlight{%d [%t] %-5level: %msg%n%throwable}{FATAL=white, ERROR=red, WARN=blue, INFO=black, DEBUG=green, TRACE=blue}  -->
+        <Pattern>%d %p %c{1.} %m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy interval="1" />
+    </RollingFile>
+	<RollingFile name="RollingFileDebug" 
+			fileName="/opt/jboss/wildfly-8.1.0.Final/standalone/log/WellsFargoDebug.log" 
+			filePattern="/opt/jboss/wildfly-8.1.0.Final/standalone/log/WellsFargoDebug-%d{yyyy-MM-dd-}.log"
+            ignoreExceptions="false">
+      <PatternLayout>
+      	<!-- %highlight{%d [%t] %-5level: %msg%n%throwable}{FATAL=white, ERROR=red, WARN=blue, INFO=black, DEBUG=green, TRACE=blue}  -->
+        <Pattern>%d %p %c{1.} %m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy interval="1" />
+    </RollingFile>    
+    
+    
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </appenders>
+  <loggers>
+  	<logger name="com.everbridge.ps" level="DEBUG">
+  		<appender-ref ref="RollingFileDebug"/>
+  	</logger>
+  
+    <root level="INFO">
+    <!-- print to console if you need to watch it run or want to see the messages in the server log file.  -->
+      <appender-ref ref="Console"/>  
+      <!-- appender-ref ref="RollingFile"/ -->
+    </root>
+  </loggers>
+</configuration>

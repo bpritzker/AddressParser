@@ -1,0 +1,28 @@
+Trick Addresses - Anytime I think of an address that could trick the parser I put it in here. Everntually I will turn all these into test cases.
+
+
+
+Google Inc 1600 Amphitheatre Pky, Mountain View, CA 940
+
+1600 Amphitheatre Pky, 94043
+
+Google Inc, 1600 Amphitheatre Parkway, suite 200, Mountain View, CA 94043
+
+Google Inc, 1600 South Amphitheatre Parkway, Mountain View, CA 94043
+
+Google Inc, 1600 S W. Amphitheatre Parkway, Mountain View, CA 94043
+
+Google Inc, 1600 Amphitheatre Parkway N.W., Mountain View, CA 94043
+
+1600 Amphitheatre Parkway Google Inc, Mountain View, CA 94043
+
+Attn: larry page: 1600 Amphitheatre Parkway 1st Floor, Mountain View, CA 94043
+
+2425 N St NW, Washington, DC 20037
+
+123-12 Fake St. Springfield MA 12345
+
+123A Fake St. Springfiled, MA 12345
+
+
+
