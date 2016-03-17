@@ -39,7 +39,7 @@ public class ApZipCodeParser extends ApParserBase {
 			// If the right most is 5 digits then it's just a 5 digit zip code
 			if (StringUtils.isNumeric(rightMostValue) && rightMostValue.length() == 5) {
 				resultZipCode.setZipCode(rightMostValue);
-				resultZipCode.setIndicies(rightMost.getIndex());
+				resultZipCode.addIndicies(rightMost.getIndex());
 				resultZipCode.setValid(true);
 				splitter.addUsedSplitsAllRight(rightMost.getIndex());
 				
@@ -51,7 +51,7 @@ public class ApZipCodeParser extends ApParserBase {
 					if (StringUtils.isNumeric(rightSecondMostValue) && rightSecondMostValue.length()  == 5) {
 						resultZipCode.setPlus4Code(rightMostValue);
 						resultZipCode.setZipCode(rightSecondMostValue);
-						resultZipCode.setIndicies(rightMost.getIndex(), rightSecondMost.getIndex());
+						resultZipCode.addIndicies(rightMost.getIndex(), rightSecondMost.getIndex());
 						splitter.addUsedSplitsAllRight( rightSecondMost.getIndex());
 						resultZipCode.setValid(true);
 					}

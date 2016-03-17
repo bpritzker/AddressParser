@@ -17,22 +17,51 @@ import org.benp.addressparser.component.ApComponentBase;
  */
 public class ApStreetAddressNumber extends ApComponentBase {
 
+	private String addressNumberPrefix;
 	/**
 	 * This should be a string in case we have a number starting with a 0.
 	 * Not sure that is a valid case but you never know.
 	 */
-	private String number;
+	private String addressNumber;
 
-	public String getNumber() {
-		return number;
+	
+	
+	
+	
+	
+	public String getAddressNumberPrefix() {
+		return addressNumberPrefix;
 	}
 
-	public void setNumber(String number) {
-		this.number = number;
+	public void setAddressNumberPrefix(String addressNumberPrefix) {
+		this.addressNumberPrefix = addressNumberPrefix;
+	}
+
+	public String getAddressNumber() {
+		return addressNumber;
+	}
+
+	public void setAddressNumber(String number) {
+		this.addressNumber = number;
 	}
 
 	@Override
 	public String getValue() {
-		return number;
+		
+		StringBuilder resultSb = new StringBuilder();
+
+		String separatorPrefix = "";
+		
+		if (addressNumberPrefix != null) {
+			resultSb.append(addressNumberPrefix);
+			separatorPrefix = " ";
+		}
+		
+		if (addressNumber != null) {
+			resultSb.append(separatorPrefix).append(addressNumber);
+			separatorPrefix = " ";
+		}
+		
+		return resultSb.toString();
 	}
 }

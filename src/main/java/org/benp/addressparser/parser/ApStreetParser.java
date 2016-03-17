@@ -25,18 +25,17 @@ public class ApStreetParser extends ApParserBase {
 	public ApStreet parse(ApSplitter splitter) throws ApException {
 		ApStreet resultStreet = new ApStreet();
 		
-		ApStreetAddressNumber primaryNumber = getPrimaryNumber(splitter);
-		resultStreet.setPrimaryNumber(primaryNumber);
+		ApStreetAddressNumber addressNumber = getAddressNumber(splitter);
+		resultStreet.setAddressNumber(addressNumber);
 		
 		ApStreetSuffix addressSuffix = getSuffix(splitter);
 		resultStreet.setStreetSuffix(addressSuffix);
 		
-		ApStreetStreetName streetName = getStreetName(splitter, primaryNumber, addressSuffix);
+		ApStreetStreetName streetName = getStreetName(splitter, addressNumber, addressSuffix);
 		resultStreet.setStreetName(streetName);
 
 		// We don't need a street suffix to be valid. Might want to change that some other time
-//		if (primaryNumber != null && addressSuffix != null && streetName != null) {
-		if (primaryNumber != null && streetName != null) {
+		if (addressNumber != null && streetName != null) {
 			resultStreet.setValid(true);
 		}
 		return resultStreet;
@@ -44,19 +43,21 @@ public class ApStreetParser extends ApParserBase {
 
 	private ApStreetStreetName getStreetName(
 			ApSplitter splitter, 
-			ApStreetAddressNumber primaryNumber, 
+			ApStreetAddressNumber addressNumber, 
 			ApStreetSuffix suffix) throws ApException {
 		
-		ApStreetStreetName resultStreetName = null;
+		ApStreetStreetName resultStreetName = new ApStreetStreetName();
 		
-		int streetNameLeftIndex = 0;
-		if (primaryNumber != null) {
-			if (primaryNumber.getSplitterIndecies().size() == 0) {
-				return resultStreetName;
-			}
-			streetNameLeftIndex = primaryNumber.getSplitterIndecies().get(0);
-		}
 		
+		
+		// We need to get the left index of the street name.
+		// That is where the address number left off....
+		int streetNameLeftIndex = addressNumber.getRightMostIndex();
+		if (streetNameLeftIndex == ApSplitter.INVALID_INDEX) {
+			streetNameLeftIndex = 0;
+		} 
+		
+		 
 		ApValueIndex nextRightIndex = splitter.getNextRightValue();
 		if (nextRightIndex != null) {
 			int streetNameRightIndex = nextRightIndex.getIndex();
@@ -115,7 +116,7 @@ public class ApStreetParser extends ApParserBase {
 			tempDirectionalEnum = ApDirectionalEnum.fromMapping(tempPredirectionalString.toUpperCase());
 			if (tempDirectionalEnum != null) {
 				resultDirectional.setDirectional(tempDirectionalEnum);
-				resultDirectional.setIndicies(streetNameValues.get(0).getIndex(),streetNameValues.get(1).getIndex());
+				resultDirectional.addIndicies(streetNameValues.get(0).getIndex(),streetNameValues.get(1).getIndex());
 				splitter.addUsedSplits(streetNameValues.get(0).getIndex(), streetNameValues.get(1).getIndex());
 				resultDirectional.setValid(true);
 			}
@@ -126,7 +127,7 @@ public class ApStreetParser extends ApParserBase {
 			tempDirectionalEnum = ApDirectionalEnum.fromMapping(tempPredirectionalString.toUpperCase());
 			if (tempDirectionalEnum != null) {
 				resultDirectional.setDirectional(tempDirectionalEnum);
-				resultDirectional.setIndicies(streetNameValues.get(0).getIndex());
+				resultDirectional.addIndicies(streetNameValues.get(0).getIndex());
 				splitter.addUsedSplits(streetNameValues.get(0).getIndex());
 				resultDirectional.setValid(true);
 			}
@@ -146,7 +147,7 @@ public class ApStreetParser extends ApParserBase {
 			
 			if (tempStreetSuffix != null) {
 				splitter.addUsedSplits(rightValue.getIndex());
-				resultStreetSuffix.setIndicies(rightValue.getIndex());
+				resultStreetSuffix.addIndicies(rightValue.getIndex());
 				resultStreetSuffix.setStreetSuffix(tempStreetSuffix);
 				resultStreetSuffix.setValid(true);
 				break;
@@ -157,21 +158,44 @@ public class ApStreetParser extends ApParserBase {
 		return resultStreetSuffix;
 	}
 
-	private ApStreetAddressNumber getPrimaryNumber(ApSplitter splitter) throws ApException {
+	private ApStreetAddressNumber getAddressNumber(ApSplitter splitter) throws ApException {
 		ApValueIndex nextLeft = splitter.getNextLeftValue();
+		
+		ApStreetAddressNumber resultStreetNumber = new ApStreetAddressNumber();
+
 		
 		if (nextLeft == null) {
 			return new ApStreetAddressNumber();
 		}
 		
-		ApStreetAddressNumber resultStreetNumber = null;
-			resultStreetNumber = new ApStreetAddressNumber();
-			if (NumberUtils.isNumber(nextLeft.getValue())) {
-				resultStreetNumber.setNumber(nextLeft.getValue());
-				resultStreetNumber.setIndicies(nextLeft.getIndex());
-				resultStreetNumber.setValid(true);
+		String addressNumber = null;
+		
+		// the value is a number then we have the address number.
+		if (NumberUtils.isNumber(nextLeft.getValue())) {
+			addressNumber = nextLeft.getValue();
+			splitter.addUsedSplits(nextLeft.getIndex());
+			resultStreetNumber.addIndicies(nextLeft.getIndex());
+		}
+		
+		String addressNumberPrefix = null;
+		if (addressNumber == null) {
+			ApValueIndex secondLeft = splitter.getNextLeftValue(1);
+			if (NumberUtils.isNumber(secondLeft.getValue())) {
+				addressNumber = secondLeft.getValue();
+				addressNumberPrefix = nextLeft.getValue();
 				splitter.addUsedSplits(nextLeft.getIndex());
+				splitter.addUsedSplits(secondLeft.getIndex());
+				resultStreetNumber.addIndicies(nextLeft.getIndex());
+				resultStreetNumber.addIndicies(secondLeft.getIndex());
 			}
+		}
+
+		if (addressNumber != null) {
+			resultStreetNumber.setAddressNumber(addressNumber);
+			resultStreetNumber.setAddressNumberPrefix(addressNumberPrefix);
+			resultStreetNumber.setValid(true);
+		}
+		
 		return resultStreetNumber;
 	}
 

@@ -3,6 +3,8 @@ package org.benp.addressparser.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.benp.addressparser.parser.ApSplitter;
+
 public abstract class ApComponentBase {
 	
 	private boolean isValid;
@@ -19,7 +21,7 @@ public abstract class ApComponentBase {
 	}
 	
 	
-	public void setIndicies(int... indices) {
+	public void addIndicies(int... indices) {
 		for (int i=0; i < indices.length; i++) {
 			splitterIndecies.add(indices[i]);
 		}
@@ -35,7 +37,7 @@ public abstract class ApComponentBase {
 	public void setValid(boolean isValid) {
 		this.isValid = isValid;
 	}
-
+	
 
 
 	public List<Integer> getSplitterIndecies() {
@@ -48,7 +50,7 @@ public abstract class ApComponentBase {
 		this.splitterIndecies = splitterIndecies;
 	}
 	
-	public void setSplitterIndecies(int[] splitterIndecies) {
+	public void addSplitterIndecies(int[] splitterIndecies) {
 		// There is no shortcut for this :(
 		for (int i=0; i < splitterIndecies.length; i++) {
 			this.splitterIndecies.add(splitterIndecies[i]);
@@ -65,6 +67,14 @@ public abstract class ApComponentBase {
 	
 
 
+	public int getRightMostIndex() {
+		int resultIndex = ApSplitter.INVALID_INDEX;
+		
+		if (splitterIndecies.size() > 0) {
+			resultIndex = splitterIndecies.get(splitterIndecies.size() - 1);
+		}
+		return resultIndex;
+	}
 
 
 }

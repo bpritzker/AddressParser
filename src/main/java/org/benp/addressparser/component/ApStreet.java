@@ -11,21 +11,21 @@ import org.benp.addressparser.component.street.ApStreetSuffix;
  * @author Ben P
  *
  */
-public class ApStreet extends ApComponentBase {
+public class ApStreet extends ApComponentMultiPart {
 
-	private ApStreetAddressNumber primaryNumber;
-	
+	private ApStreetAddressNumber addressNumber;
     private ApStreetStreetName streetName; // Street Name
     private ApStreetSuffix streetSuffix;
+//    private ApStreetOther other;
 //    private ApDirectionalEnum postDirection;
     
     
     
-	public ApStreetAddressNumber getPrimaryNumber() {
-		return primaryNumber;
+	public ApStreetAddressNumber getAddressNumber() {
+		return addressNumber;
 	}
-	public void setPrimaryNumber(ApStreetAddressNumber primaryNumber) {
-		this.primaryNumber = primaryNumber;
+	public void setAddressNumber(ApStreetAddressNumber addressNumber) {
+		this.addressNumber = addressNumber;
 	}
 
 	public ApStreetStreetName getStreetName() {
@@ -49,8 +49,8 @@ public class ApStreet extends ApComponentBase {
 
 		String separatorPrefix = "";
 		
-		if (primaryNumber != null) {
-			resultSb.append(primaryNumber.getValue());
+		if (addressNumber != null) {
+			resultSb.append(addressNumber.getValue());
 			separatorPrefix = " ";
 		}
 		
@@ -65,6 +65,22 @@ public class ApStreet extends ApComponentBase {
 		}
 		
 		return resultSb.toString();
+	}
+	@Override
+	public boolean isComplete() {
+		if (addressNumber.isValid() && streetName.isValid() && streetSuffix.isValid()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	@Override
+	public boolean isPartial() {
+		if (addressNumber.isValid() || streetName.isValid() || streetSuffix.isValid()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
     
 

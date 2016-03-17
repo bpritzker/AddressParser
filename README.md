@@ -38,6 +38,11 @@ http://results.openaddresses.io/
 
 ## Release Notes
 
+### 0.6.2
+* Bug Fix - City Parser was not loading cities. (Null pointer exception)
+* Added Address Number Prefix
+* re-factored "primaryNumber" to "addressNumber"
+
 ### 0.6.1
 * Added LICENSE.txt
 * Added getValue to ApComponentBase - This changes a lot

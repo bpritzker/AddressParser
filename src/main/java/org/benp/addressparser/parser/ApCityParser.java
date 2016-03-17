@@ -29,12 +29,11 @@ public class ApCityParser extends ApParserBase {
 
 	protected ApCityValues getCityValues() throws ApException {
 		if (cityValues == null) {
-			cityValues = getCityValues();
+			ApCityValues tempCityValues = new ApCityValues();
+			tempCityValues.init();
+			cityValues = tempCityValues;
 		}
-		
-		ApCityValues resultCityValues = new ApCityValues();
-		resultCityValues.init();
-		return resultCityValues;
+		return cityValues;
 	}
 
 
@@ -89,7 +88,7 @@ public class ApCityParser extends ApParserBase {
 			if (tempCityValue != null) {
 				resultCity = new ApCity();
 				resultCity.setCityValue(tempCityValue);
-				resultCity.setSplitterIndecies(splitterIndices);
+				resultCity.addSplitterIndecies(splitterIndices);
 				resultCity.setValid(true);
 				splitter.addUsedSplits(splitterIndices);
 				return resultCity;

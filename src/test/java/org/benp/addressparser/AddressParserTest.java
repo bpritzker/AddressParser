@@ -64,8 +64,8 @@ public class AddressParserTest extends ApAddressParser {
 
 		address = "1014 St # Washington DC 20018";
 		actualAddress = addressParser.parseAddress(address);
-		assertFalse(actualAddress.isValid());
-		
+		assertTrue(actualAddress.isValid());
+		assertFalse(actualAddress.isComplete());
 		
 		
 		address = "2100 Clarendon Arlington VA 22201";
@@ -75,7 +75,8 @@ public class AddressParserTest extends ApAddressParser {
 		
 		address = "Dent Place Washington DC 20007";
 		actualAddress = addressParser.parseAddress(address);
-		assertFalse(actualAddress.isValid());
+		assertTrue(actualAddress.isValid());
+		assertFalse(actualAddress.isComplete());
 
 		
 		address = "2461 Eisenhower Avenue Alexandria VA";
@@ -133,7 +134,7 @@ public class AddressParserTest extends ApAddressParser {
 		assertEquals("02111", actualAddress.getZipCode().getZipCode());
 		assertEquals("MA", actualAddress.getState().getStateDefinition().getCode());
 		assertEquals("SPRINGFIELD", actualAddress.getCity().getCityValue().getName());
-		assertEquals("742", actualAddress.getStreet().getPrimaryNumber().getNumber());
+		assertEquals("742", actualAddress.getStreet().getAddressNumber().getAddressNumber());
 		assertEquals("Evergreen", actualAddress.getStreet().getStreetName().getName());
 		assertEquals(ApStreetSuffixEnum.TERRACE, actualAddress.getStreet().getStreetSuffix().getStreetSuffix());
 	}

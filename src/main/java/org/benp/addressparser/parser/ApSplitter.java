@@ -12,6 +12,8 @@ import org.benp.addressparser.data.ApValueIndex;
 
 public class ApSplitter {
 	
+	public static int INVALID_INDEX = -1;
+	
 	private  String stringToSplit;
 	
 	/**
@@ -111,7 +113,7 @@ public class ApSplitter {
 	}
 
 
-	private ApValueIndex getNextLeftValue(int offset) {
+	public ApValueIndex getNextLeftValue(int offset) {
 		for (int i=0 + offset; i < values.size(); i++) {
 			if (! usedSplits.contains(i)) {
 				return new ApValueIndex(values.get(i), i);

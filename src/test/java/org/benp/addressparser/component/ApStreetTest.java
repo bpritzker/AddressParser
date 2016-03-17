@@ -26,8 +26,8 @@ public class ApStreetTest {
 		ApStreet resultStreet = new ApStreet();
 		
 		ApStreetAddressNumber streetNumber = new ApStreetAddressNumber();
-		streetNumber.setNumber("742");
-		resultStreet.setPrimaryNumber(streetNumber);
+		streetNumber.setAddressNumber("742");
+		resultStreet.setAddressNumber(streetNumber);
 		
 		ApStreetStreetName streetName = new ApStreetStreetName();
 		streetName.setName("Evergreen");

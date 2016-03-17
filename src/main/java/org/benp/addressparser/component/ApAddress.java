@@ -2,9 +2,7 @@ package org.benp.addressparser.component;
 
 import org.benp.addressparser.ApErrorCode;
 
-public class ApAddress extends ApComponentBase {
-	
-	
+public class ApAddress extends ApComponentMultiPart {
 	
 	private ApStreet street;
 	private ApCity city;
@@ -12,7 +10,6 @@ public class ApAddress extends ApComponentBase {
 	private ApZipCode zipCode;
 	
 	private ApErrorCode errorCode;
-	
 	
 	public ApState getState() {
 		return state;
@@ -56,8 +53,41 @@ public class ApAddress extends ApComponentBase {
 
 	@Override
 	public String getValue() {
-		// TODO Auto-generated method stub
+		// TODO: need to implement and test this
 		return null;
+//		StringBuilder resultSb = new StringBuilder();
+//
+//		private ApStreet street;
+//		private ApCity city;
+//		private ApState state;
+//		private ApZipCode zipCode;
+		
+	}
+
+	/**
+	 * Complete means we have a complete street and valid city, state and zip
+	 */
+	@Override
+	public boolean isComplete() {
+
+		if (street.isComplete() && city.isValid() && state.isValid() && zipCode.isValid()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * If any part if valid (or complete) then this is a partial address.
+	 */
+	@Override
+	public boolean isPartial() {
+
+		if (street.isComplete() || city.isValid() || state.isValid() || zipCode.isValid()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

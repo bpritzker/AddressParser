@@ -29,7 +29,7 @@ public class ApStreetParserTest {
 		// basic simple standard
 		splitter = new ApSplitter("742 Evergreen Terrace");
 		actualStreet = parser.parse(splitter);
-		assertEquals("742", actualStreet.getPrimaryNumber().getNumber());
+		assertEquals("742", actualStreet.getAddressNumber().getAddressNumber());
 		assertEquals("Evergreen", actualStreet.getStreetName().getName());
 		assertEquals(ApStreetSuffixEnum.TERRACE, actualStreet.getStreetSuffix().getStreetSuffix());
 		assertTrue(actualStreet.isValid());
@@ -48,6 +48,12 @@ public class ApStreetParserTest {
 		ApStreet actualStreet;
 		
 		// This was causing null pointer exception
+		splitter = new ApSplitter("N6W2 3001 Bluemound Road");
+		actualStreet = parser.parse(splitter);
+		assertTrue(actualStreet.isValid());
+		
+		
+		// This was causing null pointer exception
 		splitter = new ApSplitter("1643015 Dent Place");
 		actualStreet = parser.parse(splitter);
 		assertTrue(actualStreet.isValid());
@@ -60,8 +66,7 @@ public class ApStreetParserTest {
 //		actualStreet = parser.parse(splitter);
 //		assertTrue(actualStreet.isValid());
 //		assertEquals("E", actualStreet.getPostDirection().getValue());
-		
-		
 	}
+	
 
 }
