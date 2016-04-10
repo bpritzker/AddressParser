@@ -16,19 +16,36 @@ import org.benp.addressparser.component.ApComponentBase;
  *
  */
 public class ApStreetAddressNumber extends ApComponentBase {
+	
+	public static int INVALID_ADDRESS_NUMBER = -1;
 
 	private String addressNumberPrefix;
-	/**
-	 * This should be a string in case we have a number starting with a 0.
-	 * Not sure that is a valid case but you never know.
-	 */
-	private String addressNumber;
 
+	// Address Numbers should be numbers, like yea I know
+	// They should also be string to keep track of the full value.
+	//  Example: 194-03 address number is 03 or 3
+	private int addressNumber;
+	private String addressNumberString;
+
+	public String getAddressNumberString() {
+		return addressNumberString;
+	}
+
+	public void setAddressNumberString(String addressNumberString) {
+		this.addressNumberString = addressNumberString;
+	}
+
+	private String addressNumberSuffix;
 	
 	
-	
-	
-	
+	public String getAddressNumberSuffix() {
+		return addressNumberSuffix;
+	}
+
+	public void setAddressNumberSuffix(String addressNumberSuffix) {
+		this.addressNumberSuffix = addressNumberSuffix;
+	}
+
 	public String getAddressNumberPrefix() {
 		return addressNumberPrefix;
 	}
@@ -37,12 +54,12 @@ public class ApStreetAddressNumber extends ApComponentBase {
 		this.addressNumberPrefix = addressNumberPrefix;
 	}
 
-	public String getAddressNumber() {
+	public int getAddressNumber() {
 		return addressNumber;
 	}
 
-	public void setAddressNumber(String number) {
-		this.addressNumber = number;
+	public void setAddressNumber(int addressNumber) {
+		this.addressNumber = addressNumber;
 	}
 
 	@Override
@@ -57,7 +74,7 @@ public class ApStreetAddressNumber extends ApComponentBase {
 			separatorPrefix = " ";
 		}
 		
-		if (addressNumber != null) {
+		if (addressNumber != 0) {
 			resultSb.append(separatorPrefix).append(addressNumber);
 			separatorPrefix = " ";
 		}

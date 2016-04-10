@@ -1,10 +1,11 @@
 package org.benp.addressparser.parser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.benp.addressparser.ApException;
@@ -25,8 +26,13 @@ public class ApSplitter {
 	private Set<Integer> usedSplits;
 	
 
-	private List<String> values;
+	private Map<Integer,String> values;
 	
+	public Map<Integer, String> getValues() {
+		return values;
+	}
+
+
 	public ApSplitter(String stringToSplit) {
 		this.stringToSplit = stringToSplit;
 		split();
@@ -35,11 +41,65 @@ public class ApSplitter {
 	
 	private void split() {
 		if (stringToSplit == null) {
-			values = new ArrayList<>();
+			values = new HashMap<>();
 			return;
 		}
-		values = Arrays.asList(stringToSplit.split("[^a-zA-Z0-9']+"));
+		values = getSplitValues(stringToSplit);
 		usedSplits = new HashSet<>();
+	}
+
+
+	protected Map<Integer, String> getSplitValues(String stringToSplit) {
+		
+		Map<Integer, String> resultSplits = new HashMap<>();
+
+		boolean prevCharIsSplitChar = true;
+		int prevIndex = 0;
+		int mapValueIndex = 0;
+		for (int i=0; i < stringToSplit.length(); i++) {
+		
+			char currChar = stringToSplit.charAt(i);
+			boolean isSplitChar = isSplitChar(currChar);
+			if (isSplitChar) {
+				if (! prevCharIsSplitChar) { 
+					String tempValue = stringToSplit.substring(prevIndex, i);
+					resultSplits.put(mapValueIndex, tempValue);
+					mapValueIndex++;
+					prevIndex = i;
+				}
+				
+				prevCharIsSplitChar = true;
+			} else {
+				if (prevCharIsSplitChar) {
+					// Don't put the split chars into the map
+//					String tempValue = stringToSplit.substring(prevIndex, i);
+//					resultSplits.put(valueIndex, value);
+//					valueIndex++;
+					prevIndex = i;
+				}
+				prevCharIsSplitChar = false;
+			}
+		}
+
+		// Handle the last case
+		String tempValue = stringToSplit.substring(prevIndex);
+		resultSplits.put(mapValueIndex, tempValue);
+		
+		return resultSplits;
+		
+	}
+
+
+	/**
+	 * Split character is any non letter or digit
+	 */
+	private boolean isSplitChar(char inChar) {
+		
+		if (Character.isLetterOrDigit(inChar)) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 
@@ -113,13 +173,31 @@ public class ApSplitter {
 	}
 
 
+	/**
+	 * 
+	 * @param offset - offset of 0 should return the same result as get nextLeftValue
+	 * @return
+	 */
 	public ApValueIndex getNextLeftValue(int offset) {
-		for (int i=0 + offset; i < values.size(); i++) {
-			if (! usedSplits.contains(i)) {
-				return new ApValueIndex(values.get(i), i);
+		int nextAvailable = getNextLeftAvailable();
+		if (nextAvailable != INVALID_INDEX) {
+			for (int i=nextAvailable + offset; i < values.size(); i++) {
+				if (! usedSplits.contains(i)) {
+					return new ApValueIndex(values.get(i), i);
+				}
 			}
 		}
 		return null;
+	}
+
+
+	private int getNextLeftAvailable() {
+		for (int i=0; i < values.size(); i++) {
+			if (! usedSplits.contains(i)) {
+				return i;
+			}
+		}
+		return INVALID_INDEX;
 	}
 
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.benp.addressparser.ApAddressParserConfig;
 import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.ApDirectional;
@@ -17,22 +16,38 @@ import org.benp.addressparser.data.ApStreetSuffixEnum;
 import org.benp.addressparser.data.ApValueIndex;
 
 public class ApStreetParser extends ApParserBase {
+	
+	private ApStreetNumberParser streetNumberParser;
 
 	public ApStreetParser(ApAddressParserConfig config) {
 		super(config);
+		streetNumberParser = new ApStreetNumberParser(config);
 	}
 	
 	public ApStreet parse(ApSplitter splitter) throws ApException {
 		ApStreet resultStreet = new ApStreet();
 		
-		ApStreetAddressNumber addressNumber = getAddressNumber(splitter);
-		resultStreet.setAddressNumber(addressNumber);
 		
+		// Order here is important!
+		// First look for a suffix cause they are the most standard. 
+		// we know what they look like, well, not always but we can make the best guess on them. 
 		ApStreetSuffix addressSuffix = getSuffix(splitter);
 		resultStreet.setStreetSuffix(addressSuffix);
+
+		
+		// Next, get the address number, we know this needs to be number so that is more to 
+		// go on than the "name" that can be anything
+		ApStreetAddressNumber addressNumber = streetNumberParser.parse(splitter);
+		resultStreet.setAddressNumber(addressNumber);
+//		ApStreetAddressNumber addressNumber = getAddressNumber(splitter);
+//		resultStreet.setAddressNumber(addressNumber);
+		
 		
 		ApStreetStreetName streetName = getStreetName(splitter, addressNumber, addressSuffix);
 		resultStreet.setStreetName(streetName);
+		
+		
+		
 
 		// We don't need a street suffix to be valid. Might want to change that some other time
 		if (addressNumber != null && streetName != null) {
@@ -81,6 +96,7 @@ public class ApStreetParser extends ApParserBase {
 		
 		List<ApValueIndex> streetNameValues = splitter.getValues(streetNameLeftIndex, streetNameRightIndex);
 		
+		// TODO: If there is only one value then it's not a predirecional, it's the street name
 		ApDirectional preDirectional = getDirectional(streetNameValues, splitter);
 		resultStreetName.setPreDirectional(preDirectional); // We can set a non-null as long as we check validaity
 
@@ -158,45 +174,17 @@ public class ApStreetParser extends ApParserBase {
 		return resultStreetSuffix;
 	}
 
-	private ApStreetAddressNumber getAddressNumber(ApSplitter splitter) throws ApException {
-		ApValueIndex nextLeft = splitter.getNextLeftValue();
-		
-		ApStreetAddressNumber resultStreetNumber = new ApStreetAddressNumber();
+	
+	
+	
 
-		
-		if (nextLeft == null) {
-			return new ApStreetAddressNumber();
-		}
-		
-		String addressNumber = null;
-		
-		// the value is a number then we have the address number.
-		if (NumberUtils.isNumber(nextLeft.getValue())) {
-			addressNumber = nextLeft.getValue();
-			splitter.addUsedSplits(nextLeft.getIndex());
-			resultStreetNumber.addIndicies(nextLeft.getIndex());
-		}
-		
-		String addressNumberPrefix = null;
-		if (addressNumber == null) {
-			ApValueIndex secondLeft = splitter.getNextLeftValue(1);
-			if (NumberUtils.isNumber(secondLeft.getValue())) {
-				addressNumber = secondLeft.getValue();
-				addressNumberPrefix = nextLeft.getValue();
-				splitter.addUsedSplits(nextLeft.getIndex());
-				splitter.addUsedSplits(secondLeft.getIndex());
-				resultStreetNumber.addIndicies(nextLeft.getIndex());
-				resultStreetNumber.addIndicies(secondLeft.getIndex());
-			}
-		}
+	
+	
+	
+	
+	
+	
+	
 
-		if (addressNumber != null) {
-			resultStreetNumber.setAddressNumber(addressNumber);
-			resultStreetNumber.setAddressNumberPrefix(addressNumberPrefix);
-			resultStreetNumber.setValid(true);
-		}
-		
-		return resultStreetNumber;
-	}
 
 }

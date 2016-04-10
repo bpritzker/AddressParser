@@ -4,6 +4,9 @@ import org.benp.addressparser.ApErrorCode;
 
 public class ApAddress extends ApComponentMultiPart {
 	
+	private String origString;
+
+
 	private ApStreet street;
 	private ApCity city;
 	private ApState state;
@@ -49,6 +52,14 @@ public class ApAddress extends ApComponentMultiPart {
 
 	public void setErrorCode(ApErrorCode errorCode) {
 		this.errorCode = errorCode;
+	}
+	
+	public String getOrigString() {
+		return origString;
+	}
+
+	public void setOrigString(String origString) {
+		this.origString = origString;
 	}
 
 	@Override

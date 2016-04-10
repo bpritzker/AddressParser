@@ -1,17 +1,19 @@
 package org.benp.addressparser.data;
 
+import java.util.Set;
+
 public class ApCityValue {
 
 	private final String name;
-	private final String stateCode;
+	private final Set<String> stateCode;
 	
 
-	public ApCityValue(String cityName, String stateCode) {
+	public ApCityValue(String cityName, Set<String> stateCode) {
 		this.name = cityName;
 		this.stateCode = stateCode;
 	}
 	
-	public String getStateCode() {
+	public Set<String> getStateCode() {
 		return stateCode;
 	}
 

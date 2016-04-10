@@ -59,7 +59,7 @@ public class ApAddressParser {
 	 * Use this method to parse an address!
 	 * @param addressString - A string that contains an Address
 	 */
-	public ApAddress parseAddress(String addressString) throws ApException {
+	public ApAddress parseAddress(final String addressString) throws ApException {
 		logger.trace("parseAddress called with '{}'", addressString);
 		
 		ApAddress resultAddress;
@@ -73,10 +73,23 @@ public class ApAddressParser {
 		resultAddress = parse(addressString);
 		return resultAddress;
 	}
+	
+	public ApAddress parseAddress(String street1, String street2, String city, String state, String zip) throws ApException {
+		
+		// TODO: This works best good for my company if you want to normalize your data
+		// Not implemented yet. You DON'T want to call merge and call parser, you want to call each parser individually
+		
+		// Idea, use a constructor to create a dynamic version of this that would take in a list.
+		// 
+		
+		throw new ApException("Not implemented yet! :(");
+		
+		
+	}
 
 
 
-	private ApAddress parse(String address) throws ApException {
+	private ApAddress parse(final String address) throws ApException {
 
 		// This will split into usable sections
 		ApSplitter splitter = new ApSplitter(address);
@@ -88,6 +101,7 @@ public class ApAddressParser {
 		ApStreet street = streetParser.parse(splitter);
 		
 		ApAddress resultAddress = new ApAddress();
+		resultAddress.setOrigString(address);
 		resultAddress.setZipCode(zipCode);
 		resultAddress.setState(state);
 		resultAddress.setCity(city);

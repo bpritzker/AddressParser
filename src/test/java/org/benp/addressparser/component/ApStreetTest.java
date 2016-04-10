@@ -26,7 +26,7 @@ public class ApStreetTest {
 		ApStreet resultStreet = new ApStreet();
 		
 		ApStreetAddressNumber streetNumber = new ApStreetAddressNumber();
-		streetNumber.setAddressNumber("742");
+		streetNumber.setAddressNumber(742);
 		resultStreet.setAddressNumber(streetNumber);
 		
 		ApStreetStreetName streetName = new ApStreetStreetName();

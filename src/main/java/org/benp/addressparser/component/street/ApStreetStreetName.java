@@ -18,11 +18,14 @@ import org.benp.addressparser.component.ApDirectional;
  * @author Ben
  *
  */
+
+// TODO : Mappings MT is Mount????
+
 public class ApStreetStreetName extends ApComponentBase {
 	
 	private String name;
 	private ApDirectional preDirectional;
-	private ApDirectional postDirectional;
+//	private ApDirectional postDirectional;
 	
 	
 	
@@ -60,11 +63,11 @@ public class ApStreetStreetName extends ApComponentBase {
 			resultSb.append(separatorPrefix).append(name);
 			separatorPrefix = " ";
 		}
-		
-		if (postDirectional != null) {
-			resultSb.append(separatorPrefix).append(postDirectional.getValue());
-			separatorPrefix = " ";
-		}
+//		
+//		if (postDirectional != null) {
+//			resultSb.append(separatorPrefix).append(postDirectional.getValue());
+//			separatorPrefix = " ";
+//		}
 		
 		return resultSb.toString();
 		
