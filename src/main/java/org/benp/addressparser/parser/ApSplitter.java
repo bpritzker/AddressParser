@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.benp.addressparser.ApException;
-import org.benp.addressparser.data.ApValueIndex;
+import org.benp.addressparser.data.ApSplit;
 
 public class ApSplitter {
 	
@@ -28,6 +29,7 @@ public class ApSplitter {
 
 	private Map<Integer,String> values;
 	
+	// TODO: Should this be Map<Integer, ApSplit>
 	public Map<Integer, String> getValues() {
 		return values;
 	}
@@ -56,50 +58,60 @@ public class ApSplitter {
 		boolean prevCharIsSplitChar = true;
 		int prevIndex = 0;
 		int mapValueIndex = 0;
-		for (int i=0; i < stringToSplit.length(); i++) {
-		
-			char currChar = stringToSplit.charAt(i);
-			boolean isSplitChar = isSplitChar(currChar);
-			if (isSplitChar) {
-				if (! prevCharIsSplitChar) { 
-					String tempValue = stringToSplit.substring(prevIndex, i);
-					resultSplits.put(mapValueIndex, tempValue);
-					mapValueIndex++;
-					prevIndex = i;
+		if (stringToSplit != null) {
+			for (int i=0; i < stringToSplit.length(); i++) {
+			
+				char currChar = stringToSplit.charAt(i);
+				boolean isSplitChar = isSplitChar(currChar);
+				if (isSplitChar) {
+					if (! prevCharIsSplitChar) { 
+						String tempValue = stringToSplit.substring(prevIndex, i);
+						resultSplits.put(mapValueIndex, tempValue);
+						mapValueIndex++;
+						prevIndex = i;
+					}
+					
+					prevCharIsSplitChar = true;
+				} else {
+					if (prevCharIsSplitChar) {
+						// Don't put the split chars into the map
+	//					String tempValue = stringToSplit.substring(prevIndex, i);
+	//					resultSplits.put(valueIndex, value);
+	//					valueIndex++;
+						prevIndex = i;
+					}
+					prevCharIsSplitChar = false;
 				}
-				
-				prevCharIsSplitChar = true;
-			} else {
-				if (prevCharIsSplitChar) {
-					// Don't put the split chars into the map
-//					String tempValue = stringToSplit.substring(prevIndex, i);
-//					resultSplits.put(valueIndex, value);
-//					valueIndex++;
-					prevIndex = i;
-				}
-				prevCharIsSplitChar = false;
 			}
 		}
 
 		// Handle the last case
-		String tempValue = stringToSplit.substring(prevIndex);
-		resultSplits.put(mapValueIndex, tempValue);
-		
+		if (stringToSplit != null) {
+			String tempValue = stringToSplit.substring(prevIndex);
+			if (! StringUtils.isBlank(tempValue)) {
+				resultSplits.put(mapValueIndex, tempValue);
+			}
+		}
 		return resultSplits;
 		
 	}
 
 
-	/**
-	 * Split character is any non letter or digit
-	 */
 	private boolean isSplitChar(char inChar) {
+
 		
-		if (Character.isLetterOrDigit(inChar)) {
-			return false;
-		} else {
+		if (inChar == ' ' || inChar == ',' || inChar == '.') {
 			return true;
+		} else {
+			return false;
 		}
+
+		
+//		if (Character.isLetterOrDigit(inChar)) {
+//			return false;
+//		} else {
+//			return true;
+//		}
 	}
 
 
@@ -110,13 +122,6 @@ public class ApSplitter {
 		}
 		return values.get(valueIndex);
 	}
-	
-//	public void addUsedSplit(int usedSplit) throws ApException {
-//		if (usedSplits.contains(usedSplit)) {
-//			throw new ApException("A used split was already used..", "usedSplit", usedSplit);
-//		}
-//		usedSplits.add(usedSplit);
-//	}
 	
 	public void addUsedSplits(int... inUsedSplits) throws ApException {
 		// There is no shortcut for this :(
@@ -137,15 +142,15 @@ public class ApSplitter {
 			throw new ApException("Attempted to add a used Split that was already used in method 'addUsedSplits'.");
 		}
 		
-		this.usedSplits.addAll(usedSplits);
+		this.usedSplits.addAll(inUsedSplits);
 	}
 	
-	public ApValueIndex getNextRightValue() {
+	public ApSplit getNextRightValue() {
 		return  getNextRightValue(0);
 	}
 	
 	
-	public ApValueIndex getNextRightValue(int offset) {
+	public ApSplit getNextRightValue(int offset) {
 		
 		int nextAvailableIndex = -1;
 		
@@ -165,10 +170,10 @@ public class ApSplitter {
 			return null;
 		}
 		
-		return new ApValueIndex(values.get(valueIndex), valueIndex);
+		return new ApSplit(values.get(valueIndex), valueIndex);
 	}
 	
-	public ApValueIndex getNextLeftValue() {
+	public ApSplit getNextLeftValue() {
 		return getNextLeftValue(0);
 	}
 
@@ -178,12 +183,12 @@ public class ApSplitter {
 	 * @param offset - offset of 0 should return the same result as get nextLeftValue
 	 * @return
 	 */
-	public ApValueIndex getNextLeftValue(int offset) {
+	public ApSplit getNextLeftValue(int offset) {
 		int nextAvailable = getNextLeftAvailable();
 		if (nextAvailable != INVALID_INDEX) {
 			for (int i=nextAvailable + offset; i < values.size(); i++) {
 				if (! usedSplits.contains(i)) {
-					return new ApValueIndex(values.get(i), i);
+					return new ApSplit(values.get(i), i);
 				}
 			}
 		}
@@ -207,11 +212,11 @@ public class ApSplitter {
 	 * @param rightIndex
 	 * @return a list of all unused values between the two indices
 	 */
-	public List<ApValueIndex> getValues(int leftIndex, int rightIndex) {
-		List<ApValueIndex> resultValues = new ArrayList<>();
+	public List<ApSplit> getValues(int leftIndex, int rightIndex) {
+		List<ApSplit> resultValues = new ArrayList<>();
 		for (int i= leftIndex; i <= rightIndex; i++) {
 			if (! usedSplits.contains(i)) {
-				ApValueIndex tempValueIndex = new ApValueIndex(values.get(i), i);
+				ApSplit tempValueIndex = new ApSplit(values.get(i), i);
 				resultValues.add(tempValueIndex);
 			}
 		}
@@ -233,5 +238,29 @@ public class ApSplitter {
 		}
 		
 	}
+
+
+	public static List<Integer> getValues(List<ApSplit> valueIndices) {
+		List<Integer> resultValues = new ArrayList<>();
+				
+		for (ApSplit currIndex : valueIndices) {
+			resultValues.add(currIndex.getIndex());
+		}
+		return resultValues;
+	}
+
+
+	public List<ApSplit> getRightSplits(int numberOfSplitsToGet) {
+		List<ApSplit> resultList = new ArrayList<>();
+		for (int i=0; i < numberOfSplitsToGet; i++) {
+			ApSplit tempSplit = getNextRightValue(i);
+			resultList.add(tempSplit);
+		}
+		
+		Collections.reverse(resultList);
+		
+		return resultList;
+	}
+
 
 }

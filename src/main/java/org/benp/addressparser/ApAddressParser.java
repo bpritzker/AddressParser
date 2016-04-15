@@ -68,23 +68,62 @@ public class ApAddressParser {
 		if (addressString == null || addressString.length() < 5) {
 			resultAddress = new ApAddress();
 			resultAddress.setErrorCode(ApErrorCode.INVALID_ADDRESS_ADDRESS_LENGTH);
+			return resultAddress;
 		}
 		
 		resultAddress = parse(addressString);
 		return resultAddress;
 	}
 	
-	public ApAddress parseAddress(String street1, String street2, String city, String state, String zip) throws ApException {
-		
-		// TODO: This works best good for my company if you want to normalize your data
-		// Not implemented yet. You DON'T want to call merge and call parser, you want to call each parser individually
-		
-		// Idea, use a constructor to create a dynamic version of this that would take in a list.
-		// 
-		
-		throw new ApException("Not implemented yet! :(");
+	public ApAddress parseAddress(String street1, String street2, String city, String state, String zipCode) throws ApException {
 		
 		
+		// TODO: Add test for this....
+		ApStreet apStreet = null;
+		if (street1 != null || street2 != null) {
+			String streetToSplit = null;
+			if (street1 != null) {
+				streetToSplit = street1;
+			}
+			
+			if (street2 != null) {
+				if (streetToSplit == null) {
+					streetToSplit = street2;
+				} else {
+					streetToSplit += " " + street2;
+				}
+			}
+			
+			ApSplitter streetSplits = new ApSplitter(streetToSplit); 
+			apStreet = streetParser.parse(streetSplits);
+		}
+		
+		ApCity apCity = null;
+		if (city != null) {
+			ApSplitter citySplits = new ApSplitter(city);
+			apCity = cityParser.parse(citySplits);
+		}
+		
+		ApState apState = null;
+		if (state != null) {
+			ApSplitter stateSplits = new ApSplitter(state);
+			apState = stateParser.parse(stateSplits);
+		}
+		
+		ApZipCode apZipCode = null;
+		if (zipCode != null) {
+			ApSplitter zipCodeSplits = new ApSplitter(zipCode);
+			apZipCode = zipCodeParser.parse(zipCodeSplits);
+		}
+		
+		
+		ApAddress resultAddress = new ApAddress();
+		resultAddress.setStreet(apStreet);
+		resultAddress.setCity(apCity);
+		resultAddress.setState(apState);
+		resultAddress.setZipCode(apZipCode);
+		
+		return resultAddress;
 	}
 
 

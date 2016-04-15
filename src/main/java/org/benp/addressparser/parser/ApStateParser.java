@@ -5,7 +5,7 @@ import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.ApState;
 import org.benp.addressparser.data.ApStateValue;
 import org.benp.addressparser.data.ApStateValues;
-import org.benp.addressparser.data.ApValueIndex;
+import org.benp.addressparser.data.ApSplit;
 
 public class ApStateParser extends ApParserBase {
 
@@ -26,7 +26,7 @@ public class ApStateParser extends ApParserBase {
 		// It also takes longer to process.
 		for (int i=0; i < 3 && tempStateValue == null; i++) {
 			
-			ApValueIndex rightMost = splitter.getNextRightValue(i);
+			ApSplit rightMost = splitter.getNextRightValue(i);
 			if (rightMost == null) {
 				return new ApState();
 			}

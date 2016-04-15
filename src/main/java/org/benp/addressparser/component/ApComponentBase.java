@@ -3,12 +3,14 @@ package org.benp.addressparser.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.benp.addressparser.data.ApSplit;
 import org.benp.addressparser.parser.ApSplitter;
 
 public abstract class ApComponentBase {
 	
 	private boolean isValid;
 	
+	// TODO: Should be List<ApSplit>
 	private List<Integer> splitterIndecies = new ArrayList<>();
 	
 	public abstract String getValue();
@@ -56,6 +58,20 @@ public abstract class ApComponentBase {
 			this.splitterIndecies.add(splitterIndecies[i]);
 		}
 	}
+	
+
+	public void addSplitterIndecies(List<ApSplit> valueIndices) {
+		for (ApSplit currValue : valueIndices) {
+			this.splitterIndecies.add(currValue.getIndex());
+		}
+		
+	}
+	
+	public void addSplitterIndecies(ApSplit split) {
+		splitterIndecies.add(split.getIndex());
+		
+	}
+	
 	
 	
 	public void addSplitterIndices(ApComponentBase inComponent) {

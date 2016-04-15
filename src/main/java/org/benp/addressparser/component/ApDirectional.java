@@ -16,6 +16,10 @@ public class ApDirectional extends ApComponentBase {
 
 	@Override
 	public String getValue() {
+		// TODO: test null case
+		if (directional == null) {
+			return null;
+		}
 		return directional.getValue();
 	}
 

@@ -16,7 +16,11 @@ public class ApStreetSuffix extends ApComponentBase {
 	}
 
 	@Override
+	// Test the null case
 	public String getValue() {
+		if (streetSuffix == null) {
+			return null;
+		}
 		return streetSuffix.getName();
 	}
 	

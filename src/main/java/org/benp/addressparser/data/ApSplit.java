@@ -3,12 +3,12 @@ package org.benp.addressparser.data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApValueIndex {
+public class ApSplit {
 	
 	private String value;
 	private int index;
 
-	public ApValueIndex(String value, int index) {
+	public ApSplit(String value, int index) {
 		this.value = value;
 		this.index = index;
 	}
@@ -26,21 +26,21 @@ public class ApValueIndex {
 		this.index = index;
 	}
 
-	public static String joinValues(List<ApValueIndex> inValueIndices) {
+	public static String joinValues(List<ApSplit> inValueIndices) {
 
 		StringBuilder resultSb = new StringBuilder();
 		String seperator = "";
-		for (ApValueIndex currValueIndex : inValueIndices) {
+		for (ApSplit currValueIndex : inValueIndices) {
 			resultSb.append(seperator).append(currValueIndex.getValue());
 			seperator = " ";
 		}
 		return resultSb.toString();
 	}
 
-	public static List<Integer> getIndices(List<ApValueIndex> inValueIndices) {
+	public static List<Integer> getIndices(List<ApSplit> inValueIndices) {
 
 		List<Integer> resultIndices = new ArrayList<>();
-		for (ApValueIndex currValueIndex : inValueIndices) {
+		for (ApSplit currValueIndex : inValueIndices) {
 			resultIndices.add(currValueIndex.getIndex());
 		}
 		return resultIndices;

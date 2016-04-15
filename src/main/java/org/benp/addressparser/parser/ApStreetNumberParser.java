@@ -4,7 +4,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.benp.addressparser.ApAddressParserConfig;
 import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.street.ApStreetAddressNumber;
-import org.benp.addressparser.data.ApValueIndex;
+import org.benp.addressparser.data.ApSplit;
 
 public class ApStreetNumberParser extends ApParserBase {
 
@@ -23,7 +23,7 @@ public class ApStreetNumberParser extends ApParserBase {
 	 * Assume the suffix has already been take off.
 	 */
 	protected ApStreetAddressNumber getAddressNumber(ApSplitter splitter) throws ApException {
-		ApValueIndex nextLeft = splitter.getNextLeftValue();
+		ApSplit nextLeft = splitter.getNextLeftValue();
 		
 		ApStreetAddressNumber resultStreetNumber = new ApStreetAddressNumber();
 
@@ -44,7 +44,7 @@ public class ApStreetNumberParser extends ApParserBase {
 		
 		String addressNumberPrefix = null;
 		if (addressNumber == ApStreetAddressNumber.INVALID_ADDRESS_NUMBER) {
-			ApValueIndex secondLeft = splitter.getNextLeftValue(1);
+			ApSplit secondLeft = splitter.getNextLeftValue(1);
 			if (secondLeft != null) {
 				if (NumberUtils.isNumber(secondLeft.getValue())) {
 					addressNumber = Integer.parseInt(secondLeft.getValue());
@@ -83,7 +83,7 @@ public class ApStreetNumberParser extends ApParserBase {
 	// See the unit tests for examples.
 	private String getAddressNumberSuffix(ApSplitter splitter) throws ApException {
 
-		ApValueIndex nextLeft = splitter.getNextLeftValue();
+		ApSplit nextLeft = splitter.getNextLeftValue();
 		if (nextLeft != null) {
 			// based on what I have seen there can only be 2 values that would qualify as suffix
 //			ApValueIndex nextLeft = splitter.getNextLeftValue();

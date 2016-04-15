@@ -26,6 +26,4 @@ public class ApCity extends ApComponentBase {
 		return cityValue.getName();
 	}
 
-
-
 }

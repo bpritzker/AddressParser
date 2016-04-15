@@ -22,6 +22,8 @@ public class ApSplitterTest extends ApSplitter {
 		
 		String stringToSplit;
 		Map<Integer, String> actual;
+		
+		getSplitValues(null);
 
 		stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		actual = getSplitValues(stringToSplit);
@@ -45,6 +47,13 @@ public class ApSplitterTest extends ApSplitter {
 		assertEquals("E", actual.get(1));
 		assertEquals("Evergreen", actual.get(2));
 		assertEquals("Terrace", actual.get(3));
+		
+		
+		// Extra spaces at the end
+		stringToSplit = " 742 E   Evergreen  ,  Terrace   ";
+		actual = getSplitValues(stringToSplit);
+		assertEquals(4, actual.size());
+		
 	}
 	
 	

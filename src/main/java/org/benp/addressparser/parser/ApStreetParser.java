@@ -13,7 +13,7 @@ import org.benp.addressparser.component.street.ApStreetStreetName;
 import org.benp.addressparser.component.street.ApStreetSuffix;
 import org.benp.addressparser.data.ApDirectionalEnum;
 import org.benp.addressparser.data.ApStreetSuffixEnum;
-import org.benp.addressparser.data.ApValueIndex;
+import org.benp.addressparser.data.ApSplit;
 
 public class ApStreetParser extends ApParserBase {
 	
@@ -73,7 +73,7 @@ public class ApStreetParser extends ApParserBase {
 		} 
 		
 		 
-		ApValueIndex nextRightIndex = splitter.getNextRightValue();
+		ApSplit nextRightIndex = splitter.getNextRightValue();
 		if (nextRightIndex != null) {
 			int streetNameRightIndex = nextRightIndex.getIndex();
 			if (suffix.isValid()) {
@@ -94,22 +94,22 @@ public class ApStreetParser extends ApParserBase {
 		
 		ApStreetStreetName resultStreetName = new ApStreetStreetName();
 		
-		List<ApValueIndex> streetNameValues = splitter.getValues(streetNameLeftIndex, streetNameRightIndex);
+		List<ApSplit> streetNameValues = splitter.getValues(streetNameLeftIndex, streetNameRightIndex);
 		
 		// TODO: If there is only one value then it's not a predirecional, it's the street name
 		ApDirectional preDirectional = getDirectional(streetNameValues, splitter);
 		resultStreetName.setPreDirectional(preDirectional); // We can set a non-null as long as we check validaity
 
-		List<ApValueIndex> streetNameValuesAfterPreDirectional = new ArrayList<>();
-		for (ApValueIndex currValueIndex : streetNameValues) {
+		List<ApSplit> streetNameValuesAfterPreDirectional = new ArrayList<>();
+		for (ApSplit currValueIndex : streetNameValues) {
 			if (! preDirectional.getSplitterIndecies().contains(currValueIndex.getIndex())) {
 				streetNameValuesAfterPreDirectional.add(currValueIndex);
 			}
 		}
 		
-		String streetName = ApValueIndex.joinValues(streetNameValuesAfterPreDirectional);
+		String streetName = ApSplit.joinValues(streetNameValuesAfterPreDirectional);
 		if (StringUtils.isNoneBlank(streetName)) {
-			splitter.addUsedSplits(ApValueIndex.getIndices(streetNameValuesAfterPreDirectional));
+			splitter.addUsedSplits(ApSplit.getIndices(streetNameValuesAfterPreDirectional));
 			resultStreetName.setName(streetName);
 			resultStreetName.setValid(true);
 		}
@@ -118,7 +118,7 @@ public class ApStreetParser extends ApParserBase {
 	}
 
 	private ApDirectional getDirectional(
-			List<ApValueIndex> streetNameValues,
+			List<ApSplit> streetNameValues,
 			ApSplitter splitter) throws ApException {
 
 		ApDirectional resultDirectional = new ApDirectional();
@@ -156,7 +156,7 @@ public class ApStreetParser extends ApParserBase {
 
 		ApStreetSuffix resultStreetSuffix = new ApStreetSuffix();
 		int rightValueOffset = 0;
-		ApValueIndex rightValue = splitter.getNextRightValue();
+		ApSplit rightValue = splitter.getNextRightValue();
 		while (rightValue != null) {
 			String tempSuffixValue = rightValue.getValue().toUpperCase();
 			ApStreetSuffixEnum tempStreetSuffix = ApStreetSuffixEnum.fromCommonAbbreviation(tempSuffixValue);

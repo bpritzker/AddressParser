@@ -14,6 +14,9 @@ NOTE: This is designed for US address only! (Maybe later down the road I'll impr
 Usually I believe in the, don't optimize until you need to but this class might be one of the exceptions to rule ;-)
 
 
+There is a tag "OPTIMIZE:" used to locate places were the code could be optimized 
+either for speed or simplicity
+
 ## Requirements:
 * This requires Java 1.7 or above
 

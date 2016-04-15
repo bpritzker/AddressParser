@@ -9,8 +9,13 @@ import org.benp.addressparser.component.ApZipCode;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ApZipCodeParserTest {
+public class ApZipCodeParserTest extends ApZipCodeParser {
 	
+
+
+	public ApZipCodeParserTest() {
+		super(null);
+	}
 
 
 	private ApZipCodeParser zipCodeParser;
@@ -26,8 +31,11 @@ public class ApZipCodeParserTest {
 	@Test
 	public void parseZipCodeWholeAddress() throws Exception {
 		
-		ApSplitter splitter = new ApSplitter("742 Evergreen Terrace Springfield MA 02111");
-		ApZipCode actualZipCode = zipCodeParser.parse(splitter);
+		ApSplitter splitter;
+		ApZipCode actualZipCode;
+		
+		splitter = new ApSplitter("742 Evergreen Terrace Springfield MA 02111");
+		actualZipCode = zipCodeParser.parse(splitter);
 		assertEquals("02111", actualZipCode.getZipCode());
 		assertTrue(actualZipCode.isValid());
 		
@@ -54,6 +62,7 @@ public class ApZipCodeParserTest {
 		assertFalse(actualZipCode.isValid());
 	}
 	
+
 	@Test
 	public void parseZipCodeCheckSetValues() throws Exception {
 		
