@@ -49,17 +49,17 @@ public class ApStreet extends ApComponentMultiPart {
 
 		String separatorPrefix = "";
 		
-		if (addressNumber != null) {
+		if (addressNumber != null && addressNumber.isValid()) {
 			resultSb.append(addressNumber.getValue());
 			separatorPrefix = " ";
 		}
 		
-		if (streetName != null) {
+		if (streetName != null && streetName.isValid()) {
 			resultSb.append(separatorPrefix).append(streetName.getValue());
 			separatorPrefix = " ";
 		}
 		
-		if (streetSuffix != null) {
+		if (streetSuffix != null && streetSuffix.isValid()) {
 			resultSb.append(separatorPrefix).append(streetSuffix.getValue());
 			separatorPrefix = " ";
 		}

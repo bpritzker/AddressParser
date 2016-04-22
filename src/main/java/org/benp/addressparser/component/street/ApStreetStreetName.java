@@ -54,7 +54,7 @@ public class ApStreetStreetName extends ApComponentBase {
 		
 		StringBuilder resultSb = new StringBuilder();
 		
-		if (preDirectional != null) {
+		if (preDirectional != null && preDirectional.isValid()) {
 			resultSb.append(preDirectional.getValue());
 			separatorPrefix = " ";
 		}

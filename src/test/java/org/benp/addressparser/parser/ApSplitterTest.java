@@ -87,7 +87,7 @@ public class ApSplitterTest extends ApSplitter {
 
 		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		ApSplitter splits = new ApSplitter(stringToSplit);
-//		assertEquals("MA", splits.getNextRightValue(1).getValue());
+		assertEquals("MA", splits.getNextRightValue(1).getValue());
 		
 		splits.addUsedSplits(4);
 		splits.addUsedSplits(5);
@@ -95,15 +95,7 @@ public class ApSplitterTest extends ApSplitter {
 		assertEquals("Terrace", splits.getNextRightValue(1).getValue());
 		assertEquals("Evergreen", splits.getNextRightValue(2).getValue());
 	}
-	
-	
-//	@Test
-//	public void getValues() {
-//		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
-//		ApSplitter splits = new ApSplitter(stringToSplit);
-//		List<ApValueIndex> actual = splits.getValues(0, 2);
-//		assertEquals(3, actual.size());
-//	}
+
 	
 	@Test
 	public void addUsedSplitsAllRight() throws Exception {
@@ -123,13 +115,13 @@ public class ApSplitterTest extends ApSplitter {
 
 		stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		splits = new ApSplitter(stringToSplit);
-//		assertEquals("742", splits.getNextLeftValue().getValue());
-//		assertEquals("742", splits.getNextLeftValue(0).getValue());
-//		assertEquals("Evergreen", splits.getNextLeftValue(1).getValue());
+		assertEquals("742", splits.getNextLeftValue().getValue());
+		assertEquals("742", splits.getNextLeftValue(0).getValue());
+		assertEquals("Evergreen", splits.getNextLeftValue(1).getValue());
 		
 		splits.addUsedSplits(0);
-//		assertEquals("Evergreen", splits.getNextLeftValue().getValue());
-//		assertEquals("Evergreen", splits.getNextLeftValue(0).getValue());
+		assertEquals("Evergreen", splits.getNextLeftValue().getValue());
+		assertEquals("Evergreen", splits.getNextLeftValue(0).getValue());
 		assertEquals("Terrace", splits.getNextLeftValue(1).getValue());
 		
 		

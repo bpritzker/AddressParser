@@ -54,14 +54,14 @@ public class ApStreetNumberParserTest extends ApStreetNumberParser {
 		splitter = new ApSplitter("742 E Evergreen Terrace");
 		actualStreetAddressNumber = parser.getAddressNumber(splitter);
 		assertEquals("E", actualStreetAddressNumber.getAddressNumberSuffix());
-//		
-//		
+		
+		
 //		splitter = new ApSplitter("742 1/2 Evergreen Terrace");
 //		actualStreet = parser.parse(splitter);
 //		assertTrue(actualStreet.isValid());
 //		assertEquals("1/2", actualStreet.getAddressNumber().getAddressNumberSuffix());
-//		
-//		
+		
+		
 
 		
 		splitter = new ApSplitter("742 Evergreen");

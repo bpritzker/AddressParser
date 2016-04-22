@@ -11,17 +11,18 @@ public class ApStreetStreetNameTest {
 	@Test
 	public void getValue() {
 		
+		ApStreetStreetName actualAtreetName = new ApStreetStreetName();
+		actualAtreetName = new ApStreetStreetName();
+		assertEquals("", actualAtreetName.getValue());
 		
-		ApStreetStreetName streetName = new ApStreetStreetName();
-		assertEquals("", streetName.getValue());
-		
-		streetName.setName("Evergreen");
-		assertEquals("Evergreen", streetName.getValue());
+		actualAtreetName.setName("Evergreen");
+		assertEquals("Evergreen", actualAtreetName.getValue());
 		
 		ApDirectional directional = new ApDirectional();
 		directional.setDirectional(ApDirectionalEnum.NORTH);
-		streetName.setPreDirectional(directional);
-		assertEquals("N Evergreen", streetName.getValue());
+		directional.setValid(true);
+		actualAtreetName.setPreDirectional(directional);
+		assertEquals("N Evergreen", actualAtreetName.getValue());
 	}
 
 }

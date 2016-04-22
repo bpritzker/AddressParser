@@ -61,11 +61,10 @@ public class AddressParserTest extends ApAddressParser {
 		
 		
 		// Bad data after the Zip 
-		// TODO: Do we need to handle this case????
-//		address = "2461 Eisenhower Avenue Alexandria VA 02123 BADDATA";
-//		actualAddress = addressParser.parseAddress(address);
-//		assertEquals("02123", actualAddress.getZipCode().getZipCode());
-//		assertTrue(actualAddress.isValid());
+		address = "2461 Eisenhower Avenue Alexandria VA 02123 BADDATA";
+		actualAddress = addressParser.parseAddress(address);
+		assertEquals("02123", actualAddress.getZipCode().getZipCode());
+		assertTrue(actualAddress.isValid());
 
 		
 		// Bad data after the state

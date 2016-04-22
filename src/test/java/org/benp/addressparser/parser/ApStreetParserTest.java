@@ -74,11 +74,6 @@ public class ApStreetParserTest {
 		actualStreet = parser.parse(splitter);
 		assertTrue(actualStreet.isValid());
 		
-
-		
-		
-
-		
 		
 //		splitter = new ApSplitter("742 Evergreen Terrace S");
 //		actualStreet = parser.parse(splitter);

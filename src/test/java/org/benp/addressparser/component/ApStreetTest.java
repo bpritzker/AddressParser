@@ -27,14 +27,17 @@ public class ApStreetTest {
 		
 		ApStreetAddressNumber streetNumber = new ApStreetAddressNumber();
 		streetNumber.setAddressNumber(742);
+		streetNumber.setValid(true);
 		resultStreet.setAddressNumber(streetNumber);
 		
 		ApStreetStreetName streetName = new ApStreetStreetName();
 		streetName.setName("Evergreen");
+		streetName.setValid(true);
 		resultStreet.setStreetName(streetName);
 		
 		ApStreetSuffix streetSuffix = new ApStreetSuffix();
 		streetSuffix.setStreetSuffix(ApStreetSuffixEnum.TERRACE);
+		streetSuffix.setValid(true);
 		resultStreet.setStreetSuffix(streetSuffix);
 		
 		return resultStreet;
