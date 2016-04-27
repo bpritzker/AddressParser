@@ -3,9 +3,11 @@ package org.benp.addressparser.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.Map;
 
 import org.benp.addressparser.ApException;
+import org.benp.addressparser.data.ApSplit;
 import org.junit.Test;
 
 public class ApSplitterTest extends ApSplitter {
@@ -21,7 +23,7 @@ public class ApSplitterTest extends ApSplitter {
 	public void getSplitValues() {
 		
 		String stringToSplit;
-		Map<Integer, String> actual;
+		Map<Integer, ApSplit> actual;
 		
 		getSplitValues(null);
 
@@ -43,10 +45,10 @@ public class ApSplitterTest extends ApSplitter {
 		stringToSplit = " 742 E   Evergreen  ,  Terrace";
 		actual = getSplitValues(stringToSplit);
 		assertEquals(4, actual.size());
-		assertEquals("742", actual.get(0));
-		assertEquals("E", actual.get(1));
-		assertEquals("Evergreen", actual.get(2));
-		assertEquals("Terrace", actual.get(3));
+		assertEquals("742", actual.get(0).getValue());
+		assertEquals("E", actual.get(1).getValue());
+		assertEquals("Evergreen", actual.get(2).getValue());
+		assertEquals("Terrace", actual.get(3).getValue());
 		
 		
 		// Extra spaces at the end
@@ -56,29 +58,40 @@ public class ApSplitterTest extends ApSplitter {
 		
 	}
 	
-	
 	@Test
-	public void getValue() throws Exception {
-		
-		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
-		
+	public void getValuesLeftTest() throws Exception {
+		String stringToSplit = "742 Evergreen Terrace";
 		ApSplitter splits = new ApSplitter(stringToSplit);
-		assertEquals("742", splits.getValue(0));
-		assertEquals("Evergreen", splits.getValue(1));
-		assertEquals("Terrace", splits.getValue(2));
-		assertEquals("Springfield", splits.getValue(3));
-		assertEquals("MA", splits.getValue(4));
-		assertEquals("02111", splits.getValue(5));
+		ApSplit actualNextLeft = splits.getNextLeftValue();
+		assertEquals("742", actualNextLeft.getValue());
+		splits.addUsedSplit(actualNextLeft);
+		actualNextLeft = splits.getNextLeftValue();
+		assertEquals("Evergreen", actualNextLeft.getValue());
+		splits.addUsedSplit(actualNextLeft);
 	}
+	
+	
+//	@Test
+//	public void getValue() throws Exception {
+//		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
+//		ApSplitter splits = new ApSplitter(stringToSplit);
+//		assertEquals("742", splits.getValue(0));
+//		assertEquals("Evergreen", splits.getValue(1));
+//		assertEquals("Terrace", splits.getValue(2));
+//		assertEquals("Springfield", splits.getValue(3));
+//		assertEquals("MA", splits.getValue(4));
+//		assertEquals("02111", splits.getValue(5));
+//	}
 	
 	@Test
 	public void getRightValue() throws Exception {
 		
 		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		ApSplitter splits = new ApSplitter(stringToSplit);
-		assertEquals("02111", splits.getNextRightValue().getValue());
+		ApSplit actualNextRight = splits.getNextRightValue();
+		assertEquals("02111", actualNextRight.getValue());
 		
-		splits.addUsedSplits(5);
+		splits.addUsedSplit(actualNextRight);
 		assertEquals("MA", splits.getNextRightValue().getValue());
 	}
 
@@ -87,10 +100,11 @@ public class ApSplitterTest extends ApSplitter {
 
 		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		ApSplitter splits = new ApSplitter(stringToSplit);
-		assertEquals("MA", splits.getNextRightValue(1).getValue());
+		ApSplit actualSplit = splits.getNextRightValue(1);
+		assertEquals("MA", actualSplit.getValue());
 		
-		splits.addUsedSplits(4);
-		splits.addUsedSplits(5);
+		splits.addUsedSplitsAllRight(actualSplit);
+//		splits.addUsedSplits(5);
 		assertEquals("Springfield", splits.getNextRightValue(0).getValue());
 		assertEquals("Terrace", splits.getNextRightValue(1).getValue());
 		assertEquals("Evergreen", splits.getNextRightValue(2).getValue());
@@ -101,9 +115,9 @@ public class ApSplitterTest extends ApSplitter {
 	public void addUsedSplitsAllRight() throws Exception {
 		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		ApSplitter splits = new ApSplitter(stringToSplit);
-		
-		splits.addUsedSplitsAllRight(4);
-		assertEquals(3, splits.getNextRightValue().getIndex());
+		ApSplit tempSplit = splits.getNextRightValue(4);
+		splits.addUsedSplitsAllRight(tempSplit);
+		assertEquals(0, splits.getNextRightValue().getSplitIndex());
 	}
 	
 	
@@ -115,11 +129,15 @@ public class ApSplitterTest extends ApSplitter {
 
 		stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		splits = new ApSplitter(stringToSplit);
-		assertEquals("742", splits.getNextLeftValue().getValue());
-		assertEquals("742", splits.getNextLeftValue(0).getValue());
-		assertEquals("Evergreen", splits.getNextLeftValue(1).getValue());
+		ApSplit actualNextLeft = splits.getNextLeftValue();
+		assertEquals("742", actualNextLeft.getValue());
 		
-		splits.addUsedSplits(0);
+		actualNextLeft = splits.getNextLeftValue(0);
+		assertEquals("742", actualNextLeft.getValue());
+		ApSplit actualNextLeftOffset = splits.getNextLeftValue(1);
+		assertEquals("Evergreen", actualNextLeftOffset.getValue());
+		
+		splits.addUsedSplit(actualNextLeft);
 		assertEquals("Evergreen", splits.getNextLeftValue().getValue());
 		assertEquals("Evergreen", splits.getNextLeftValue(0).getValue());
 		assertEquals("Terrace", splits.getNextLeftValue(1).getValue());
@@ -131,15 +149,42 @@ public class ApSplitterTest extends ApSplitter {
 	public void testException() throws Exception {
 		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		ApSplitter splits = new ApSplitter(stringToSplit);
+		ApSplit tempSplit = splits.getNextRightValue();
+		splits.addUsedSplit(tempSplit);
 		
-		splits.addUsedSplits(3);
+		ApSplit badSplit = new ApSplit("DummyValue", 5);
 		try {
-			splits.addUsedSplits(3);
+			splits.addUsedSplit(badSplit);
 			fail("The split was already used.");
 		} catch (ApException ae) {
 			assertEquals("Attempted to add a used Split that was already used in method 'addUsedSplits'.", ae.getAdditionalMessage());
 		}
 	}
 	
+	@Test
+	public void testGetRemainingSplits() throws Exception {
+		
+		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
+		ApSplitter splits = new ApSplitter(stringToSplit);
+		ApSplit terraceSplit = splits.getNextRightValue(3);
+		ApSplit number742Split = splits.getNextLeftValue();
+		splits.addUsedSplit(number742Split);
+		splits.addUsedSplitsAllRight(terraceSplit);
+		List<ApSplit> actualRemainingSplits = splits.getRemainingSplits();
+		assertEquals(1, actualRemainingSplits.size());
+		
+		splits = new ApSplitter(stringToSplit);
+		splits.addUsedSplit(splits.getNextLeftValue());
+		splits.addUsedSplit(splits.getNextRightValue(2));
+		try {
+			actualRemainingSplits = splits.getRemainingSplits();
+			fail("Expected Exception");
+		} catch (ApException ae) {
+			// expected to catch exception
+		}
+		
+		
+	
+	}
 	
 }

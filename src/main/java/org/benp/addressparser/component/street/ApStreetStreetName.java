@@ -24,7 +24,7 @@ import org.benp.addressparser.component.ApDirectional;
 public class ApStreetStreetName extends ApComponentBase {
 	
 	private String name;
-	private ApDirectional preDirectional;
+//	private ApDirectional preDirectional;
 //	private ApDirectional postDirectional;
 	
 	
@@ -35,12 +35,12 @@ public class ApStreetStreetName extends ApComponentBase {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public ApDirectional getPreDirectional() {
-		return preDirectional;
-	}
-	public void setPreDirectional(ApDirectional preDirectional) {
-		this.preDirectional = preDirectional;
-	}
+//	public ApDirectional getPreDirectional() {
+//		return preDirectional;
+//	}
+//	public void setPreDirectional(ApDirectional preDirectional) {
+//		this.preDirectional = preDirectional;
+//	}
 
 	
 	@Override
@@ -54,10 +54,10 @@ public class ApStreetStreetName extends ApComponentBase {
 		
 		StringBuilder resultSb = new StringBuilder();
 		
-		if (preDirectional != null && preDirectional.isValid()) {
-			resultSb.append(preDirectional.getValue());
-			separatorPrefix = " ";
-		}
+//		if (preDirectional != null && preDirectional.isValid()) {
+//			resultSb.append(preDirectional.getValue());
+//			separatorPrefix = " ";
+//		}
 		
 		if (name != null) {
 			resultSb.append(separatorPrefix).append(name);

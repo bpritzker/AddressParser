@@ -70,11 +70,11 @@ public class ApZipCodeParserTest extends ApZipCodeParser {
 		
 		splitter = new ApSplitter("Springfield MA 02111");
 		zipCodeParser.parse(splitter);
-		assertEquals(1, splitter.getNextRightValue().getIndex());
+		assertEquals(1, splitter.getNextRightValue().getSplitIndex());
 		
 		splitter = new ApSplitter("742 Evergreen Terrace Springfield MA 02101-8888");
 		zipCodeParser.parse(splitter);
-		assertEquals(4, splitter.getNextRightValue().getIndex());
+		assertEquals(4, splitter.getNextRightValue().getSplitIndex());
 		
 	}
 	

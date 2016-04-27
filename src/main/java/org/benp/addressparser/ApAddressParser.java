@@ -10,8 +10,8 @@ import org.benp.addressparser.component.ApZipCode;
 import org.benp.addressparser.parser.ApCityParser;
 import org.benp.addressparser.parser.ApSplitter;
 import org.benp.addressparser.parser.ApStateParser;
-import org.benp.addressparser.parser.ApStreetParser;
 import org.benp.addressparser.parser.ApZipCodeParser;
+import org.benp.addressparser.parser.street.ApStreetParser;
 
 public class ApAddressParser {
 	
@@ -50,11 +50,6 @@ public class ApAddressParser {
 
 
 
-
-	
-	
-	
-
 	/**
 	 * Use this method to parse an address!
 	 * @param addressString - A string that contains an Address
@@ -76,7 +71,6 @@ public class ApAddressParser {
 	}
 	
 	public ApAddress parseAddress(String street1, String street2, String city, String state, String zipCode) throws ApException {
-		
 		
 		// TODO: Add test for this....
 		ApStreet apStreet = null;
@@ -127,7 +121,14 @@ public class ApAddressParser {
 	}
 
 
-
+	public ApStreet parseStreet(final String street) throws ApException {
+		ApSplitter splitter = new ApSplitter(street);
+		ApStreet resultStreet = streetParser.parse(splitter);
+		return resultStreet;
+	}
+	
+	
+	
 	private ApAddress parse(final String address) throws ApException {
 
 		// This will split into usable sections

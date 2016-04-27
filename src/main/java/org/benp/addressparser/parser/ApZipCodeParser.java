@@ -57,7 +57,7 @@ public class ApZipCodeParser extends ApParserBase {
 					resultZipCode.setPlus4Code(zipCodeValues.get(1));
 				}
 				resultZipCode.setValid(true);
-				splitter.addUsedSplits(ApSplitter.getValues(usedSplits));
+				splitter.addUsedSplits(usedSplits);
 				resultZipCode.addSplitterIndecies(usedSplits);
 				break;
 			}

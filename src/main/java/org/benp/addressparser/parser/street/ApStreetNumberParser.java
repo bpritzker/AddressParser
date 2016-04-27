@@ -1,10 +1,12 @@
-package org.benp.addressparser.parser;
+package org.benp.addressparser.parser.street;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.benp.addressparser.ApAddressParserConfig;
 import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.street.ApStreetAddressNumber;
 import org.benp.addressparser.data.ApSplit;
+import org.benp.addressparser.parser.ApParserBase;
+import org.benp.addressparser.parser.ApSplitter;
 
 public class ApStreetNumberParser extends ApParserBase {
 
@@ -38,34 +40,35 @@ public class ApStreetNumberParser extends ApParserBase {
 		if (NumberUtils.isDigits(nextLeft.getValue())) {
 			
 			addressNumber = Integer.parseInt(nextLeft.getValue());
-			splitter.addUsedSplits(nextLeft.getIndex());
-			resultStreetNumber.addIndicies(nextLeft.getIndex());
+			splitter.addUsedSplit(nextLeft);
+			resultStreetNumber.addSplitterIndex(nextLeft);
 		}
 		
-		String addressNumberPrefix = null;
+//		String addressNumberPrefix = null;
 		if (addressNumber == ApStreetAddressNumber.INVALID_ADDRESS_NUMBER) {
 			ApSplit secondLeft = splitter.getNextLeftValue(1);
 			if (secondLeft != null) {
 				if (NumberUtils.isNumber(secondLeft.getValue())) {
 					addressNumber = Integer.parseInt(secondLeft.getValue());
-					addressNumberPrefix = nextLeft.getValue();
-					splitter.addUsedSplits(nextLeft.getIndex());
-					splitter.addUsedSplits(secondLeft.getIndex());
-					resultStreetNumber.addIndicies(nextLeft.getIndex());
-					resultStreetNumber.addIndicies(secondLeft.getIndex());
+//					addressNumberPrefix = nextLeft.getValue();
+					splitter.addUsedSplit(nextLeft);
+					splitter.addUsedSplit(secondLeft);
+					resultStreetNumber.addSplitterIndex(nextLeft);
+					resultStreetNumber.addSplitterIndex(secondLeft);
 				}
 			}
 		}
 		
 
-		String addressNumberSuffix = getAddressNumberSuffix(splitter);
 		
 		
 
 		if (addressNumber != ApStreetAddressNumber.INVALID_ADDRESS_NUMBER) {
+//			String addressNumberSuffix = getAddressNumberSuffix(splitter);
+
 			resultStreetNumber.setAddressNumber(addressNumber);
-			resultStreetNumber.setAddressNumberPrefix(addressNumberPrefix);
-			resultStreetNumber.setAddressNumberSuffix(addressNumberSuffix);
+//			resultStreetNumber.setAddressNumberPrefix(addressNumberPrefix);
+//			resultStreetNumber.setAddressNumberSuffix(addressNumberSuffix);
 			resultStreetNumber.setValid(true);
 		}
 		
@@ -89,7 +92,7 @@ public class ApStreetNumberParser extends ApParserBase {
 //			ApValueIndex nextLeft = splitter.getNextLeftValue();
 //			ApValueIndex nextLeftOffset = splitter.getNextLeftValue(1);
 			if (nextLeft.getValue().length() < 3) {
-				splitter.addUsedSplits(nextLeft.getIndex());
+				splitter.addUsedSplit(nextLeft);
 				return nextLeft.getValue();
 			}
 //			System.out.println("FIXME" + nextLeft + nextLeftOffset);

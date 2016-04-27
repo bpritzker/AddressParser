@@ -8,7 +8,7 @@ Since I work with large data sets I have access to a great series of test data a
 
 NOTE: This is designed for US address only! (Maybe later down the road I'll improve it for international)
 
-
+NOTE: Streets are super complex and sometimes used on their own so I moved them to their own package
 
 ### NOTE: When you use this parser you should only instantiate it once and use the same object. There is some large overhead of map building for initialization. If you let the AddressParser go out of scope it might need to reload the maps and have the load overhead all over again.
 Usually I believe in the, don't optimize until you need to but this class might be one of the exceptions to rule ;-)

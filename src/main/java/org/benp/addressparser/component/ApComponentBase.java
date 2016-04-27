@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.benp.addressparser.data.ApSplit;
-import org.benp.addressparser.parser.ApSplitter;
 
 public abstract class ApComponentBase {
 	
 	private boolean isValid;
 	
 	// TODO: Should be List<ApSplit>
-	private List<Integer> splitterIndecies = new ArrayList<>();
+	private List<ApSplit> splitterIndecies = new ArrayList<>();
 	
 	public abstract String getValue();
 
@@ -21,15 +20,6 @@ public abstract class ApComponentBase {
 	public ApComponentBase() {
 		isValid = false;
 	}
-	
-	
-	public void addIndicies(int... indices) {
-		for (int i=0; i < indices.length; i++) {
-			splitterIndecies.add(indices[i]);
-		}
-	}
-	
-	
 	
 	public boolean isValid() {
 		return isValid;
@@ -42,34 +32,26 @@ public abstract class ApComponentBase {
 	
 
 
-	public List<Integer> getSplitterIndecies() {
+	public List<ApSplit> getSplitterIndecies() {
 		return splitterIndecies;
 	}
 
 
 
-	public void setSplitterIndecies(List<Integer> splitterIndecies) {
-		this.splitterIndecies = splitterIndecies;
+	public void setSplitterIndecies(List<ApSplit> inSplitterIndecies) {
+		this.splitterIndecies = inSplitterIndecies;
 	}
 	
-	public void addSplitterIndecies(int[] splitterIndecies) {
-		// There is no shortcut for this :(
-		for (int i=0; i < splitterIndecies.length; i++) {
-			this.splitterIndecies.add(splitterIndecies[i]);
-		}
+	public void addSplitterIndecies(List<ApSplit> inSplitterIndecies) {
+		this.splitterIndecies.addAll(inSplitterIndecies);
 	}
 	
-
-	public void addSplitterIndecies(List<ApSplit> valueIndices) {
-		for (ApSplit currValue : valueIndices) {
-			this.splitterIndecies.add(currValue.getIndex());
-		}
-		
+	public void addSplitterIndex(ApSplit inSplitterIndecies) {
+		splitterIndecies.add(inSplitterIndecies);
 	}
 	
 	public void addSplitterIndecies(ApSplit split) {
-		splitterIndecies.add(split.getIndex());
-		
+		splitterIndecies.add(split);
 	}
 	
 	
@@ -83,13 +65,13 @@ public abstract class ApComponentBase {
 	
 
 
-	public int getRightMostIndex() {
-		int resultIndex = ApSplitter.INVALID_INDEX;
+	public ApSplit getRightMostSplit() {
+		ApSplit result = null;
 		
 		if (splitterIndecies.size() > 0) {
-			resultIndex = splitterIndecies.get(splitterIndecies.size() - 1);
+			result = splitterIndecies.get(splitterIndecies.size() - 1);
 		}
-		return resultIndex;
+		return result;
 	}
 
 

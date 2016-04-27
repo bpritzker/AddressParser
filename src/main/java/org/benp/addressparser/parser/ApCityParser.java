@@ -88,7 +88,7 @@ public class ApCityParser extends ApParserBase {
 				resultCity.setCityValue(tempCityValue);
 				resultCity.addSplitterIndecies(tryValues.get(i));
 				resultCity.setValid(true);
-				splitter.addUsedSplits(ApSplitter.getValues(tryValues.get(i)));
+				splitter.addUsedSplits(tryValues.get(i));
 				return resultCity;
 			}
 			

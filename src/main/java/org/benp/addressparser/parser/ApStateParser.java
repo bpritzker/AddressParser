@@ -37,8 +37,8 @@ public class ApStateParser extends ApParserBase {
 			if (tempStateValue != null) {
 				resultState.setValid(true);
 				resultState.setStateDefinition(tempStateValue);
-				resultState.addIndicies(rightMost.getIndex());
-				splitter.addUsedSplitsAllRight(rightMost.getIndex());
+				resultState.addSplitterIndex(rightMost);
+				splitter.addUsedSplitsAllRight(rightMost);
 			}
 		}
 

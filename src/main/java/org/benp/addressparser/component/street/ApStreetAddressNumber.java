@@ -25,34 +25,34 @@ public class ApStreetAddressNumber extends ApComponentBase {
 	// They should also be string to keep track of the full value.
 	//  Example: 194-03 address number is 03 or 3
 	private int addressNumber;
-	private String addressNumberString;
+//	private String addressNumberString;
+//
+//	public String getAddressNumberString() {
+//		return addressNumberString;
+//	}
+//
+//	public void setAddressNumberString(String addressNumberString) {
+//		this.addressNumberString = addressNumberString;
+//	}
 
-	public String getAddressNumberString() {
-		return addressNumberString;
-	}
-
-	public void setAddressNumberString(String addressNumberString) {
-		this.addressNumberString = addressNumberString;
-	}
-
-	private String addressNumberSuffix;
-	
-	
-	public String getAddressNumberSuffix() {
-		return addressNumberSuffix;
-	}
-
-	public void setAddressNumberSuffix(String addressNumberSuffix) {
-		this.addressNumberSuffix = addressNumberSuffix;
-	}
-
-	public String getAddressNumberPrefix() {
-		return addressNumberPrefix;
-	}
-
-	public void setAddressNumberPrefix(String addressNumberPrefix) {
-		this.addressNumberPrefix = addressNumberPrefix;
-	}
+//	private String addressNumberSuffix;
+//	
+//	
+//	public String getAddressNumberSuffix() {
+//		return addressNumberSuffix;
+//	}
+//
+//	public void setAddressNumberSuffix(String addressNumberSuffix) {
+//		this.addressNumberSuffix = addressNumberSuffix;
+//	}
+//
+//	public String getAddressNumberPrefix() {
+//		return addressNumberPrefix;
+//	}
+//
+//	public void setAddressNumberPrefix(String addressNumberPrefix) {
+//		this.addressNumberPrefix = addressNumberPrefix;
+//	}
 
 	public int getAddressNumber() {
 		return addressNumber;

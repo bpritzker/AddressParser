@@ -14,18 +14,18 @@ import com.google.common.collect.ImmutableSet;
  */
 public enum ApDirectionalEnum {
 
-	NORTH("N", ImmutableSet.<String>of("NORTH", "N")), 
-	SOUTH("S", ImmutableSet.<String>of("SOUTH", "S")), 
-	EAST("E", ImmutableSet.<String>of("EAST", "E")), 
-	WEST("W", ImmutableSet.<String>of("WEST", "W")), 
-	NORTHEAST("NE", ImmutableSet.<String>of("NORTH EAST", "NE", "N E")), 
-	NORTHWEST("NW", ImmutableSet.<String>of("NORTH WEST", "NW", "N W")),
-	SOUTHEAST("SE", ImmutableSet.<String>of("SOUTH EAST", "SE", "S E")), 
-	SOUTHWEST("SW", ImmutableSet.<String>of("SOUTH WEST", "SW", "S W"));
+	NORTH("NORTH", ImmutableSet.<String>of("NORTH", "N")), 
+	SOUTH("SOUTH", ImmutableSet.<String>of("SOUTH", "S")), 
+	EAST("EAST", ImmutableSet.<String>of("EAST", "E")), 
+	WEST("WEST", ImmutableSet.<String>of("WEST", "W")), 
+	NORTHEAST("NORTH EAST", ImmutableSet.<String>of("NORTH EAST", "NE", "N E")), 
+	NORTHWEST("NORTH WEST", ImmutableSet.<String>of("NORTH WEST", "NW", "N W")),
+	SOUTHEAST("SOUTH EAST", ImmutableSet.<String>of("SOUTH EAST", "SE", "S E")), 
+	SOUTHWEST("SOUTH WEST", ImmutableSet.<String>of("SOUTH WEST", "SW", "S W"));
 	
 	
-	private final Set<String> mappings;
 	private final String value;
+	private final Set<String> mappings;
 	
 
 
