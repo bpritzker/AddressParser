@@ -1,6 +1,7 @@
 package org.benp.addressparser.component;
 
 import org.benp.addressparser.component.street.ApStreetAddressNumber;
+import org.benp.addressparser.component.street.ApStreetPostOther;
 import org.benp.addressparser.component.street.ApStreetStreetName;
 import org.benp.addressparser.component.street.ApStreetSuffix;
 
@@ -16,6 +17,7 @@ public class ApStreet extends ApComponentMultiPart {
 	private ApStreetAddressNumber addressNumber;
     private ApStreetStreetName streetName; // Street Name
     private ApStreetSuffix streetSuffix;
+    private ApStreetPostOther streetPostOther;
 //    private ApStreetOther other;
 //    private ApDirectionalEnum postDirection;
     

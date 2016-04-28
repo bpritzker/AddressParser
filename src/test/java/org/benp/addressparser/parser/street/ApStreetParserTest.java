@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.benp.addressparser.ApAddressParserConfig;
+import org.benp.addressparser.component.ApDirectional;
 import org.benp.addressparser.component.ApStreet;
+import org.benp.addressparser.data.ApDirectionalEnum;
 import org.benp.addressparser.data.ApStreetSuffixEnum;
 import org.benp.addressparser.parser.ApSplitter;
 import org.benp.addressparser.parser.street.ApStreetParser;
@@ -33,12 +35,12 @@ public class ApStreetParserTest {
 		ApStreet actualStreet;
 
 		// basic simple standard
-		splitter = new ApSplitter("742 Evergreen Terrace");
-		actualStreet = parser.parse(splitter);
-		assertEquals(742, actualStreet.getAddressNumber().getAddressNumber());
-		assertEquals("Evergreen", actualStreet.getStreetName().getName());
-		assertEquals(ApStreetSuffixEnum.TERRACE, actualStreet.getStreetSuffix().getStreetSuffix());
-		assertTrue(actualStreet.isValid());
+//		splitter = new ApSplitter("742 Evergreen Terrace");
+//		actualStreet = parser.parse(splitter);
+//		assertEquals(742, actualStreet.getAddressNumber().getAddressNumber());
+//		assertEquals("Evergreen", actualStreet.getStreetName().getName());
+//		assertEquals(ApStreetSuffixEnum.TERRACE, actualStreet.getStreetSuffix().getStreetSuffix());
+//		assertTrue(actualStreet.isValid());
 		
 		// No suffix should still be valid
 		splitter = new ApSplitter("742 Evergreen");
@@ -47,27 +49,22 @@ public class ApStreetParserTest {
 		
 	}
 	
-//	@Test
-//	public void parseComplex() throws Exception {
-//		
-//		ApSplitter splitter;
-//		ApStreet actualStreet;
-//		
-////		splitter = new ApSplitter("F Street");
-////		actualStreet = parser.parse(splitter);
-////		assertEquals("F STREET", actualStreet.getValue());
-//		
-//		
-//		splitter = new ApSplitter("South Princeton Circle");
-//		actualStreet = parser.parse(splitter);
-//		assertEquals("SOUTH Princeton CIRCLE", actualStreet.getValue());
-//		
-//		
-//		// TODO: These should work
-////		splitter = new ApSplitter("50 south drive");
-////		actualStreet = parser.parse(splitter);
-////		assertTrue(actualStreet.isValid());
-////		assertTrue(actualStreet.isComplete());
+	@Test
+	public void parseComplex() throws Exception {
+		
+		ApSplitter splitter;
+		ApStreet actualStreet;
+		
+		// Test single letter stree name
+		splitter = new ApSplitter("F Street");
+		actualStreet = parser.parse(splitter);
+		assertEquals("F STREET", actualStreet.getValue());
+		
+		
+		splitter = new ApSplitter("South Princeton Circle");
+		actualStreet = parser.parse(splitter);
+		assertEquals(ApDirectionalEnum.SOUTH, actualStreet.getStreetName().getPreDirectional().getDirectional());
+		assertEquals("SOUTH Princeton CIRCLE", actualStreet.getValue());
 //		
 //		
 //		splitter = new ApSplitter("3521 West Highway");
@@ -88,14 +85,14 @@ public class ApStreetParserTest {
 //		splitter = new ApSplitter("1643015 Dent NOTFOUND");
 //		actualStreet = parser.parse(splitter);
 //		assertTrue(actualStreet.isValid());
-//		
-//		
-////		splitter = new ApSplitter("742 Evergreen Terrace S");
-////		actualStreet = parser.parse(splitter);
-////		assertTrue(actualStreet.isValid());
-////		assertEquals("E", actualStreet.getPostDirection().getValue());
-//	}
-//	
+		
+		
+//		splitter = new ApSplitter("742 Evergreen Terrace S");
+//		actualStreet = parser.parse(splitter);
+//		assertTrue(actualStreet.isValid());
+//		assertEquals("E", actualStreet.getPostDirection().getValue());
+	}
+	
 	
 
 	

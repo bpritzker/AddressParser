@@ -10,9 +10,10 @@ public class ApDirectional extends ApComponentBase {
 		return directional;
 	}
 
-	public void setDirectional(ApDirectionalEnum directional) {
-		this.directional = directional;
+	public void setDirectional(ApDirectionalEnum inDirectional) {
+		directional = inDirectional;
 	}
+
 
 	@Override
 	public String getValue() {

@@ -10,6 +10,7 @@ import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.ApDirectional;
 import org.benp.addressparser.component.ApStreet;
 import org.benp.addressparser.component.street.ApStreetAddressNumber;
+import org.benp.addressparser.component.street.ApStreetPostOther;
 import org.benp.addressparser.component.street.ApStreetStreetName;
 import org.benp.addressparser.component.street.ApStreetSuffix;
 import org.benp.addressparser.data.ApDirectionalEnum;
@@ -36,6 +37,9 @@ public class ApStreetParser extends ApParserBase {
 		// we know what they look like, well, not always but we can make the best guess on them. 
 		ApStreetSuffix addressSuffix = getSuffix(splitter);
 		resultStreet.setStreetSuffix(addressSuffix);
+		
+//		ApStreetPostOther streetSuffixOther = getApStreetPostOther(splitter, addressSuffix);
+		
 
 		
 		// Next, get the address number, we know this needs to be number so that is more to 
@@ -58,6 +62,15 @@ public class ApStreetParser extends ApParserBase {
 		}
 		return resultStreet;
 	}
+
+	
+	/**
+	 * Gets everything after the address suffix
+	 */
+//	private ApStreetPostOther getApStreetPostOther(ApSplitter splitter, ApStreetSuffix addressSuffix) {
+//		List<ApSplit> postOther splits = splitter.getri(addressSuffix.getRightMostSplit());
+//		
+//	}
 
 	private ApStreetStreetName getStreetName(ApSplitter splitter) throws ApException {
 		
@@ -92,14 +105,39 @@ public class ApStreetParser extends ApParserBase {
 		ApStreetStreetName resultStreetName = new ApStreetStreetName();
 		List<ApSplit> remaingingSplits = splitter.getRemainingSplits();
 		
-		String streetName =  "";
-		for (ApSplit currSplit : remaingingSplits) {
-			streetName += currSplit.getValue();
-		}
+		StringBuilder streetNameBuilder = new StringBuilder();
 		
-		if (StringUtils.isNoneBlank(streetName)) {
+		// Now for the tricky part... 
+		// Handle the case where the we have more than one part 
+		// and check if the first part is a street pre-directional 
+		// If the size is 1 then it's the street
+		boolean firstSplitUsed = false;
+		if (remaingingSplits.size() > 1) {
+			String firstValue = remaingingSplits.get(0).getValue();
+			ApDirectionalEnum tempDirectionalEnum = ApDirectionalEnum.fromMapping(firstValue);
+			if (tempDirectionalEnum != null) {
+				firstSplitUsed = true;
+				ApDirectional tempDirectional = new ApDirectional();
+				tempDirectional.setDirectional(tempDirectionalEnum);
+				tempDirectional.addSplitterIndex(remaingingSplits.get(0));
+				tempDirectional.setValid(true);
+				resultStreetName.setPreDirectional(tempDirectional);
+			}
+			
+		} 
+		
+		for (int i =0; i < remaingingSplits.size(); i++) {
+			if (i != 0 || ! firstSplitUsed) {
+				streetNameBuilder.append(remaingingSplits.get(i).getValue());
+			}
+		}
+		String streetName =  streetNameBuilder.toString();
+		
+		
+		if (StringUtils.isNotBlank(streetName)) {
 			resultStreetName.setName(streetName);
 			resultStreetName.setSplitterIndecies(remaingingSplits);
+			resultStreetName.setValid(true);
 			splitter.addUsedSplits(remaingingSplits);
 		}
 //		

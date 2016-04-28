@@ -40,7 +40,7 @@ public enum ApDirectionalEnum {
 		}
 		
 		for (ApDirectionalEnum currDirectional : ApDirectionalEnum.values()) {
-			if (currDirectional.mappings.contains(mappingName)) {
+			if (currDirectional.mappings.contains(mappingName.toUpperCase())) {
 				return currDirectional;
 			}
 		}

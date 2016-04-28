@@ -308,9 +308,16 @@ public class ApSplitter {
 		List<ApSplit> resultSplits = new ArrayList<>();
 		boolean foundUnusedSplit = false;
 		ApSplit nextLeft = getNextLeftValue();
+		int largestUsedSplit = getLargestUsedSplit();
 		for (int i=nextLeft.getSplitIndex(); i < values.size(); i++) {
 			if (!usedSplits.contains(i)) {
-				if (foundUnusedSplit && !usedSplits.contains(i)) {
+				
+				// Here, if the split we found then make sure it is not already used 
+				// First, if we have not found an unused split yet there can't be an exception
+				// Then, if the split we found is already used 
+				if (
+						(foundUnusedSplit && (usedSplits.contains(i) 
+						|| (largestUsedSplit != -1 && i > largestUsedSplit)))) {
 					throw new ApException("Called getRemainingSplits()."
 							+ " but remaing splits were NOT continious."
 							+ "It means that it found unused splits followed by used splits followed by unused splits.");
@@ -320,6 +327,17 @@ public class ApSplitter {
 			} 
 		}
 		return resultSplits;
+	}
+
+
+	private int getLargestUsedSplit() {
+		int resultLargestUsedSplit = -1;
+		for (Integer currSplitIndex : usedSplits) {
+			if (currSplitIndex > resultLargestUsedSplit) {
+				resultLargestUsedSplit = currSplitIndex;
+			}
+		}
+		return resultLargestUsedSplit;
 	}
 
 
