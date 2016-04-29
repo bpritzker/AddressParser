@@ -146,6 +146,7 @@ public enum ApStreetSuffixEnum {
 	OVERPASS("OVERPASS", "OPAS", new HashSet<String>(Arrays.asList("OPAS","OVERPASS"))),
 	PARK("PARK", "PARK", new HashSet<String>(Arrays.asList("PARK","PRK"))),
 	PARKS("PARKS", "PARK", new HashSet<String>(Arrays.asList("PARK","PARKS"))),
+	// TODO: These too have the same standard abbriv????
 	PARKWAY("PARKWAY", "PKWY", new HashSet<String>(Arrays.asList("PKWY","PARKWAY","PARKWY","PKWAY","PKY"))),
 	PARKWAYS("PARKWAYS", "PKWY", new HashSet<String>(Arrays.asList("PKWYS","PKWY","PARKWAYS"))),
 	PASS("PASS", "PASS", new HashSet<String>(Arrays.asList("PASS"))),
@@ -198,7 +199,10 @@ public enum ApStreetSuffixEnum {
 	TERRACE("TERRACE", "TER", new HashSet<String>(Arrays.asList("TERR","TER","TERRACE"))),
 	THROUGHWAY("THROUGHWAY", "TRWY", new HashSet<String>(Arrays.asList("THROUGHWAY","TRWY"))),
 	TRACE("TRACE", "TRCE", new HashSet<String>(Arrays.asList("TRCE","TRACES","TRACE"))),
-	TRACK("TRACK", "TRAK", new HashSet<String>(Arrays.asList("TRACK","TRK","TRKS","TRACKS","TRAK"))),
+	// TODO: the next two might have some overlapping values in the array????
+	// Is TRK a TRACK or TRAK????
+	TRACK("TRACK", "TRACK", new HashSet<String>(Arrays.asList("TRACK","TRK","TRKS","TRACKS"))),
+	TRAK("TRAK", "TRAK", new HashSet<String>(Arrays.asList("TRAK"))),
 	TRAFFICWAY("TRAFFICWAY", "TRFY", new HashSet<String>(Arrays.asList("TRAFFICWAY","TRFY"))),
 	TRAIL("TRAIL", "TRL", new HashSet<String>(Arrays.asList("TRAIL","TRLS","TRL","TRAILS"))),
 	TRAILER("TRAILER", "TRLR", new HashSet<String>(Arrays.asList("TRLR","TRLRS","TRAILER"))),

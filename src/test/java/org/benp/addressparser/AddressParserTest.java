@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.benp.addressparser.component.ApAddress;
-import org.benp.addressparser.data.ApDirectionalEnum;
 import org.benp.addressparser.data.ApStreetSuffixEnum;
 import org.benp.addressparser.parser.ApCityParser;
 import org.benp.addressparser.parser.ApCityParserTest;

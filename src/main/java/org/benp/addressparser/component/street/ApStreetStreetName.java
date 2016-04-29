@@ -23,8 +23,8 @@ import org.benp.addressparser.component.ApDirectional;
 
 public class ApStreetStreetName extends ApComponentBase {
 	
-	private String name;
 	private ApDirectional preDirectional;
+	private String name;
 //	private ApDirectional postDirectional;
 	
 	
@@ -72,6 +72,28 @@ public class ApStreetStreetName extends ApComponentBase {
 		
 		return resultSb.toString();
 		
+	}
+	
+	
+	
+	public String getNormalizedValue() {
+		StringBuilder resultSb = new StringBuilder();
+		
+		String appendSplitter = "";
+		
+		if (preDirectional != null && preDirectional.isValid()) {
+			resultSb.append(preDirectional.getNormalizedValue());
+			appendSplitter = " ";
+		}
+		
+		if (name != null) {
+			resultSb.append(appendSplitter).append(name);
+		}
+		
+		
+		
+		return resultSb.toString();
+
 	}
 	
 

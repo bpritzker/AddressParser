@@ -1,9 +1,6 @@
-package org.benp.addressparser.component;
+package org.benp.addressparser.component.street;
 
-import org.benp.addressparser.component.street.ApStreetAddressNumber;
-import org.benp.addressparser.component.street.ApStreetPostOther;
-import org.benp.addressparser.component.street.ApStreetStreetName;
-import org.benp.addressparser.component.street.ApStreetSuffix;
+import org.benp.addressparser.component.ApComponentMultiPart;
 
 /**
  * This is based off the document:
@@ -17,7 +14,7 @@ public class ApStreet extends ApComponentMultiPart {
 	private ApStreetAddressNumber addressNumber;
     private ApStreetStreetName streetName; // Street Name
     private ApStreetSuffix streetSuffix;
-    private ApStreetPostOther streetPostOther;
+//    private ApStreetPostOther streetPostOther;
 //    private ApStreetOther other;
 //    private ApDirectionalEnum postDirection;
     
@@ -83,6 +80,39 @@ public class ApStreet extends ApComponentMultiPart {
 		} else {
 			return false;
 		}
+	}
+	
+	
+	/**
+	 * This is the value that will match with the GeoCoding DB.
+	 * In the future you can customize this to different DBs but for now
+	 * it works off the Site: http://www.opengeocode.org/download.php
+	 * @return
+	 */
+	public String getNormalizedValue() {
+
+		StringBuilder resultSb = new StringBuilder();
+//		private ApStreetAddressNumber addressNumber;
+//	    private ApStreetStreetName streetName; // Street Name
+//	    private ApStreetSuffix streetSuffix;
+		
+		String appendSplitter = "";
+		
+		if (addressNumber != null && addressNumber.isValid()) {
+			resultSb.append(addressNumber.getAddressNumber());
+			appendSplitter = " ";
+		}
+		
+		if (streetName != null && streetName.isValid()) {
+			resultSb.append(appendSplitter).append(streetName.getNormalizedValue());
+			appendSplitter = " ";
+		}
+		
+		if (streetSuffix != null && streetSuffix.isValid()) {
+			resultSb.append(appendSplitter).append(streetSuffix.getNormalizedValue());
+		}
+		
+		return resultSb.toString();
 	}
     
 

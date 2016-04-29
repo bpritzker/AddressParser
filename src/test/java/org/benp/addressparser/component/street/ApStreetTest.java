@@ -1,7 +1,8 @@
-package org.benp.addressparser.component;
+package org.benp.addressparser.component.street;
 
 import static org.junit.Assert.assertEquals;
 
+import org.benp.addressparser.component.street.ApStreet;
 import org.benp.addressparser.component.street.ApStreetAddressNumber;
 import org.benp.addressparser.component.street.ApStreetStreetName;
 import org.benp.addressparser.component.street.ApStreetSuffix;
@@ -41,8 +42,27 @@ public class ApStreetTest {
 		resultStreet.setStreetSuffix(streetSuffix);
 		
 		return resultStreet;
+	}
+	
+	
+	@Test
+	public void getNormalizedValue() {
+		ApStreet apStreet = new ApStreet();
+		ApStreetAddressNumber tempNumber = new ApStreetAddressNumber();
+		tempNumber.setAddressNumber(123);
+		tempNumber.setValid(true);
+		apStreet.setAddressNumber(tempNumber);
+		ApStreetStreetName tempStreetname = new ApStreetStreetName();
+		tempStreetname.setName("Fake");
+		tempStreetname.setValid(true);
+		apStreet.setStreetName(tempStreetname);
+		ApStreetSuffix tempStreetSuffix = new ApStreetSuffix();
+		tempStreetSuffix.setStreetSuffix(ApStreetSuffixEnum.STREET);
+		tempStreetSuffix.setValid(true);
+		apStreet.setStreetSuffix(tempStreetSuffix);
 		
-		
+		String actualNormalizedValue = apStreet.getNormalizedValue();
+		assertEquals("123 Fake Street", actualNormalizedValue);
 	}
 
 }

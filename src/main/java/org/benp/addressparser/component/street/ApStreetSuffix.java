@@ -23,6 +23,15 @@ public class ApStreetSuffix extends ApComponentBase {
 		}
 		return streetSuffix.getName();
 	}
+
+	public String getNormalizedValue() {
+		if (streetSuffix == null) {
+			return null;
+		}
+		String tempName = streetSuffix.getName();
+		String resultNormalized = tempName.substring(0, 1).toUpperCase() + tempName.substring(1).toLowerCase();
+		return resultNormalized;
+	}
 	
 
 }

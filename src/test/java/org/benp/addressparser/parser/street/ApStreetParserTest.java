@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.benp.addressparser.ApAddressParserConfig;
 import org.benp.addressparser.component.ApDirectional;
-import org.benp.addressparser.component.ApStreet;
+import org.benp.addressparser.component.street.ApStreet;
 import org.benp.addressparser.data.ApDirectionalEnum;
 import org.benp.addressparser.data.ApStreetSuffixEnum;
 import org.benp.addressparser.parser.ApSplitter;
@@ -65,22 +65,23 @@ public class ApStreetParserTest {
 		actualStreet = parser.parse(splitter);
 		assertEquals(ApDirectionalEnum.SOUTH, actualStreet.getStreetName().getPreDirectional().getDirectional());
 		assertEquals("SOUTH Princeton CIRCLE", actualStreet.getValue());
-//		
-//		
-//		splitter = new ApSplitter("3521 West Highway");
-//		actualStreet = parser.parse(splitter);
-//		assertTrue(actualStreet.isValid());
-//		
+		
+		
+		splitter = new ApSplitter("3521 West Highway");
+		actualStreet = parser.parse(splitter);
+		assertEquals("West", actualStreet.getStreetName().getName());
+		assertTrue(actualStreet.isValid());
+		
 //		// This was causing null pointer exception
 //		splitter = new ApSplitter("N6W2 3001 Bluemound Road");
 //		actualStreet = parser.parse(splitter);
 //		assertTrue(actualStreet.isValid());
 //		
 //		
-//		// This was causing null pointer exception
-//		splitter = new ApSplitter("1643015 Dent Place");
-//		actualStreet = parser.parse(splitter);
-//		assertTrue(actualStreet.isValid());
+		// This was causing null pointer exception
+		splitter = new ApSplitter("1643015 Dent Place");
+		actualStreet = parser.parse(splitter);
+		assertTrue(actualStreet.isValid());
 //		
 //		splitter = new ApSplitter("1643015 Dent NOTFOUND");
 //		actualStreet = parser.parse(splitter);

@@ -1,6 +1,7 @@
 package org.benp.addressparser.component;
 
 import org.benp.addressparser.ApErrorCode;
+import org.benp.addressparser.component.street.ApStreet;
 
 public class ApAddress extends ApComponentMultiPart {
 	
