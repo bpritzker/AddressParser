@@ -2,29 +2,27 @@ package org.benp.addressparser.component.street;
 
 import static org.junit.Assert.assertEquals;
 
-import org.benp.addressparser.ApAddressParserConfig;
 import org.benp.addressparser.component.ApDirectional;
 import org.benp.addressparser.data.ApDirectionalEnum;
 import org.benp.addressparser.parser.street.ApStreetNameParser;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ApStreetStreetNameTest extends ApStreetNameParser {
 	
-	private ApStreetNameParser parser;
+//	private ApStreetNameParser parser;
 	
-	public ApStreetStreetNameTest(ApAddressParserConfig config) {
-		super(config);
+	public ApStreetStreetNameTest() {
+		super(null);
 	}
 
 
 
 	
-	@Before
-	public void before() {
-		ApAddressParserConfig addressParserConfig = new ApAddressParserConfig();
-		parser = new ApStreetNameParser(addressParserConfig);
-	}
+//	@Before
+//	public void before() {
+//		ApAddressParserConfig addressParserConfig = new ApAddressParserConfig();
+//		parser = new ApStreetNameParser(addressParserConfig);
+//	}
 	
 	@Test
 	public void getValue() {

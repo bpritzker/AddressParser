@@ -13,7 +13,7 @@ public class ApStreet extends ApComponentMultiPart {
 
 	private ApStreetAddressNumber addressNumber;
     private ApStreetStreetName streetName; // Street Name
-    private ApStreetSuffix streetSuffix;
+    private StreetNamePostType streetPostType;
 //    private ApStreetPostOther streetPostOther;
 //    private ApStreetOther other;
 //    private ApDirectionalEnum postDirection;
@@ -33,11 +33,11 @@ public class ApStreet extends ApComponentMultiPart {
 	public void setStreetName(ApStreetStreetName streetName) {
 		this.streetName = streetName;
 	}
-	public ApStreetSuffix getStreetSuffix() {
-		return streetSuffix;
+	public StreetNamePostType getStreetPostType() {
+		return streetPostType;
 	}
-	public void setStreetSuffix(ApStreetSuffix streetSuffix) {
-		this.streetSuffix = streetSuffix;
+	public void setStreetPostType(StreetNamePostType streetPostType) {
+		this.streetPostType = streetPostType;
 	}
 
 	
@@ -58,8 +58,8 @@ public class ApStreet extends ApComponentMultiPart {
 			separatorPrefix = " ";
 		}
 		
-		if (streetSuffix != null && streetSuffix.isValid()) {
-			resultSb.append(separatorPrefix).append(streetSuffix.getValue());
+		if (streetPostType != null && streetPostType.isValid()) {
+			resultSb.append(separatorPrefix).append(streetPostType.getValue());
 			separatorPrefix = " ";
 		}
 		
@@ -67,7 +67,7 @@ public class ApStreet extends ApComponentMultiPart {
 	}
 	@Override
 	public boolean isComplete() {
-		if (addressNumber.isValid() && streetName.isValid() && streetSuffix.isValid()) {
+		if (addressNumber.isValid() && streetName.isValid() && streetPostType.isValid()) {
 			return true;
 		} else {
 			return false;
@@ -75,7 +75,7 @@ public class ApStreet extends ApComponentMultiPart {
 	}
 	@Override
 	public boolean isPartial() {
-		if (addressNumber.isValid() || streetName.isValid() || streetSuffix.isValid()) {
+		if (addressNumber.isValid() || streetName.isValid() || streetPostType.isValid()) {
 			return true;
 		} else {
 			return false;
@@ -108,8 +108,8 @@ public class ApStreet extends ApComponentMultiPart {
 			appendSplitter = " ";
 		}
 		
-		if (streetSuffix != null && streetSuffix.isValid()) {
-			resultSb.append(appendSplitter).append(streetSuffix.getNormalizedValue());
+		if (streetPostType != null && streetPostType.isValid()) {
+			resultSb.append(appendSplitter).append(streetPostType.getNormalizedValue());
 		}
 		
 		return resultSb.toString();

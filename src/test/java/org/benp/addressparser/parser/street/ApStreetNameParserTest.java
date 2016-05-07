@@ -31,7 +31,6 @@ public class ApStreetNameParserTest extends ApStreetNameParser {
 		ApSplitter splitter;
 		ApStreetStreetName actualStreetName;
 		
-//		ApStreetNameParser streetNameParser = new ApStreetNameParser(null);
 		splitter = new ApSplitter("Fake");
 		actualStreetName = parser.parse(splitter);
 		assertEquals("Fake", actualStreetName.getName());
@@ -41,6 +40,12 @@ public class ApStreetNameParserTest extends ApStreetNameParser {
 		splitter = new ApSplitter("Fake Fake2");
 		actualStreetName = parser.parse(splitter);
 		assertEquals("Fake Fake2", actualStreetName.getName());
+		
+		
+		splitter = new ApSplitter("Senior 31");
+		actualStreetName = parser.parse(splitter);
+		assertEquals("Senior 31", actualStreetName.getName());
+
 
 	}
 	

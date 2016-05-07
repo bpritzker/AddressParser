@@ -18,10 +18,10 @@ public enum ApDirectionalEnum {
 	SOUTH("SOUTH", "South", ImmutableSet.<String>of("SOUTH", "S")), 
 	EAST("EAST", "East", ImmutableSet.<String>of("EAST", "E")), 
 	WEST("WEST", "West", ImmutableSet.<String>of("WEST", "W")), 
-	NORTHEAST("NORTH EAST", "North East", ImmutableSet.<String>of("NORTH EAST", "NE", "N E")), 
-	NORTHWEST("NORTH WEST", "North West", ImmutableSet.<String>of("NORTH WEST", "NW", "N W")),
-	SOUTHEAST("SOUTH EAST", "South East", ImmutableSet.<String>of("SOUTH EAST", "SE", "S E")), 
-	SOUTHWEST("SOUTH WEST", "South West", ImmutableSet.<String>of("SOUTH WEST", "SW", "S W"));
+	NORTHEAST("NORTH EAST", "Northeast", ImmutableSet.<String>of("NORTH EAST", "NORTHEAST", "NE", "N E")), 
+	NORTHWEST("NORTH WEST", "Northwest", ImmutableSet.<String>of("NORTH WEST", "NORTHWEST", "NW", "N W")),
+	SOUTHEAST("SOUTH EAST", "Southeast", ImmutableSet.<String>of("SOUTH EAST", "SOUTHEAST", "SE", "S E")), 
+	SOUTHWEST("SOUTH WEST", "Southwest", ImmutableSet.<String>of("SOUTH WEST", "SOUTHWEST", "SW", "S W"));
 	
 	
 	private final String value;

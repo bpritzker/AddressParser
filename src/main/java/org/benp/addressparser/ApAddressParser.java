@@ -55,7 +55,6 @@ public class ApAddressParser {
 	 * @param addressString - A string that contains an Address
 	 */
 	public ApAddress parseAddress(final String addressString) throws ApException {
-		logger.trace("parseAddress called with '{}'", addressString);
 		
 		ApAddress resultAddress;
 		

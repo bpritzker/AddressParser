@@ -15,7 +15,7 @@ import java.util.Set;
  * TODO: Convert these to ApStreeSuffixValue and ApStreeSuffixValues (allows for international) 
  * 
  */
-public enum ApStreetSuffixEnum {
+public enum ApStreetPostTypeEnum {
 	
 	ALLEY("ALLEY", "ALY", new HashSet<String>(Arrays.asList("ALY","ALLY","ALLEE","ALLEY"))),
 	ANEX("ANEX", "ANX", new HashSet<String>(Arrays.asList("ANX","ANNEX","ANNX","ANEX"))),
@@ -235,7 +235,7 @@ public enum ApStreetSuffixEnum {
 	private final String standardAbbreviation;
 	private final Set<String> commonAbbreviations;
 	
-	private ApStreetSuffixEnum(String inName, String inStandardAbbreviation, Set<String> inCommonAbbreviations) {
+	private ApStreetPostTypeEnum(String inName, String inStandardAbbreviation, Set<String> inCommonAbbreviations) {
 		this.name = inName;
 		this.standardAbbreviation = inStandardAbbreviation;
 		this.commonAbbreviations = inCommonAbbreviations;
@@ -254,12 +254,12 @@ public enum ApStreetSuffixEnum {
 		return commonAbbreviations;
 	}
 	
-	public static ApStreetSuffixEnum fromCommonAbbreviation(String inCommonAbbreviation) {
+	public static ApStreetPostTypeEnum fromCommonAbbreviation(String inCommonAbbreviation) {
 		if (inCommonAbbreviation == null) {
 			return null;
 		}
 		
-		for (ApStreetSuffixEnum currStreetSuffix : ApStreetSuffixEnum.values()) {
+		for (ApStreetPostTypeEnum currStreetSuffix : ApStreetPostTypeEnum.values()) {
 			if (currStreetSuffix.getCommonAbbreviations().contains(inCommonAbbreviation)) {
 				return currStreetSuffix;
 			}

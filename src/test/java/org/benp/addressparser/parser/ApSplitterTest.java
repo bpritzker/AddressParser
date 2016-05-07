@@ -86,28 +86,40 @@ public class ApSplitterTest extends ApSplitter {
 	@Test
 	public void getRightValue() throws Exception {
 		
-		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
-		ApSplitter splitter = new ApSplitter(stringToSplit);
-		ApSplit actualNextRight = splitter.getNextRightValue();
+		String stringToSplit;
+		ApSplitter splitter;
+		ApSplit actualNextRight;
+		
+		
+		stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
+		splitter = new ApSplitter(stringToSplit);
+		actualNextRight = splitter.getNextRightValue();
 		assertEquals("02111", actualNextRight.getValue());
 		
 		splitter.addUsedSplit(actualNextRight);
 		assertEquals("MA", splitter.getNextRightValue().getValue());
+		
 	}
 
 	@Test
-	public void getRightValueOffset() throws Exception {
+	public void getNextRightValueOffset() throws Exception {
 
 		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		ApSplitter splitter = new ApSplitter(stringToSplit);
-		ApSplit actualSplit = splitter.getNextRightValue(1);
-		assertEquals("MA", actualSplit.getValue());
+		ApSplit actualNextRight = splitter.getNextRightValue(1);
+		assertEquals("MA", actualNextRight.getValue());
 		
-		splitter.addUsedSplitsAllRight(actualSplit);
-//		splits.addUsedSplits(5);
+		splitter.addUsedSplitsAllRight(actualNextRight);
 		assertEquals("Springfield", splitter.getNextRightValue(0).getValue());
 		assertEquals("Terrace", splitter.getNextRightValue(1).getValue());
 		assertEquals("Evergreen", splitter.getNextRightValue(2).getValue());
+		
+		stringToSplit = "742 Evergreen Terrace South";
+		splitter = new ApSplitter(stringToSplit);
+		ApSplit tempSplit = splitter.getSplit(2);
+		splitter.addUsedSplit(tempSplit);
+		actualNextRight = splitter.getNextRightValue(tempSplit.getSplitIndex());
+		assertEquals("Evergreen", actualNextRight.getValue());
 	}
 
 	
@@ -115,9 +127,10 @@ public class ApSplitterTest extends ApSplitter {
 	public void addUsedSplitsAllRight() throws Exception {
 		String stringToSplit = "742 Evergreen Terrace Springfield MA 02111";
 		ApSplitter splitter = new ApSplitter(stringToSplit);
-		ApSplit tempSplit = splitter.getNextRightValue(4);
+		ApSplit tempSplit = splitter.getSplit(4);
 		splitter.addUsedSplitsAllRight(tempSplit);
-		assertEquals(0, splitter.getNextRightValue().getSplitIndex());
+		ApSplit actualNextRight = splitter.getNextRightValue();
+		assertEquals(3, actualNextRight.getSplitIndex());
 	}
 	
 	
@@ -177,30 +190,42 @@ public class ApSplitterTest extends ApSplitter {
 		splitter.addUsedSplit(splitter.getNextLeftValue());
 		actualRemainingSplits = splitter.getRemainingSplits();
 		assertEquals(1, actualRemainingSplits.size());
+
+		// This caused an exception
+		splitter = new ApSplitter("742 Evergreen St");
+		splitter.addUsedSplit(splitter.getNextLeftValue());
+		actualRemainingSplits = splitter.getRemainingSplits();
+		assertEquals(2, actualRemainingSplits.size());
+		
+		
+		// Test used split with two values between them. Caused exception
+		splitter = new ApSplitter("580 Green Dolphin Drive South");
+		ApSplit tempSplit1 = splitter.getSplit(0);
+		splitter.addUsedSplit(tempSplit1);
+		ApSplit tempSplit2 = splitter.getSplit(3);
+		splitter.addUsedSplitsAllRight(tempSplit2);
+		actualRemainingSplits = splitter.getRemainingSplits();
+		assertEquals(2, actualRemainingSplits.size());
 		
 		// Test used split on the left and a number of them on the left
 		splitter = new ApSplitter("742 Evergreen Terrace Springfield MA 02111");
-		ApSplit terraceSplit = splitter.getNextRightValue(3);
-		ApSplit number742Split = splitter.getNextLeftValue();
-		splitter.addUsedSplit(number742Split);
+		ApSplit terraceSplit = splitter.getSplit(2);
 		splitter.addUsedSplitsAllRight(terraceSplit);
+		ApSplit number742Split = splitter.getSplit(0);
+		splitter.addUsedSplit(number742Split);
 		actualRemainingSplits = splitter.getRemainingSplits();
 		assertEquals(1, actualRemainingSplits.size());
 		
 		// Test the exception is thrown when the remaining splits are NOT contagious
 		splitter = new ApSplitter("742 Evergreen Terrace Springfield MA 02111");
-		splitter.addUsedSplit(splitter.getNextLeftValue());
-		splitter.addUsedSplit(splitter.getNextRightValue(2));
+		splitter.addUsedSplit(splitter.getSplit(0));
+		splitter.addUsedSplit(splitter.getSplit(4));
 		try {
 			actualRemainingSplits = splitter.getRemainingSplits();
-			assertEquals(2, actualRemainingSplits.size());
 			fail("Expected Exception");
 		} catch (ApException ae) {
 			// expected to catch exception so do nothing.
 		}
-		
-		
-	
 	}
 	
 }

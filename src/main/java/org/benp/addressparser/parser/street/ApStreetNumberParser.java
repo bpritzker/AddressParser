@@ -77,32 +77,32 @@ public class ApStreetNumberParser extends ApParserBase {
 
 	
 	
-	// !Assume we already stripped off the address suffix
-	// For the address number Suffix......
-	// If we have an address number then look at all the items between the 
-	// address number and the suffix. 
-	// If we have something for the address name then anything that is less than a number of characters (1 or 2)
-	// will be part of the suffix as long as there is at least one thing left over for the address
-	// See the unit tests for examples.
-	private String getAddressNumberSuffix(ApSplitter splitter) throws ApException {
-
-		ApSplit nextLeft = splitter.getNextLeftValue();
-		if (nextLeft != null) {
-			// based on what I have seen there can only be 2 values that would qualify as suffix
-//			ApValueIndex nextLeft = splitter.getNextLeftValue();
-//			ApValueIndex nextLeftOffset = splitter.getNextLeftValue(1);
-			if (nextLeft.getValue().length() < 3) {
-				splitter.addUsedSplit(nextLeft);
-				return nextLeft.getValue();
-			}
-//			System.out.println("FIXME" + nextLeft + nextLeftOffset);
-			
-		}
-		
-		return null;
-		
-	}
-	
+//	// !Assume we already stripped off the address suffix
+//	// For the address number Suffix......
+//	// If we have an address number then look at all the items between the 
+//	// address number and the suffix. 
+//	// If we have something for the address name then anything that is less than a number of characters (1 or 2)
+//	// will be part of the suffix as long as there is at least one thing left over for the address
+//	// See the unit tests for examples.
+//	private String getAddressNumberSuffix(ApSplitter splitter) throws ApException {
+//
+//		ApSplit nextLeft = splitter.getNextLeftValue();
+//		if (nextLeft != null) {
+//			// based on what I have seen there can only be 2 values that would qualify as suffix
+////			ApValueIndex nextLeft = splitter.getNextLeftValue();
+////			ApValueIndex nextLeftOffset = splitter.getNextLeftValue(1);
+//			if (nextLeft.getValue().length() < 3) {
+//				splitter.addUsedSplit(nextLeft);
+//				return nextLeft.getValue();
+//			}
+////			System.out.println("FIXME" + nextLeft + nextLeftOffset);
+//			
+//		}
+//		
+//		return null;
+//		
+//	}
+//	
 	
 
 }

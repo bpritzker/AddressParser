@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.benp.addressparser.component.street.ApStreet;
 import org.benp.addressparser.component.street.ApStreetAddressNumber;
 import org.benp.addressparser.component.street.ApStreetStreetName;
-import org.benp.addressparser.component.street.ApStreetSuffix;
-import org.benp.addressparser.data.ApStreetSuffixEnum;
+import org.benp.addressparser.component.street.StreetNamePostType;
+import org.benp.addressparser.data.ApStreetPostTypeEnum;
 import org.junit.Test;
 
 public class ApStreetTest {
@@ -36,10 +36,10 @@ public class ApStreetTest {
 		streetName.setValid(true);
 		resultStreet.setStreetName(streetName);
 		
-		ApStreetSuffix streetSuffix = new ApStreetSuffix();
-		streetSuffix.setStreetSuffix(ApStreetSuffixEnum.TERRACE);
+		StreetNamePostType streetSuffix = new StreetNamePostType();
+		streetSuffix.setStreetPostType(ApStreetPostTypeEnum.TERRACE);
 		streetSuffix.setValid(true);
-		resultStreet.setStreetSuffix(streetSuffix);
+		resultStreet.setStreetPostType(streetSuffix);
 		
 		return resultStreet;
 	}
@@ -56,10 +56,10 @@ public class ApStreetTest {
 		tempStreetname.setName("Fake");
 		tempStreetname.setValid(true);
 		apStreet.setStreetName(tempStreetname);
-		ApStreetSuffix tempStreetSuffix = new ApStreetSuffix();
-		tempStreetSuffix.setStreetSuffix(ApStreetSuffixEnum.STREET);
+		StreetNamePostType tempStreetSuffix = new StreetNamePostType();
+		tempStreetSuffix.setStreetPostType(ApStreetPostTypeEnum.STREET);
 		tempStreetSuffix.setValid(true);
-		apStreet.setStreetSuffix(tempStreetSuffix);
+		apStreet.setStreetPostType(tempStreetSuffix);
 		
 		String actualNormalizedValue = apStreet.getNormalizedValue();
 		assertEquals("123 Fake Street", actualNormalizedValue);

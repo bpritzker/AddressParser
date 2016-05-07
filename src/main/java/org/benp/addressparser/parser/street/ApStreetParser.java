@@ -2,12 +2,14 @@ package org.benp.addressparser.parser.street;
 
 import org.benp.addressparser.ApAddressParserConfig;
 import org.benp.addressparser.ApException;
+import org.benp.addressparser.component.ApDirectional;
 import org.benp.addressparser.component.street.ApStreet;
 import org.benp.addressparser.component.street.ApStreetAddressNumber;
 import org.benp.addressparser.component.street.ApStreetStreetName;
-import org.benp.addressparser.component.street.ApStreetSuffix;
+import org.benp.addressparser.component.street.StreetNamePostType;
+import org.benp.addressparser.data.ApDirectionalEnum;
 import org.benp.addressparser.data.ApSplit;
-import org.benp.addressparser.data.ApStreetSuffixEnum;
+import org.benp.addressparser.data.ApStreetPostTypeEnum;
 import org.benp.addressparser.parser.ApParserBase;
 import org.benp.addressparser.parser.ApSplitter;
 
@@ -28,22 +30,15 @@ public class ApStreetParser extends ApParserBase {
 		
 		
 		// Order here is important!
-		// First look for a suffix cause they are the most standard. 
+		// First look for a post type cause they are the most standard. 
 		// we know what they look like, well, not always but we can make the best guess on them. 
-		ApStreetSuffix addressSuffix = getSuffix(splitter);
-		resultStreet.setStreetSuffix(addressSuffix);
-		
-//		ApStreetPostOther streetSuffixOther = getApStreetPostOther(splitter, addressSuffix);
-		
-
+		StreetNamePostType addressPostType = getPostType(splitter);
+		resultStreet.setStreetPostType(addressPostType);
 		
 		// Next, get the address number, we know this needs to be number so that is more to 
 		// go on than the "name" that can be anything
 		ApStreetAddressNumber addressNumber = streetNumberParser.parse(splitter);
 		resultStreet.setAddressNumber(addressNumber);
-//		ApStreetAddressNumber addressNumber = getAddressNumber(splitter);
-//		resultStreet.setAddressNumber(addressNumber);
-		
 		
 		ApStreetStreetName streetName = streetNameParser.parse(splitter);
 		resultStreet.setStreetName(streetName);
@@ -58,144 +53,41 @@ public class ApStreetParser extends ApParserBase {
 		return resultStreet;
 	}
 
-	
-	/**
-	 * Gets everything after the address suffix
-	 */
-//	private ApStreetPostOther getApStreetPostOther(ApSplitter splitter, ApStreetSuffix addressSuffix) {
-//		List<ApSplit> postOther splits = splitter.getri(addressSuffix.getRightMostSplit());
-//		
-//	}
 
-//	private ApStreetStreetName getStreetName(ApSplitter splitter) throws ApException {
-//		
-//		ApStreetStreetName resultStreetName = new ApStreetStreetName();
-//		resultStreetName = buildStreetName(splitter);
-//		return resultStreetName;
-//		
-//	}
-//
-//	private ApStreetStreetName buildStreetName(ApSplitter splitter) throws ApException {
-//		
-//		ApStreetStreetName resultStreetName = new ApStreetStreetName();
-//		List<ApSplit> remaingingSplits = splitter.getRemainingSplits();
-//		
-//		StringBuilder streetNameBuilder = new StringBuilder();
-//		
-//		// Now for the tricky part... 
-//		// Handle the case where the we have more than one part 
-//		// and check if the first part is a street pre-directional 
-//		// If the size is 1 then it's the street
-//		boolean firstSplitUsed = false;
-//		if (remaingingSplits.size() > 1) {
-//			String firstValue = remaingingSplits.get(0).getValue();
-//			ApDirectionalEnum tempDirectionalEnum = ApDirectionalEnum.fromMapping(firstValue);
-//			if (tempDirectionalEnum != null) {
-//				firstSplitUsed = true;
-//				ApDirectional tempDirectional = new ApDirectional();
-//				tempDirectional.setDirectional(tempDirectionalEnum);
-//				tempDirectional.addSplitterIndex(remaingingSplits.get(0));
-//				tempDirectional.setValid(true);
-//				resultStreetName.setPreDirectional(tempDirectional);
-//			}
-//			
-//		} 
-//		
-//		for (int i =0; i < remaingingSplits.size(); i++) {
-//			if (i != 0 || ! firstSplitUsed) {
-//				streetNameBuilder.append(remaingingSplits.get(i).getValue());
-//			}
-//		}
-//		String streetName =  streetNameBuilder.toString();
-//		
-//		
-//		if (StringUtils.isNotBlank(streetName)) {
-//			resultStreetName.setName(streetName);
-//			resultStreetName.setSplitterIndecies(remaingingSplits);
-//			resultStreetName.setValid(true);
-//			splitter.addUsedSplits(remaingingSplits);
-//		}
-////		
-////		List<ApSplit> streetNameValues = splitter.getValues(streetNameLeftSplit);
-////		
-////		// TODO: If there is only one value then it's not a predirecional, it's the street name
-////		ApDirectional preDirectional = getDirectional(streetNameValues, splitter);
-////		resultStreetName.setPreDirectional(preDirectional); // We can set a non-null as long as we check validaity
-////
-////		List<ApSplit> streetNameValuesAfterPreDirectional = new ArrayList<>();
-////		for (ApSplit currValueIndex : streetNameValues) {
-////			if (! preDirectional.getSplitterIndecies().contains(currValueIndex.getIndex())) {
-////				streetNameValuesAfterPreDirectional.add(currValueIndex);
-////			}
-////		}
-////		
-////		String streetName = ApSplit.joinValues(streetNameValuesAfterPreDirectional);
-////		if (StringUtils.isNoneBlank(streetName)) {
-////			splitter.addUsedSplits(streetNameValuesAfterPreDirectional);
-//////			resultStreetName.addIndicies(ApSplit.getIndices(streetNameValuesAfterPreDirectional));
-////			resultStreetName.addSplitterIndecies(streetNameValuesAfterPreDirectional);
-////			resultStreetName.setName(streetName);
-////			resultStreetName.setValid(true);
-////		}
-////		
-//		return resultStreetName;
-//	}
+	protected StreetNamePostType getPostType(ApSplitter splitter) throws ApException {
 
-//	private ApDirectional getDirectional(
-//			List<ApSplit> streetNameValues,
-//			ApSplitter splitter) throws ApException {
-//
-//		ApDirectional resultDirectional = new ApDirectional();
-//
-//		ApDirectionalEnum tempDirectionalEnum = null;
-//		
-//		// First we want to try 2 values
-//		if (streetNameValues.size() >= 2) {
-//			String tempPredirectionalString = 
-//					streetNameValues.get(0).getValue() + " " + streetNameValues.get(1).getValue();
-//			tempDirectionalEnum = ApDirectionalEnum.fromMapping(tempPredirectionalString.toUpperCase());
-//			if (tempDirectionalEnum != null) {
-//				resultDirectional.setDirectional(tempDirectionalEnum);
-//				resultDirectional.addIndicies(streetNameValues.get(0).getIndex(),streetNameValues.get(1).getIndex());
-//				splitter.addUsedSplits(streetNameValues.get(0).getIndex(), streetNameValues.get(1).getIndex());
-//				resultDirectional.setValid(true);
-//			}
-//		} 
-//		
-//		if (tempDirectionalEnum == null && streetNameValues.size() >= 1) { // If we didn't have a 2 part, then try just 1 part
-//			String tempPredirectionalString = streetNameValues.get(0).getValue();
-//			tempDirectionalEnum = ApDirectionalEnum.fromMapping(tempPredirectionalString.toUpperCase());
-//			if (tempDirectionalEnum != null) {
-//				resultDirectional.setDirectional(tempDirectionalEnum);
-//				resultDirectional.addIndicies(streetNameValues.get(0).getIndex());
-//				splitter.addUsedSplits(streetNameValues.get(0).getIndex());
-//				resultDirectional.setValid(true);
-//			}
-//		}
-//		return resultDirectional;
-//		
-//	}
-
-	private ApStreetSuffix getSuffix(ApSplitter splitter) throws ApException {
-
-		ApStreetSuffix resultStreetSuffix = new ApStreetSuffix();
+		StreetNamePostType resultStreetNamePostType = new StreetNamePostType();
 		int rightValueOffset = 0;
 		ApSplit rightValue = splitter.getNextRightValue();
 		while (rightValue != null) {
-			String tempSuffixValue = rightValue.getValue().toUpperCase();
-			ApStreetSuffixEnum tempStreetSuffix = ApStreetSuffixEnum.fromCommonAbbreviation(tempSuffixValue);
+			String tempStreetSteetNamePostTypeValue = rightValue.getValue().toUpperCase();
+			ApStreetPostTypeEnum tempStreetNamePostType = ApStreetPostTypeEnum.fromCommonAbbreviation(tempStreetSteetNamePostTypeValue);
 			
-			if (tempStreetSuffix != null) {
+			if (tempStreetNamePostType != null) {
 				splitter.addUsedSplit(rightValue);
-				resultStreetSuffix.addSplitterIndecies(rightValue);
-				resultStreetSuffix.setStreetSuffix(tempStreetSuffix);
-				resultStreetSuffix.setValid(true);
+				resultStreetNamePostType.addSplitterIndecies(rightValue);
+				resultStreetNamePostType.setStreetPostType(tempStreetNamePostType);
+				resultStreetNamePostType.setValid(true);
+				
+				// Now look for a street name post type directional
+				ApSplit postDirectionalSplit = splitter.getNextRightValue();
+				String postDirectionalValue = postDirectionalSplit.getValue();
+				ApDirectionalEnum tempDirectionalEnum = ApDirectionalEnum.fromMapping(postDirectionalValue);
+				if (tempDirectionalEnum != null) {
+					ApDirectional tempDirectional = new ApDirectional();
+					tempDirectional.setDirectional(tempDirectionalEnum);
+					tempDirectional.addSplitterIndecies(postDirectionalSplit);
+					tempDirectional.setValid(true);
+					resultStreetNamePostType.setStreetNamePostTypeDirectional(tempDirectional);
+					splitter.addUsedSplit(postDirectionalSplit);
+				}
+				
 				break;
 			}
 			rightValueOffset++;
 			rightValue = splitter.getNextRightValue(rightValueOffset);
 		}
-		return resultStreetSuffix;
+		return resultStreetNamePostType;
 	}
 
 	
