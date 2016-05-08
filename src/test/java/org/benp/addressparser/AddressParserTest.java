@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.benp.addressparser.component.ApAddress;
-import org.benp.addressparser.data.ApStreetPostTypeEnum;
-import org.benp.addressparser.parser.ApCityParser;
-import org.benp.addressparser.parser.ApCityParserTest;
+import org.benp.addressparser.component.Address;
+import org.benp.addressparser.data.StreetPostTypeEnum;
+import org.benp.addressparser.parser.CityParser;
+import org.benp.addressparser.parser.CityParserTest;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AddressParserTest extends ApAddressParser {
+public class AddressParserTest extends AddressParser {
 
 	AddressParserTest addressParser;
 
@@ -26,14 +26,14 @@ public class AddressParserTest extends ApAddressParser {
 	@Test
 	public void parseAddressSimple() throws Exception {
 		
-		ApAddress actualAddress;
+		Address actualAddress;
 		
-//		// Check to make sure we don't cause any null pointer exceptions
-//		actualAddress = addressParser.parseAddress(null);
-//		assertFalse(actualAddress.isValid());
-//		// Check to make sure we don't cause any null pointer exceptions, and it's not valid
-//		actualAddress = addressParser.parseAddress("Invalid Address");
-//		assertFalse(actualAddress.isValid());
+		// Check to make sure we don't cause any null pointer exceptions
+		actualAddress = addressParser.parseAddress(null);
+		assertFalse(actualAddress.isValid());
+		// Check to make sure we don't cause any null pointer exceptions, and it's not valid
+		actualAddress = addressParser.parseAddress("Invalid Address");
+		assertFalse(actualAddress.isValid());
 		
 		actualAddress = addressParser.parseAddress("742 Evergreen Terrace. Springfield MA 02111");
 		assert742EvergreenTerrace(actualAddress);
@@ -44,41 +44,41 @@ public class AddressParserTest extends ApAddressParser {
 	@Test
 	public void parseAddressFails() throws Exception {
 		
-		ApAddress actualAddress;
+		Address actualAddress;
 		String address;
 		
 		
+////		
+////		// The street number has a letter in it
+////		address = "3161D Britannia Blvd. Kissimmee FL 34747";
+////		actualAddress = addressParser.parseAddress(address);
+////		assertEquals("34747", actualAddress.getZipCode().getZipCode());
+////		// TODO: test for 3161D.. Should be split
+////		assertTrue(actualAddress.isValid());
+//
 //		
-//		// The street number has a letter in it
-//		address = "3161D Britannia Blvd. Kissimmee FL 34747";
+//		
+//		
+//		// Bad data after the Zip 
+//		address = "2461 Eisenhower Avenue Alexandria VA 02123 BADDATA";
 //		actualAddress = addressParser.parseAddress(address);
-//		assertEquals("34747", actualAddress.getZipCode().getZipCode());
-//		// FIXME: test for 3161D.. Should be split
+//		assertEquals("02123", actualAddress.getZipCode().getZipCode());
 //		assertTrue(actualAddress.isValid());
-
-		
-		
-		
-		// Bad data after the Zip 
-		address = "2461 Eisenhower Avenue Alexandria VA 02123 BADDATA";
-		actualAddress = addressParser.parseAddress(address);
-		assertEquals("02123", actualAddress.getZipCode().getZipCode());
-		assertTrue(actualAddress.isValid());
-
-		
-		// Bad data after the state
-		address = "2461 Eisenhower Avenue Alexandria VA BADDATA";
-		actualAddress = addressParser.parseAddress(address);
-		assertTrue(actualAddress.isValid());
-
-		address = "1244 null St Washington DC 20018";
-		actualAddress = addressParser.parseAddress(address);
-		assertTrue(actualAddress.isValid());
-
-//		address = "1014 St # Washington DC 20018";
+//
+//		
+//		// Bad data after the state
+//		address = "2461 Eisenhower Avenue Alexandria VA BADDATA";
 //		actualAddress = addressParser.parseAddress(address);
 //		assertTrue(actualAddress.isValid());
-//		assertFalse(actualAddress.isComplete());
+//
+//		address = "1244 null St Washington DC 20018";
+//		actualAddress = addressParser.parseAddress(address);
+//		assertTrue(actualAddress.isValid());
+//
+////		address = "1014 St # Washington DC 20018";
+////		actualAddress = addressParser.parseAddress(address);
+////		assertTrue(actualAddress.isValid());
+////		assertFalse(actualAddress.isComplete());
 		
 		
 		address = "2100 Clarendon Arlington VA 22201";
@@ -113,11 +113,11 @@ public class AddressParserTest extends ApAddressParser {
 	@Test
 	public void parseAddressComplex() throws Exception {
 		
-		ApAddress actualAddress;
+		Address actualAddress;
 		
 		// Added "Apt 3"
-//		actualAddress = addressParser.parseAddress("742 Evergreen Terrace. Apt 3 Springfield MA 02111");
-//		assert742EvergreenTerrace(actualAddress);
+		actualAddress = addressParser.parseAddress("742 Evergreen Terrace. Apt 3 Springfield MA 02111");
+		assert742EvergreenTerrace(actualAddress);
 
 		// TODO: These should work eventually
 //		// Added prefixDirection to street
@@ -141,12 +141,11 @@ public class AddressParserTest extends ApAddressParser {
 		assertEquals(1120, actualAddress.getStreet().getAddressNumber().getAddressNumber());
 		assertEquals("20th", actualAddress.getStreet().getStreetName().getName());
 
-		// TODO: These should work eventually
-//		actualAddress = addressParser.parseAddress("1301 K Street  Washington DC 20005");
-//		assertEquals("K", actualAddress.getStreet().getStreetName().getName());
-//		
-//		actualAddress = addressParser.parseAddress("3514 CJ Barney Dr  Washington DC 20018");
-//		assertEquals("CJ Barney", actualAddress.getStreet().getStreetName().getName());
+		actualAddress = addressParser.parseAddress("1301 K Street  Washington DC 20005");
+		assertEquals("K", actualAddress.getStreet().getStreetName().getName());
+		
+		actualAddress = addressParser.parseAddress("3514 CJ Barney Dr  Washington DC 20018");
+		assertEquals("CJ Barney", actualAddress.getStreet().getStreetName().getName());
 		
 		actualAddress = addressParser.parseAddress("1800 Massachesetts Avenue  Washington DC");
 		assertFalse(actualAddress.isComplete());
@@ -157,8 +156,8 @@ public class AddressParserTest extends ApAddressParser {
 	}
 	
 	@Override
-	protected ApCityParser getAddressParser(ApAddressParserConfig config) {
-		ApCityParser resultCityParser = new ApCityParserTest();
+	protected CityParser getAddressParser(AddressParserConfig config) {
+		CityParser resultCityParser = new CityParserTest();
 		return resultCityParser;
 	}
 	
@@ -171,14 +170,14 @@ public class AddressParserTest extends ApAddressParser {
 	 * This method allows us to check all these since they should always be set.
 	 * 
 	 */
-	private void assert742EvergreenTerrace(ApAddress actualAddress) {
+	private void assert742EvergreenTerrace(Address actualAddress) {
 		assertTrue(actualAddress.isValid());
 		assertEquals("02111", actualAddress.getZipCode().getZipCode());
 		assertEquals("MA", actualAddress.getState().getStateDefinition().getCode());
 		assertEquals("SPRINGFIELD", actualAddress.getCity().getCityValue().getName());
 		assertEquals(742, actualAddress.getStreet().getAddressNumber().getAddressNumber());
 		assertEquals("Evergreen", actualAddress.getStreet().getStreetName().getName());
-		assertEquals(ApStreetPostTypeEnum.TERRACE, actualAddress.getStreet().getStreetPostType().getStreetPostType());
+		assertEquals(StreetPostTypeEnum.TERRACE, actualAddress.getStreet().getStreetPostType().getStreetPostType());
 	}
 	
 	

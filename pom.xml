@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.benp</groupId>
 	<artifactId>addressparser</artifactId>
-	<version>0.7.10</version>
+	<version>0.8.1</version>
 
 	<dependencies>
 		<dependency>
@@ -24,12 +24,12 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>19.0</version>
-		</dependency>			
+		</dependency>
 
 		<!-- Dependencies used just for testing. -->
 		<dependency>
@@ -38,21 +38,21 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- Super CSV This is used for some of the data parsing. 
-		We don't need to bloat the main jar -->
-		<dependency> 
+
+		<!-- Super CSV This is used for some of the data parsing. We don't need 
+			to bloat the main jar -->
+		<dependency>
 			<groupId>net.sf.supercsv</groupId>
 			<artifactId>super-csv</artifactId>
 			<scope>test</scope>
 			<version>2.4.0</version>
 		</dependency>
-		<!--  commons-io is used for the testing utils that build csv files -->
+		<!-- commons-io is used for the testing utils that build csv files -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
-		</dependency>	
+		</dependency>
 	</dependencies>
 
 
@@ -68,23 +68,20 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-     <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>			
-			
-			
-			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

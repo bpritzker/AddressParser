@@ -1,9 +1,13 @@
 package org.benp.addressparser.component.street;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.text.WordUtils;
-import org.benp.addressparser.component.ApComponentBase;
-import org.benp.addressparser.component.ApDirectional;
-import org.benp.addressparser.data.ApStreetPostTypeEnum;
+import org.benp.addressparser.component.ComponentBase;
+import org.benp.addressparser.component.Directional;
+import org.benp.addressparser.data.Split;
+import org.benp.addressparser.data.StreetPostTypeEnum;
 
 
 /**
@@ -13,27 +17,38 @@ import org.benp.addressparser.data.ApStreetPostTypeEnum;
  * @author Ben
  *
  */
-public class StreetNamePostType extends ApComponentBase {
+public class StreetNamePostType extends ComponentBase {
 
-	private ApStreetPostTypeEnum streetPostType;
-	private ApDirectional streetNamePostTypeDirectional;
+	private StreetPostTypeEnum streetPostType;
+	private Directional streetNamePostTypeDirectional;
 
-	public ApDirectional getStreetNamePostTypeDirectional() {
+	public Directional getStreetNamePostTypeDirectional() {
 		return streetNamePostTypeDirectional;
 	}
 
-	public void setStreetNamePostTypeDirectional(ApDirectional streetNamePostTypeDirectional) {
+	public void setStreetNamePostTypeDirectional(Directional streetNamePostTypeDirectional) {
 		this.streetNamePostTypeDirectional = streetNamePostTypeDirectional;
 	}
 
-	public ApStreetPostTypeEnum getStreetPostType() {
+	public StreetPostTypeEnum getStreetPostType() {
 		return streetPostType;
 	}
 
-	public void setStreetPostType(ApStreetPostTypeEnum streetPostType) {
+	public void setStreetPostType(StreetPostTypeEnum streetPostType) {
 		this.streetPostType = streetPostType;
 	}
 
+	
+	// FIXME: Should do this better. In the Base, remove the getValues and make it abstract
+	@Override
+	public List<Split> getSplitterIndecies() {
+		List<Split> resultSplits = new ArrayList<>(super.getSplitterIndecies());
+		if (streetNamePostTypeDirectional != null) {
+			resultSplits.addAll(streetNamePostTypeDirectional.getSplitterIndecies());
+		}
+		return resultSplits;
+	}
+	
 	@Override
 	// Test the null case
 	public String getValue() {
@@ -41,7 +56,7 @@ public class StreetNamePostType extends ApComponentBase {
 		if (streetPostType == null) {
 			return null;
 		}
-		resultSb.append(streetPostType.getName());
+		resultSb.append(streetPostType.getStandardAbbreviation());
 		if (streetNamePostTypeDirectional != null) {
 			resultSb.append(" ").append(streetNamePostTypeDirectional.getValue());
 		}

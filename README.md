@@ -22,7 +22,7 @@ either for speed or simplicity
 
 
 ## References:
-Address Components Defintion:
+Address Components Definition:
 https://www.fgdc.gov/standards/projects/FGDC-standards-projects/street-address/05-11.2ndDraft.CompleteDoc.pdf
 
 You can get the list of all zip codes from: http://federalgovernmentzipcodes.us/
@@ -36,7 +36,8 @@ http://www.opengeocode.org/download.php  -- Use the "US State/Cities Dataset" da
 For GeoCoding... add this much later...
 http://results.openaddresses.io/
 
-
+TODO: The default get value should be:
+https://en.wikipedia.org/wiki/Coding_Accuracy_Support_System
 
 
 ## Release Notes
