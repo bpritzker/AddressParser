@@ -13,21 +13,30 @@ import org.benp.addressparser.component.street.StreetNameStreet;
 import org.benp.addressparser.data.DirectionalEnum;
 import org.benp.addressparser.data.Split;
 import org.benp.addressparser.data.StreetPostTypeEnum;
-import org.benp.addressparser.parser.ParserBase;
+import org.benp.addressparser.data.mapping.Mapper;
 import org.benp.addressparser.parser.ApSplitter;
+import org.benp.addressparser.parser.ParserBase;
 
 public class StreetParser extends ParserBase {
 	
 	private StreetNameNumberParser streetNumberParser;
 	private StreetNameStreetParser streetNameParser;
+	private Mapper mapper;
 	
 	
-	public StreetParser(AddressParserConfig config) {
-		super(config);
-		streetNumberParser = new StreetNameNumberParser(config);
-		streetNameParser = new StreetNameStreetParser(config);
+	public StreetParser(Mapper inMapper, AddressParserConfig inConfig) throws ApException {
+		super(inConfig);
+		if (inMapper != null) {
+			mapper = inMapper;
+		} else {
+			// If the mapper passed in is null then init a new one
+			mapper = new Mapper(inConfig);
+		}
+		streetNumberParser = new StreetNameNumberParser(inConfig);
+		streetNameParser = new StreetNameStreetParser(mapper, inConfig);
 	}
 	
+
 	public Street parse(ApSplitter splitter) throws ApException {
 		Street resultStreet = new Street();
 		
@@ -128,16 +137,5 @@ public class StreetParser extends ParserBase {
 	}
 
 	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-
 
 }

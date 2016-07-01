@@ -39,6 +39,11 @@ http://results.openaddresses.io/
 TODO: The default get value should be:
 https://en.wikipedia.org/wiki/Coding_Accuracy_Support_System
 
+Word Abbrivations:
+http://pe.usps.gov/text/pub28/28apg.htm
+
+NOT USED YET http://www.semaphorecorp.com/cgi/abbrev.html
+
 
 ## Release Notes
 

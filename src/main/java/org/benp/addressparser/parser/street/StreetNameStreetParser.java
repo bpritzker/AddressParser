@@ -1,5 +1,6 @@
 package org.benp.addressparser.parser.street;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -9,13 +10,18 @@ import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.component.street.StreetNameStreet;
 import org.benp.addressparser.data.DirectionalEnum;
 import org.benp.addressparser.data.Split;
-import org.benp.addressparser.parser.ParserBase;
+import org.benp.addressparser.data.mapping.Mapper;
 import org.benp.addressparser.parser.ApSplitter;
+import org.benp.addressparser.parser.ParserBase;
+
+import com.google.common.base.Splitter;
 
 public class StreetNameStreetParser extends ParserBase {
+	private Mapper mapper;
 
-	public StreetNameStreetParser(AddressParserConfig config) {
-		super(config);
+	public StreetNameStreetParser(Mapper inMapper, AddressParserConfig inConfig) {
+		super(inConfig);
+		mapper = inMapper;
 	}
 
 	public StreetNameStreet parse(ApSplitter splitter) throws ApException {
@@ -54,12 +60,89 @@ public class StreetNameStreetParser extends ParserBase {
 		
 		
 		if (StringUtils.isNotBlank(streetName)) {
-			resultStreetName.setName(streetName);
+			// we now have a full street name
+			// Look for business abbreviations we can normalize
+			List<String> streetNameSplits = Splitter.on(" ").trimResults().splitToList(streetName);
+			String tempStreetName = buildStreetName(streetNameSplits);
+			
+			resultStreetName.setName(tempStreetName);
 			resultStreetName.setSplitterIndecies(remaingingSplits);
 			resultStreetName.setValid(true);
 			splitter.addUsedSplits(remaingingSplits);
 		}
 		return resultStreetName;
+	}
+
+	/**
+	 * There are a lot of special rules associated with street name so break into it's own method.
+	 * @throws ApException 
+	 */
+	protected String buildStreetName(List<String> streetNameSplits) throws ApException {
+		List<Integer> potentialAbbrivs = getPotentialAbbrivations(streetNameSplits);
+		StringBuilder resultStreetName = new StringBuilder();
+		String concatString = "";
+
+		if (
+				potentialAbbrivs.size() > 0 
+				&& (
+				streetNameSplits.size() == 2 
+				&& potentialAbbrivs.size() != 1)) {
+			for (int i=0; i< streetNameSplits.size(); i++) {
+				String tempConcatVal = streetNameSplits.get(i);
+				if (i == potentialAbbrivs.get(0)) {
+					resultStreetName.append(concatString).append(getBusinessValue(tempConcatVal));
+					
+				} else {
+					resultStreetName.append(concatString).append(tempConcatVal);
+				}
+				concatString = " ";
+			}
+		} else { // if there are more than 2 abbreviations, just look at the first one
+			for (String currStreetNameSplit : streetNameSplits) {
+				resultStreetName.append(concatString).append(currStreetNameSplit);
+				concatString = " ";
+			}
+			
+			
+
+		}
+
+		return resultStreetName.toString();
+	}
+
+	private List<Integer> getPotentialAbbrivations(List<String> streetNameSplits) throws ApException {
+
+		List<Integer> resultPotentialAbbrivs = new ArrayList<>();
+		for (int i=0; i < streetNameSplits.size(); i++) {
+			String tempPotentialAbbriv = streetNameSplits.get(i).toUpperCase();
+			if (mapper.getBusinessWord().fromValue(tempPotentialAbbriv) != null)  {
+				resultPotentialAbbrivs.add(i);
+			}
+		}
+		
+		return resultPotentialAbbrivs;
+	}
+
+	/**
+	 * This method is just used to normalize the address. 
+	 * Eventually we might make the results configurable
+	 */
+	private String getBusinessValue(String inBusinessValue) {
+		String resultvalue = inBusinessValue;
+//		if (businessAbbreviationValues != null) {
+//			AbbreviationValue  tempAbbrivValue = businessAbbreviationValues.fromName(inBusinessValue.toUpperCase());
+//			if (tempAbbrivValue != null) {
+//				// If there are more than one abbreviation???? for now just skip it.
+//				if (tempAbbrivValue.getAbbreviations().size() == 1) {
+//				// If we have just one abbreviation then get the first element. This is a hack
+//				String businessAbbriv = new ArrayList<>(tempAbbrivValue.getAbbreviations()).get(0);
+//				if (businessAbbriv != null) {
+//					resultvalue = WordUtils.capitalizeFully(businessAbbriv);
+//				}
+//				}
+//			}
+//		}
+		return resultvalue;
 	}
 
 }

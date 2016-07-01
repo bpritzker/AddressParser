@@ -5,10 +5,11 @@ import org.benp.addressparser.component.City;
 import org.benp.addressparser.component.State;
 import org.benp.addressparser.component.ZipCode;
 import org.benp.addressparser.component.street.Street;
+import org.benp.addressparser.data.mapping.Mapper;
 import org.benp.addressparser.parser.ApSplitter;
+import org.benp.addressparser.parser.CityParser;
 import org.benp.addressparser.parser.StateParser;
 import org.benp.addressparser.parser.ZipCodeParser;
-import org.benp.addressparser.parser.CityParser;
 import org.benp.addressparser.parser.street.StreetParser;
 
 public class AddressParser {
@@ -19,6 +20,7 @@ public class AddressParser {
 	private CityParser cityParser;
 	private StateParser stateParser;
 	private ZipCodeParser zipCodeParser;
+	private Mapper mapper;
 //	private final ApAddressParserConfig addressParserConfig; // Will comment back in when I start using it. 
 	
 	
@@ -28,7 +30,7 @@ public class AddressParser {
 	 * Assumes some defaults that can all be changed.
 	 * @throws ApException 
 	 */
-	public AddressParser() {
+	public AddressParser() throws ApException {
 		// Use all the defaults
 		this(new AddressParserConfig());
 	}
@@ -38,12 +40,13 @@ public class AddressParser {
 	 * Use this constructor if you don't want to use the defaults
 	 * @throws ApException 
 	 */
-	public AddressParser(final AddressParserConfig addressParserConfig) {
+	public AddressParser(final AddressParserConfig inAddressParserConfig) throws ApException {
 //		this.addressParserConfig = addressParserConfig;
-		streetParser = new StreetParser(addressParserConfig);
-		cityParser = getAddressParser(addressParserConfig);
-		stateParser = new StateParser(addressParserConfig);
-		zipCodeParser = new ZipCodeParser(addressParserConfig);
+		streetParser = new StreetParser(mapper, inAddressParserConfig);
+		cityParser = getAddressParser(inAddressParserConfig);
+		stateParser = new StateParser(inAddressParserConfig);
+		zipCodeParser = new ZipCodeParser(inAddressParserConfig);
+		mapper = new Mapper(inAddressParserConfig);
 	}
 
 

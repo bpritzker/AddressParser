@@ -13,12 +13,20 @@ import org.junit.Test;
 
 public class AddressParserTest extends AddressParser {
 
+	public AddressParserTest() throws ApException {
+		super();
+	}
+
 	AddressParserTest addressParser;
 
 	
 	@Before
 	public void before() {
-		addressParser = new AddressParserTest();
+		try {
+			addressParser = new AddressParserTest();
+		} catch (ApException e) {
+			e.printStackTrace();
+		}
 	}
 
 

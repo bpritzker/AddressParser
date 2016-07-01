@@ -1,5 +1,6 @@
 package org.benp.addressparser.component.street;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.benp.addressparser.component.ComponentBase;
 import org.benp.addressparser.component.Directional;
 
@@ -76,9 +77,8 @@ public class StreetNameStreet extends ComponentBase {
 		}
 		
 		if (name != null) {
-			resultSb.append(appendSplitter).append(name);
+			resultSb.append(appendSplitter).append(WordUtils.capitalizeFully(name));
 		}
-		
 		return resultSb.toString();
 	}
 	

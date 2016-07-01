@@ -12,7 +12,7 @@ public class StreetStreetNameTest extends StreetNameStreetParser {
 //	private ApStreetNameParser parser;
 	
 	public StreetStreetNameTest() {
-		super(null);
+		super(null, null);
 	}
 
 
@@ -68,6 +68,12 @@ public class StreetStreetNameTest extends StreetNameStreetParser {
 		actualNormalizedValue = tempApStreetName.getNormalizedValue();
 		assertEquals("Fake Fake2", actualNormalizedValue);
 		
+		// Check for proper case
+		tempApStreetName = new StreetNameStreet();
+		tempApStreetName.setName("EVERGREEN");
+		tempApStreetName.setValid(true);
+		actualNormalizedValue = tempApStreetName.getNormalizedValue();
+		assertEquals("Evergreen", actualNormalizedValue);
 		
 	}
 

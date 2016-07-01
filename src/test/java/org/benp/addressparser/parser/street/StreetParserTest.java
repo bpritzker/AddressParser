@@ -3,6 +3,7 @@ package org.benp.addressparser.parser.street;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.street.Street;
 import org.benp.addressparser.component.street.StreetNamePostType;
 import org.benp.addressparser.data.StreetPostTypeEnum;
@@ -12,8 +13,8 @@ import org.junit.Test;
 
 public class StreetParserTest extends StreetParser {
 	
-	public StreetParserTest() {
-		super(null);
+	public StreetParserTest() throws ApException {
+		super(null, null);
 	}
 
 	
@@ -89,7 +90,7 @@ public class StreetParserTest extends StreetParser {
 	}
 	
 	
-	
+
 	
 	
 	
@@ -112,11 +113,11 @@ public class StreetParserTest extends StreetParser {
 //		assertEquals(ApDirectionalEnum.SOUTH, actualStreet.getStreetName().getPreDirectional().getDirectional());
 //		assertEquals("SOUTH Princeton CIRCLE", actualStreet.getValue());
 //		
-//		
-//		splitter = new ApSplitter("3521 West Highway");
-//		actualStreet = parser.parse(splitter);
-//		assertEquals("West", actualStreet.getStreetName().getName());
-//		assertTrue(actualStreet.isValid());
+		
+		splitter = new ApSplitter("3521 West Highway");
+		actualStreet = parse(splitter);
+		assertEquals("West", actualStreet.getStreetName().getName());
+		assertTrue(actualStreet.isValid());
 		
 		// caused split non continuous error
 		splitter = new ApSplitter("14750 Senior 31");
@@ -124,24 +125,24 @@ public class StreetParserTest extends StreetParser {
 		assertEquals("Senior 31", actualStreet.getStreetName().getName());
 		assertTrue(actualStreet.isValid());
 		
-//		// This was causing null pointer exception
-//		splitter = new ApSplitter("N6W2 3001 Bluemound Road");
-//		actualStreet = parser.parse(splitter);
-//		assertTrue(actualStreet.isValid());
-//		
-//		
+		// This was causing null pointer exception
+		splitter = new ApSplitter("N6W2 3001 Bluemound Road");
+		actualStreet = parse(splitter);
+		assertTrue(actualStreet.isValid());
+		
+		
 		// This was causing null pointer exception
 		splitter = new ApSplitter("1643015 Dent Place");
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
-//		
-//		splitter = new ApSplitter("1643015 Dent NOTFOUND");
-//		actualStreet = parser.parse(splitter);
-//		assertTrue(actualStreet.isValid());
+		
+		splitter = new ApSplitter("1643015 Dent NOTFOUND");
+		actualStreet = parse(splitter);
+		assertTrue(actualStreet.isValid());
 		
 		
 //		splitter = new ApSplitter("742 Evergreen Terrace S");
-//		actualStreet = parser.parse(splitter);
+//		actualStreet = parse(splitter);
 //		assertTrue(actualStreet.isValid());
 //		assertEquals("E", actualStreet.getPostDirection().getValue());
 	}
