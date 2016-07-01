@@ -6,41 +6,23 @@ import java.util.List;
 import org.benp.addressparser.AddressParserConfig;
 import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.City;
-import org.benp.addressparser.data.CityValue;
-import org.benp.addressparser.data.CityValues;
 import org.benp.addressparser.data.Split;
+import org.benp.addressparser.data.mapping.Mapper;
+import org.benp.addressparser.data.mapping.MappingValue;
 
 import com.google.common.collect.Lists;
 
 public class CityParser extends ParserBase {
 	
-	private CityValues cityValues;
-	
-	
-	/**
-	 * 
-	 * @param stateAbbreviations - see the class description, if null it will use a default mapping.
-	 * @throws ApException 
-	 */
-	public CityParser(AddressParserConfig config) {
-		super(config);
-	}
-	
+	private Mapper mapper;
 	
 
-
-
-	protected CityValues getCityValues() throws ApException {
-		if (cityValues == null) {
-			CityValues tempCityValues = new CityValues();
-			tempCityValues.init();
-			cityValues = tempCityValues;
+	public CityParser(Mapper inMapper, AddressParserConfig inConfig) {
+		super(inConfig);
+		if (mapper == null) {
+			mapper = new Mapper(inConfig);
 		}
-		return cityValues;
 	}
-
-
-
 
 
 	public City parse(ApSplitter splitter) throws ApException {
@@ -82,10 +64,11 @@ public class CityParser extends ParserBase {
 			
 			// When debugging city, put breakpoint on line below.
 			City resultCity = null;
-			CityValue tempCityValue = getCityValues().fromName(cityNameToFind);
-			if (tempCityValue != null) {
+			MappingValue tempCityStates = mapper.getCity().getMappings().get(cityNameToFind);
+			if (tempCityStates != null) {
 				resultCity = new City();
-				resultCity.setCityValue(tempCityValue);
+				resultCity.setCityName(cityNameToFind);
+				resultCity.setStateValues(tempCityStates);
 				resultCity.addSplitterIndecies(tryValues.get(i));
 				resultCity.setValid(true);
 				splitter.addUsedSplits(tryValues.get(i));

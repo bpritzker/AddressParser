@@ -41,8 +41,8 @@ public class ApSplitter {
 	}
 
 
-	public ApSplitter(String stringToSplit) {
-		this.stringToSplit = stringToSplit;
+	public ApSplitter(String inStringToSplit) {
+		stringToSplit = inStringToSplit;
 		split();
 	}
 	
@@ -57,22 +57,21 @@ public class ApSplitter {
 	}
 
 
-	protected Map<Integer, Split> getSplitValues(String stringToSplit) {
+	protected Map<Integer, Split> getSplitValues(String inStringToSplit) {
 		
 		Map<Integer, Split> resultSplits = new HashMap<>();
 
 		boolean prevCharIsSplitChar = true;
 		int prevIndex = 0;
 		int mapValueIndex = 0;
-//		int splitIndexCounter = 0;
-		if (stringToSplit != null) {
-			for (int i=0; i < stringToSplit.length(); i++) {
+		if (inStringToSplit != null) {
+			for (int i=0; i < inStringToSplit.length(); i++) {
 			
-				char currChar = stringToSplit.charAt(i);
+				char currChar = inStringToSplit.charAt(i);
 				boolean isSplitChar = isSplitChar(currChar);
 				if (isSplitChar) {
 					if (! prevCharIsSplitChar) { 
-						String tempValue = stringToSplit.substring(prevIndex, i);
+						String tempValue = inStringToSplit.substring(prevIndex, i);
 						Split tempSplit = new Split(tempValue, mapValueIndex);
 						resultSplits.put(mapValueIndex, tempSplit);
 						splitsForDebug.add(tempSplit);
@@ -92,10 +91,9 @@ public class ApSplitter {
 		}
 
 		// Handle the last case
-		if (stringToSplit != null) {
-			String tempValue = stringToSplit.substring(prevIndex);
+		if (inStringToSplit != null) {
+			String tempValue = inStringToSplit.substring(prevIndex);
 			if (! StringUtils.isBlank(tempValue)) {
-//				resultSplits.put(mapValueIndex, tempValue);
 				Split tempSplit = new Split(tempValue, mapValueIndex);
 				resultSplits.put(mapValueIndex, tempSplit);
 				splitsForDebug.add(tempSplit);
@@ -139,7 +137,7 @@ public class ApSplitter {
 	}
 	
 	
-	public Split getNextRightValue(int offset) {
+	public Split getNextRightValue(int inOffset) {
 		
 		int nextAvailableIndex = -1;
 		
@@ -154,7 +152,7 @@ public class ApSplitter {
 			return null;
 		}
 		
-		int valueIndex = nextAvailableIndex - offset;
+		int valueIndex = nextAvailableIndex - inOffset;
 		if (valueIndex < 0 || valueIndex > values.size()) {
 			return null;
 		}
@@ -169,13 +167,13 @@ public class ApSplitter {
 
 	/**
 	 * 
-	 * @param offset - offset of 0 should return the same result as get nextLeftValue
+	 * @param inOffset - offset of 0 should return the same result as get nextLeftValue
 	 * @return
 	 */
-	public Split getNextLeftValue(int offset) {
+	public Split getNextLeftValue(int inOffset) {
 		int nextAvailable = getNextLeftAvailable();
 		if (nextAvailable != INVALID_INDEX) {
-			for (int i=nextAvailable + offset; i < values.size(); i++) {
+			for (int i=nextAvailable + inOffset; i < values.size(); i++) {
 				if (! usedSplits.contains(i)) {
 					return values.get(i);
 				}
@@ -195,38 +193,38 @@ public class ApSplitter {
 	}
 
 
-	public List<Split> getValuesLeft(int leftIndex) throws ApException {
-		return getValues(leftIndex, -1);
+	public List<Split> getValuesLeft(int inLeftIndex) throws ApException {
+		return getValues(inLeftIndex, -1);
 	}
 	
 	
 	/**
-	 * @param leftIndex
-	 * @param rightIndex
+	 * @param inLeftIndex
+	 * @param inRightIndex
 	 * @return a list of all unused values between the two indices
 	 */
-	public List<Split> getValues(int leftIndex, int rightIndex) throws ApException {
+	public List<Split> getValues(int inLeftIndex, int inRightIndex) throws ApException {
 		List<Split> resultValues = new ArrayList<>();
 		
-		if (leftIndex < 0) {
+		if (inLeftIndex < 0) {
 			throw new ApException("Invalid index was passed to getValues(). leftIndex must be 0 or greater",
-					"leftIndex", leftIndex);
+					"leftIndex", inLeftIndex);
 		}
 		
-		if (rightIndex >= values.size()) {
+		if (inRightIndex >= values.size()) {
 			throw new ApException("Invalid index was passed to getValues(). rightIndex must be less than values size.",
-					"rightIndex", rightIndex);
+					"rightIndex", inRightIndex);
 		}
 		
-		if (rightIndex == -1) {
-			for (int i= leftIndex; i < values.size(); i++) {
+		if (inRightIndex == -1) {
+			for (int i= inLeftIndex; i < values.size(); i++) {
 				if (! usedSplits.contains(i)) {
 					Split tempValueIndex = values.get(i);
 					resultValues.add(tempValueIndex);
 				}
 			}
 		} else {
-			for (int i= leftIndex; i < rightIndex; i++) {
+			for (int i= inLeftIndex; i < inRightIndex; i++) {
 				if (! usedSplits.contains(i)) {
 					Split tempValueIndex = values.get(i);
 					resultValues.add(tempValueIndex);
@@ -254,19 +252,19 @@ public class ApSplitter {
 	}
 
 
-	public static List<Integer> getValues(List<Split> valueIndices) {
+	public static List<Integer> getValues(List<Split> inValueIndices) {
 		List<Integer> resultValues = new ArrayList<>();
 				
-		for (Split currIndex : valueIndices) {
+		for (Split currIndex : inValueIndices) {
 			resultValues.add(currIndex.getSplitIndex());
 		}
 		return resultValues;
 	}
 
 
-	public List<Split> getRightSplits(int numberOfSplitsToGet) {
+	public List<Split> getRightSplits(int inNumberOfSplitsToGet) {
 		List<Split> resultList = new ArrayList<>();
-		for (int i=0; i < numberOfSplitsToGet; i++) {
+		for (int i=0; i < inNumberOfSplitsToGet; i++) {
 			Split tempSplit = getNextRightValue(i);
 			resultList.add(tempSplit);
 		}
@@ -301,14 +299,14 @@ public class ApSplitter {
 
 	
 	
-	public Split getSplit(int index) throws ApException {
+	public Split getSplit(int inIndex) throws ApException {
 	
-		if (index > values.size() -1) {
+		if (inIndex > values.size() -1) {
 			throw new ApException("Get Split index out of bounds", 
-					"index", index);
+					"index", inIndex);
 		}
 		
-		return values.get(index);
+		return values.get(inIndex);
 	
 	}
 

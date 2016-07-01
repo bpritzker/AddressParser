@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.City;
-import org.benp.addressparser.data.CityValues;
-import org.benp.addressparser.data.CityValuesMock;
 import org.benp.addressparser.data.Split;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +15,7 @@ public class CityParserTest extends CityParser {
 	private CityParser cityParser;
 	
 	public CityParserTest() {
-		super(null);
+		super(null, null);
 	}
 
 
@@ -34,15 +32,15 @@ public class CityParserTest extends CityParser {
 		
 		splitter = new ApSplitter("742 Evergreen Terrace, Springfield");
 		actualCity = cityParser.parse(splitter);
-		assertEquals("SPRINGFIELD", actualCity.getCityValue().getName());
+		assertEquals("SPRINGFIELD", actualCity.getCityName());
 
 		splitter = new ApSplitter("742 Evergreen Terrace, South Boston");
 		actualCity = cityParser.parse(splitter);
-		assertEquals("SOUTH BOSTON", actualCity.getCityValue().getName());
+		assertEquals("SOUTH BOSTON", actualCity.getCityName());
 		
 		splitter = new ApSplitter("Springfield");
 		actualCity = cityParser.parse(splitter);
-		assertEquals("SPRINGFIELD", actualCity.getCityValue().getName());
+		assertEquals("SPRINGFIELD", actualCity.getCityName());
 
 	}
 	
@@ -110,12 +108,12 @@ public class CityParserTest extends CityParser {
 	
 
 
-	@Override
-	protected CityValues getCityValues() throws ApException {
-		CityValuesMock resultCityValues = new CityValuesMock();
-		resultCityValues.init();
-		return resultCityValues;
-	}
+//	@Override
+//	protected CityValues getCityValues() throws ApException {
+//		CityValuesMock resultCityValues = new CityValuesMock();
+//		resultCityValues.init();
+//		return resultCityValues;
+//	}
 	
 	public CityParser buildTestingCityParser() {
 		CityParserTest resultCityParser = new CityParserTest();

@@ -1,5 +1,11 @@
 package org.benp.addressparser;
 
+/**
+ * Use this class if you want to manually test what happens when you try to parse an address.
+ * 
+ * @author Ben P
+ *
+ */
 public class AddressParserManualRunner {
 
 	public static void main(String[] args) {

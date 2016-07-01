@@ -61,6 +61,11 @@ public class StreetParserTest extends StreetParser {
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
 		assertEquals("452 South Drive", actualStreet.getNormalizedValue());
+		
+		splitter = new ApSplitter("20389 Lynchburg Highway");
+		actualStreet = parse(splitter);
+		assertTrue(actualStreet.isValid());
+		assertEquals("20389 Lynchburg Highway", actualStreet.getNormalizedValue());
 	}
 
 	

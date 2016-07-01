@@ -10,13 +10,13 @@ import org.benp.addressparser.parser.ApSplitter;
 
 public class StreetNameNumberParser extends ParserBase {
 
-	public StreetNameNumberParser(AddressParserConfig config) {
-		super(config);
+	public StreetNameNumberParser(AddressParserConfig inConfig) {
+		super(inConfig);
 	}
 
 
-	public StreetNameNumber parse(ApSplitter splitter) throws ApException {
-		return getAddressNumber(splitter);
+	public StreetNameNumber parse(ApSplitter inSplitter) throws ApException {
+		return getAddressNumber(inSplitter);
 	}
 	
 	
@@ -24,8 +24,8 @@ public class StreetNameNumberParser extends ParserBase {
 	/**
 	 * Assume the suffix has already been take off.
 	 */
-	protected StreetNameNumber getAddressNumber(ApSplitter splitter) throws ApException {
-		Split nextLeft = splitter.getNextLeftValue();
+	protected StreetNameNumber getAddressNumber(ApSplitter inSplitter) throws ApException {
+		Split nextLeft = inSplitter.getNextLeftValue();
 		
 		StreetNameNumber resultStreetNumber = new StreetNameNumber();
 
@@ -40,26 +40,22 @@ public class StreetNameNumberParser extends ParserBase {
 		if (NumberUtils.isDigits(nextLeft.getValue())) {
 			
 			addressNumber = Integer.parseInt(nextLeft.getValue());
-			splitter.addUsedSplit(nextLeft);
+			inSplitter.addUsedSplit(nextLeft);
 			resultStreetNumber.addSplitterIndex(nextLeft);
 		}
 		
 		if (addressNumber == StreetNameNumber.INVALID_ADDRESS_NUMBER) {
-			Split secondLeft = splitter.getNextLeftValue(1);
+			Split secondLeft = inSplitter.getNextLeftValue(1);
 			if (secondLeft != null) {
 				if (NumberUtils.isNumber(secondLeft.getValue())) {
 					addressNumber = Integer.parseInt(secondLeft.getValue());
-					splitter.addUsedSplit(nextLeft);
-					splitter.addUsedSplit(secondLeft);
+					inSplitter.addUsedSplit(nextLeft);
+					inSplitter.addUsedSplit(secondLeft);
 					resultStreetNumber.addSplitterIndex(nextLeft);
 					resultStreetNumber.addSplitterIndex(secondLeft);
 				}
 			}
 		}
-		
-
-		
-		
 
 		if (addressNumber != StreetNameNumber.INVALID_ADDRESS_NUMBER) {
 			resultStreetNumber.setAddressNumber(addressNumber);

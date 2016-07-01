@@ -24,9 +24,9 @@ public class StreetNameStreetParser extends ParserBase {
 		mapper = inMapper;
 	}
 
-	public StreetNameStreet parse(ApSplitter splitter) throws ApException {
+	public StreetNameStreet parse(ApSplitter inSplitter) throws ApException {
 		StreetNameStreet resultStreetName = new StreetNameStreet();
-		List<Split> remaingingSplits = splitter.getRemainingSplits();
+		List<Split> remaingingSplits = inSplitter.getRemainingSplits();
 		
 		StringBuilder streetNameBuilder = new StringBuilder();
 		
@@ -68,7 +68,7 @@ public class StreetNameStreetParser extends ParserBase {
 			resultStreetName.setName(tempStreetName);
 			resultStreetName.setSplitterIndecies(remaingingSplits);
 			resultStreetName.setValid(true);
-			splitter.addUsedSplits(remaingingSplits);
+			inSplitter.addUsedSplits(remaingingSplits);
 		}
 		return resultStreetName;
 	}
@@ -77,18 +77,18 @@ public class StreetNameStreetParser extends ParserBase {
 	 * There are a lot of special rules associated with street name so break into it's own method.
 	 * @throws ApException 
 	 */
-	protected String buildStreetName(List<String> streetNameSplits) throws ApException {
-		List<Integer> potentialAbbrivs = getPotentialAbbrivations(streetNameSplits);
+	protected String buildStreetName(List<String> inStreetNameSplits) throws ApException {
+		List<Integer> potentialAbbrivs = getPotentialAbbrivations(inStreetNameSplits);
 		StringBuilder resultStreetName = new StringBuilder();
 		String concatString = "";
 
 		if (
 				potentialAbbrivs.size() > 0 
 				&& (
-				streetNameSplits.size() == 2 
+				inStreetNameSplits.size() == 2 
 				&& potentialAbbrivs.size() != 1)) {
-			for (int i=0; i< streetNameSplits.size(); i++) {
-				String tempConcatVal = streetNameSplits.get(i);
+			for (int i=0; i< inStreetNameSplits.size(); i++) {
+				String tempConcatVal = inStreetNameSplits.get(i);
 				if (i == potentialAbbrivs.get(0)) {
 					resultStreetName.append(concatString).append(getBusinessValue(tempConcatVal));
 					
@@ -98,7 +98,7 @@ public class StreetNameStreetParser extends ParserBase {
 				concatString = " ";
 			}
 		} else { // if there are more than 2 abbreviations, just look at the first one
-			for (String currStreetNameSplit : streetNameSplits) {
+			for (String currStreetNameSplit : inStreetNameSplits) {
 				resultStreetName.append(concatString).append(currStreetNameSplit);
 				concatString = " ";
 			}
@@ -110,11 +110,11 @@ public class StreetNameStreetParser extends ParserBase {
 		return resultStreetName.toString();
 	}
 
-	private List<Integer> getPotentialAbbrivations(List<String> streetNameSplits) throws ApException {
+	private List<Integer> getPotentialAbbrivations(List<String> inStreetNameSplits) throws ApException {
 
 		List<Integer> resultPotentialAbbrivs = new ArrayList<>();
-		for (int i=0; i < streetNameSplits.size(); i++) {
-			String tempPotentialAbbriv = streetNameSplits.get(i).toUpperCase();
+		for (int i=0; i < inStreetNameSplits.size(); i++) {
+			String tempPotentialAbbriv = inStreetNameSplits.get(i).toUpperCase();
 			if (mapper.getBusinessWord().fromValue(tempPotentialAbbriv) != null)  {
 				resultPotentialAbbrivs.add(i);
 			}

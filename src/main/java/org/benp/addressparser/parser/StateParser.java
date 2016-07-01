@@ -11,13 +11,13 @@ public class StateParser extends ParserBase {
 
 	private StateValues stateValues;
 	
-	public StateParser(AddressParserConfig config) {
-		super(config);
+	public StateParser(AddressParserConfig inConfig) {
+		super(inConfig);
 		stateValues = getStateValues();
 	}
 	
 
-	public State parse(ApSplitter splitter) throws ApException {
+	public State parse(ApSplitter inSplitter) throws ApException {
 		
 		State resultState = new State();
 		
@@ -26,7 +26,7 @@ public class StateParser extends ParserBase {
 		// It also takes longer to process.
 		for (int i=0; i < 3 && tempStateValue == null; i++) {
 			
-			Split rightMost = splitter.getNextRightValue(i);
+			Split rightMost = inSplitter.getNextRightValue(i);
 			if (rightMost == null) {
 				return new State();
 			}
@@ -38,11 +38,9 @@ public class StateParser extends ParserBase {
 				resultState.setValid(true);
 				resultState.setStateDefinition(tempStateValue);
 				resultState.addSplitterIndex(rightMost);
-				splitter.addUsedSplitsAllRight(rightMost);
+				inSplitter.addUsedSplitsAllRight(rightMost);
 			}
 		}
-
-		
 		return resultState;
 	}
 	

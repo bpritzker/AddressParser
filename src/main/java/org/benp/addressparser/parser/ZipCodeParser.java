@@ -20,15 +20,15 @@ public class ZipCodeParser extends ParserBase {
 	Pattern splitPattern = Pattern.compile("\\D");
 	
 	
-	public ZipCodeParser(AddressParserConfig addressParserConfig) {
-		super(addressParserConfig);
+	public ZipCodeParser(AddressParserConfig inAddressParserConfig) {
+		super(inAddressParserConfig);
 	}
 	
 	
 	/**
 
 	 */
-	public ZipCode parse(ApSplitter splitter) throws ApException {
+	public ZipCode parse(ApSplitter inSplitter) throws ApException {
 		ZipCode resultZipCode = new ZipCode();
 	
 		
@@ -39,7 +39,7 @@ public class ZipCodeParser extends ParserBase {
 
 			// if the temp split is null then previous attempts failed and no more to
 			//  try so just return
-			Split tempSplit = splitter.getNextRightValue(i);
+			Split tempSplit = inSplitter.getNextRightValue(i);
 			if (tempSplit == null) {
 				return resultZipCode;
 			}
@@ -57,7 +57,7 @@ public class ZipCodeParser extends ParserBase {
 					resultZipCode.setPlus4Code(zipCodeValues.get(1));
 				}
 				resultZipCode.setValid(true);
-				splitter.addUsedSplits(usedSplits);
+				inSplitter.addUsedSplits(usedSplits);
 				resultZipCode.addSplitterIndecies(usedSplits);
 				break;
 			}
@@ -71,13 +71,13 @@ public class ZipCodeParser extends ParserBase {
 	}
 
 
-	private List<String> getSplits(String value) {
+	private List<String> getSplits(String inValue) {
 		List<String> resultSplits = 
 				Splitter
 				.on(splitPattern)
 				.omitEmptyStrings()
 				.trimResults()
-				.splitToList(value);
+				.splitToList(inValue);
 		return resultSplits;
 	}
 
@@ -87,17 +87,17 @@ public class ZipCodeParser extends ParserBase {
 	 * 12345-1234
 	 * 12345 1234
 	 */
-	protected List<String> getZipCodeParts(List<String> splits) {
+	protected List<String> getZipCodeParts(List<String> inSplits) {
 
 		List<String> resultZipCodeParts = new ArrayList<>();
 		
-		for (int i=0; i < splits.size(); i++) {
+		for (int i=0; i < inSplits.size(); i++) {
 			
-			String zip5 = parse5Digits(splits.get(i));
+			String zip5 = parse5Digits(inSplits.get(i));
 			if (zip5 != null) {
 				resultZipCodeParts.add(zip5);
-				if ((i + 1) < splits.size()) {
-					String zip4 = parse4Digits(splits.get(i+1));
+				if ((i + 1) < inSplits.size()) {
+					String zip4 = parse4Digits(inSplits.get(i+1));
 					if (zip4 != null) {
 						resultZipCodeParts.add(zip4);
 					}

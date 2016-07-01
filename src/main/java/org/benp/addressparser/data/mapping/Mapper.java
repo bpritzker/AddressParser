@@ -16,11 +16,25 @@ import org.benp.addressparser.ApException;
 
 import com.google.common.base.Splitter;
 
+/**
+ * This class is used to hold all the different Mappings. 
+ * Just create one of these to load and keep reference to mappings.
+ * @author Ben
+ *
+ */
 public class Mapper {
 	
 	private AddressParserConfig config;
 	private Mapping businessWord;
+	private Mapping city;
 	
+	public Mapping getCity() throws ApException {
+		if (city == null) {
+			city = loadMapping("AddressParser_UsCity_Default.csv",config);
+		}
+		return city;
+	}
+
 	public Mapper(AddressParserConfig inConfig) {
 		config = inConfig;
 	}
@@ -35,13 +49,13 @@ public class Mapper {
 	
 	
 	
-	protected Mapping loadMapping(String mappingFileName, AddressParserConfig inConfig) throws ApException {
+	protected Mapping loadMapping(String inMappingFileName, AddressParserConfig inConfig) throws ApException {
 		Map<String, MappingValue> tempMapping = new HashMap<>();
 		Set<String> allValues = new HashSet<>();
 		Set<String> ambiguousValues = new HashSet<>();
 		File mappingFile = 
 				new File(Mapper.class.getProtectionDomain().getCodeSource().getLocation().getPath().toString() 
-				+ "org/benp/addressparser/data/mapping/" + mappingFileName);
+				+ "org/benp/addressparser/data/mapping/" + inMappingFileName);
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(mappingFile))) {
 			String currLine = reader.readLine();
@@ -73,11 +87,11 @@ public class Mapper {
 			
 		} catch (FileNotFoundException fnfe) {
 			throw new ApException("Could not find default mapping file.", fnfe, 
-					"mappingFileName", mappingFileName,
+					"mappingFileName", inMappingFileName,
 					"mappingFile", mappingFile.getAbsolutePath());
 		} catch (IOException ioe) {
 			throw new ApException("Error reading mapping file!", ioe, 
-					"mappingFileName", mappingFileName,
+					"mappingFileName", inMappingFileName,
 					"mappingFile", mappingFile.getAbsolutePath());
 		}
 		Mapping resultMapping = new Mapping();

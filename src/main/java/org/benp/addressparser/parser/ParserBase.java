@@ -6,8 +6,8 @@ public abstract class ParserBase {
 	
 	private AddressParserConfig config;
 
-	public ParserBase(AddressParserConfig config) {
-		this.config = config;
+	public ParserBase(AddressParserConfig inConfig) {
+		this.config = inConfig;
 	}
 
 	public AddressParserConfig getConfig() {

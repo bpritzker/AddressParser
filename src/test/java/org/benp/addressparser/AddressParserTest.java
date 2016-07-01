@@ -182,7 +182,7 @@ public class AddressParserTest extends AddressParser {
 		assertTrue(actualAddress.isValid());
 		assertEquals("02111", actualAddress.getZipCode().getZipCode());
 		assertEquals("MA", actualAddress.getState().getStateDefinition().getCode());
-		assertEquals("SPRINGFIELD", actualAddress.getCity().getCityValue().getName());
+		assertEquals("SPRINGFIELD", actualAddress.getCity().getCityName());
 		assertEquals(742, actualAddress.getStreet().getAddressNumber().getAddressNumber());
 		assertEquals("Evergreen", actualAddress.getStreet().getStreetName().getName());
 		assertEquals(StreetPostTypeEnum.TERRACE, actualAddress.getStreet().getStreetPostType().getStreetPostType());

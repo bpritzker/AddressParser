@@ -26,16 +26,16 @@ public class StreetNamePostType extends ComponentBase {
 		return streetNamePostTypeDirectional;
 	}
 
-	public void setStreetNamePostTypeDirectional(Directional streetNamePostTypeDirectional) {
-		this.streetNamePostTypeDirectional = streetNamePostTypeDirectional;
+	public void setStreetNamePostTypeDirectional(Directional inStreetNamePostTypeDirectional) {
+		streetNamePostTypeDirectional = inStreetNamePostTypeDirectional;
 	}
 
 	public StreetPostTypeEnum getStreetPostType() {
 		return streetPostType;
 	}
 
-	public void setStreetPostType(StreetPostTypeEnum streetPostType) {
-		this.streetPostType = streetPostType;
+	public void setStreetPostType(StreetPostTypeEnum inStreetPostType) {
+		streetPostType = inStreetPostType;
 	}
 
 	
@@ -76,8 +76,6 @@ public class StreetNamePostType extends ComponentBase {
 			resultSb.append(" ").append(streetNamePostTypeDirectional.getNormalizedValue());
 		}
 		
-//		String tempName = streetPostType.getName();
-//		String resultNormalized = tempName.substring(0, 1).toUpperCase() + tempName.substring(1).toLowerCase();
 		return resultSb.toString();
 	}
 	

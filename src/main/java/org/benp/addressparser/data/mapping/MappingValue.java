@@ -5,28 +5,21 @@ import java.util.Set;
 
 public class MappingValue {
 	
-//	private String key; 
 	private Set<String> values = new HashSet<>();
 	private String defualtValue;
 	
 	
-//	public String getKey() {
-//		return key;
-//	}
-//	public void setKey(String key) {
-//		this.key = key;
-//	}
 	public Set<String> getValues() {
 		return values;
 	}
-	public void setValues(Set<String> values) {
-		this.values = values;
+	public void setValues(Set<String> inValues) {
+		values = inValues;
 	}
 	public String getDefualtValue() {
 		return defualtValue;
 	}
-	public void setDefualtValue(String defualtValue) {
-		this.defualtValue = defualtValue;
+	public void setDefualtValue(String inDefualtValue) {
+		defualtValue = inDefualtValue;
 	}
 	
 	public void addValue(String inValue) {

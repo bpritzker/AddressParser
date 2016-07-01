@@ -10,9 +10,32 @@ public abstract class ComponentBase {
 	private boolean isValid;
 	
 	private List<Split> splitterIndecies = new ArrayList<>();
-	
-	public abstract String getValue();
 
+	public abstract String getValue();
+	
+//	/**
+//	 * Normalized it all upper case for all words. 
+//	 * Basically, the most normalized version we can come up with.
+//	 * @return
+//	 */
+//	public abstract String getValueNormalized();
+//
+//	/**
+//	 * This is where the first letter is capitalized for all values except the State
+//	 * @return
+//	 */
+//	public abstract String getValueProper();
+//
+//	/**
+//	 * This is the configurable version. Until we start using the config just have it return the 
+//	 * proper value.
+//	 * @return
+//	 */
+//	public String getValueCustom() {
+//		return getValueProper();
+//	}
+
+	
 	/**
 	 * Always default to false.
 	 */
@@ -62,8 +85,6 @@ public abstract class ComponentBase {
 		}
 	}
 	
-
-
 	public Split getRightMostSplit() {
 		Split result = null;
 		

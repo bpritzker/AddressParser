@@ -25,16 +25,16 @@ public class Mapping {
 		return ambiguousValues;
 	}
 
-	public void setAmbiguousValues(Set<String> ambiguousValues) {
-		this.ambiguousValues = ambiguousValues;
+	public void setAmbiguousValues(Set<String> inAmbiguousValues) {
+		this.ambiguousValues = inAmbiguousValues;
 	}
 
 	public Map<String, MappingValue> getMappings() {
 		return mappings;
 	}
 
-	public void setMappings(Map<String, MappingValue> mappings) {
-		this.mappings = mappings;
+	public void setMappings(Map<String, MappingValue> inMappings) {
+		this.mappings = inMappings;
 	}
 
 	/**

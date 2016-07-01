@@ -28,7 +28,7 @@ public class AddressParser {
 	/**
 	 * A simple easy to use constructor.
 	 * Assumes some defaults that can all be changed.
-	 * @throws ApException 
+	 * @throws ApException - Throws Exception if unable to load mappers
 	 */
 	public AddressParser() throws ApException {
 		// Use all the defaults
@@ -165,7 +165,7 @@ public class AddressParser {
 	 * Override this for testing with mock object
 	 */
 	protected CityParser getAddressParser(AddressParserConfig config) {
-		return new CityParser(config);
+		return new CityParser(null, config);
 	}
 
 
