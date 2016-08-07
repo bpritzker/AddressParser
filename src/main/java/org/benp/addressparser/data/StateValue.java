@@ -14,7 +14,7 @@ import java.util.Set;
  * 
  * 
  * 
- * @author Ben
+ * @author Ben P
  *
  */
 public class StateValue {

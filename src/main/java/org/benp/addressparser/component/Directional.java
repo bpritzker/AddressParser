@@ -16,18 +16,19 @@ public class Directional extends ComponentBase {
 
 
 	@Override
-	public String getValue() {
+	public String getValueNormalized() {
 		if (directional == null) {
 			return null;
 		}
-		return directional.getValue();
+		return directional.getValueNormalized();
 	}
 
-	public String getNormalizedValue() {
+	@Override
+	public String getDefaultValue() {
 		if (directional == null) {
 			return null;
 		}
-		return directional.getNormalizedValue();
+		return directional.getValueProper();
 	}
 
 }

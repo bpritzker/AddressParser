@@ -12,21 +12,20 @@ public class StreetNamePostTypeTest {
 	
 	
 	@Test
-	public void getNormalizedValue() {
+	public void getProperValue() {
 		
 		StreetNamePostType streetNamePostType;
-		
 		
 		streetNamePostType = new StreetNamePostType();
 		streetNamePostType.setValid(true);
 		streetNamePostType.setStreetPostType(StreetPostTypeEnum.ALLEY);;
-		assertEquals("Alley", streetNamePostType.getNormalizedValue());
+		assertEquals("ALY", streetNamePostType.getDefaultValue());
 		
 		Directional tempDirectional = new Directional();
 		tempDirectional.setDirectional(DirectionalEnum.SOUTH);
 		tempDirectional.setValid(true);
 		streetNamePostType.setStreetNamePostTypeDirectional(tempDirectional);
-		assertEquals("Alley South", streetNamePostType.getNormalizedValue());
+		assertEquals("ALY South", streetNamePostType.getDefaultValue());
 	}
 	
 	

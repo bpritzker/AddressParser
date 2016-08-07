@@ -12,7 +12,7 @@ import org.benp.addressparser.component.ComponentBase;
  * { Separator Element } +
  * {Address Number Suffix }
  * 
- * @author Ben
+ * @author Ben P
  *
  */
 public class StreetNameNumber extends ComponentBase {
@@ -36,7 +36,7 @@ public class StreetNameNumber extends ComponentBase {
 	}
 
 	@Override
-	public String getValue() {
+	public String getValueNormalized() {
 		
 		StringBuilder resultSb = new StringBuilder();
 
@@ -53,5 +53,11 @@ public class StreetNameNumber extends ComponentBase {
 		}
 		
 		return resultSb.toString();
+	}
+	
+	@Override
+	public String getDefaultValue() {
+		// For a number they are the same
+		return getValueNormalized();
 	}
 }

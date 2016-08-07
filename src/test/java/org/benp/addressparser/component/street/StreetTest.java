@@ -1,6 +1,7 @@
 package org.benp.addressparser.component.street;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.benp.addressparser.component.street.Street;
 import org.benp.addressparser.component.street.StreetNameNumber;
@@ -16,10 +17,10 @@ public class StreetTest {
 	public void getValue() {
 		
 		Street street = new Street();
-		assertEquals("", street.getValue());
+		assertFalse(street.isValid());
 		
 		street = buildSimpleStreet();
-		assertEquals("742 Evergreen TER", street.getValue());
+		assertEquals("742 Evergreen TER", street.getDefaultValue());
 	}
 
 	private Street buildSimpleStreet() {
@@ -61,8 +62,8 @@ public class StreetTest {
 		tempStreetSuffix.setValid(true);
 		apStreet.setStreetPostType(tempStreetSuffix);
 		
-		String actualNormalizedValue = apStreet.getNormalizedValue();
-		assertEquals("123 Fake Street", actualNormalizedValue);
+		String actualProperValue = apStreet.getDefaultValue();
+		assertEquals("123 Fake ST", actualProperValue);
 	}
 
 }

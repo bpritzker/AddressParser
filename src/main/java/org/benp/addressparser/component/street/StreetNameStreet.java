@@ -16,7 +16,7 @@ import org.benp.addressparser.component.Directional;
  * { Street Name Post Directional } +
  * { Street Name Post Modifier } 
  * 
- * @author Ben
+ * @author Ben P
  *
  */
 
@@ -43,7 +43,16 @@ public class StreetNameStreet extends ComponentBase {
 
 	
 	@Override
-	public String getValue() {
+	public String getValueNormalized() {
+		return getValue(true);
+	}
+	
+	@Override
+	public String getDefaultValue() {
+		return getValue(false);
+	}
+	
+	private String getValue(boolean inIsNormalized) {
 
 		if (name == null) {
 			return "";
@@ -54,33 +63,41 @@ public class StreetNameStreet extends ComponentBase {
 		StringBuilder resultSb = new StringBuilder();
 		
 		if (preDirectional != null && preDirectional.isValid()) {
-			resultSb.append(preDirectional.getValue());
+			if (inIsNormalized) {
+				resultSb.append(preDirectional.getValueNormalized());
+			} else {
+				resultSb.append(WordUtils.capitalizeFully(preDirectional.getValueNormalized()));
+			}
 			separatorPrefix = " ";
 		}
 		
 		if (name != null) {
-			resultSb.append(separatorPrefix).append(name);
+			if (inIsNormalized) {
+				resultSb.append(separatorPrefix).append(name);
+			} else {
+				resultSb.append(separatorPrefix).append(WordUtils.capitalizeFully(name));
+			}
 			separatorPrefix = " ";
 		}
 		return resultSb.toString();
 	}	
 	
 	
-	public String getNormalizedValue() {
-		StringBuilder resultSb = new StringBuilder();
-		
-		String appendSplitter = "";
-		
-		if (preDirectional != null && preDirectional.isValid()) {
-			resultSb.append(preDirectional.getNormalizedValue());
-			appendSplitter = " ";
-		}
-		
-		if (name != null) {
-			resultSb.append(appendSplitter).append(WordUtils.capitalizeFully(name));
-		}
-		return resultSb.toString();
-	}
+//	public String getNormalizedValue() {
+//		StringBuilder resultSb = new StringBuilder();
+//		
+//		String appendSplitter = "";
+//		
+//		if (preDirectional != null && preDirectional.isValid()) {
+//			resultSb.append(preDirectional.getValueNormalized());
+//			appendSplitter = " ";
+//		}
+//		
+//		if (name != null) {
+//			resultSb.append(appendSplitter).append(WordUtils.capitalizeFully(name));
+//		}
+//		return resultSb.toString();
+//	}
 	
 
 }

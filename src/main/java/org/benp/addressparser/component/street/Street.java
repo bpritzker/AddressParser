@@ -47,29 +47,51 @@ public class Street extends ComponentMultiPart {
 
 	
 	@Override
-	public String getValue() {
+	public String getValueNormalized() {
+		return getValue(true);
+	}
+	
+	@Override
+	public String getDefaultValue() {
+		return getValue(false);
+	}
+	
+	
+	private String getValue(boolean inIsNormalized) {
 
 		StringBuilder resultSb = new StringBuilder();
 
 		String separatorPrefix = "";
 		
 		if (addressNumber != null && addressNumber.isValid()) {
-			resultSb.append(addressNumber.getValue());
+			resultSb.append(addressNumber.getValueNormalized());
 			separatorPrefix = " ";
 		}
 		
 		if (streetName != null && streetName.isValid()) {
-			resultSb.append(separatorPrefix).append(streetName.getValue());
+			if (inIsNormalized) {
+				resultSb.append(separatorPrefix).append(streetName.getValueNormalized());
+			} else {
+				resultSb.append(separatorPrefix).append(streetName.getDefaultValue());
+			}
 			separatorPrefix = " ";
 		}
 		
 		if (streetPostType != null && streetPostType.isValid()) {
-			resultSb.append(separatorPrefix).append(streetPostType.getValue());
+			resultSb.append(separatorPrefix).append(streetPostType.getValueNormalized());
 			separatorPrefix = " ";
+		}
+		
+		if (streetPostOther != null && streetPostOther.isValid()) {
+			resultSb.append(separatorPrefix).append(streetPostOther.getValueNormalized());
+			separatorPrefix = " ";
+			
 		}
 		
 		return resultSb.toString();
 	}
+	
+	
 	@Override
 	public boolean isComplete() {
 		if (addressNumber.isValid() && streetName.isValid() && streetPostType.isValid()) {
@@ -78,6 +100,8 @@ public class Street extends ComponentMultiPart {
 			return false;
 		}
 	}
+	
+	
 	@Override
 	public boolean isPartial() {
 		if (addressNumber.isValid() || streetName.isValid() || streetPostType.isValid()) {
@@ -88,38 +112,38 @@ public class Street extends ComponentMultiPart {
 	}
 	
 	
-	/**
-	 * This is the value that will match with the GeoCoding DB.
-	 * In the future you can customize this to different DBs but for now
-	 * it works off the Site: http://www.opengeocode.org/download.php
-	 * @return
-	 */
-	public String getNormalizedValue() {
-
-		StringBuilder resultSb = new StringBuilder();
-		String appendSplitter = "";
-		
-		if (addressNumber != null && addressNumber.isValid()) {
-			resultSb.append(addressNumber.getAddressNumber());
-			appendSplitter = " ";
-		}
-		
-		if (streetName != null && streetName.isValid()) {
-			resultSb.append(appendSplitter).append(streetName.getNormalizedValue());
-			appendSplitter = " ";
-		}
-		
-		if (streetPostType != null && streetPostType.isValid()) {
-			resultSb.append(appendSplitter).append(streetPostType.getNormalizedValue());
-			appendSplitter = " ";
-		}
-		
-		if (streetPostOther != null && streetPostOther.isValid()) {
-			resultSb.append(appendSplitter).append(streetPostOther.getNormalizedValue());
-		}
-		
-		return resultSb.toString();
-	}
+//	/**
+//	 * This is the value that will match with the GeoCoding DB.
+//	 * In the future you can customize this to different DBs but for now
+//	 * it works off the Site: http://www.opengeocode.org/download.php
+//	 * @return
+//	 */
+//	public String getNormalizedValue() {
+//
+//		StringBuilder resultSb = new StringBuilder();
+//		String appendSplitter = "";
+//		
+//		if (addressNumber != null && addressNumber.isValid()) {
+//			resultSb.append(addressNumber.getAddressNumber());
+//			appendSplitter = " ";
+//		}
+//		
+//		if (streetName != null && streetName.isValid()) {
+//			resultSb.append(appendSplitter).append(streetName.getNormalizedValue());
+//			appendSplitter = " ";
+//		}
+//		
+//		if (streetPostType != null && streetPostType.isValid()) {
+//			resultSb.append(appendSplitter).append(streetPostType.getNormalizedValue());
+//			appendSplitter = " ";
+//		}
+//		
+//		if (streetPostOther != null && streetPostOther.isValid()) {
+//			resultSb.append(appendSplitter).append(streetPostOther.getNormalizedValue());
+//		}
+//		
+//		return resultSb.toString();
+//	}
     
 
 	

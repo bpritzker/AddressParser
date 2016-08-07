@@ -7,33 +7,39 @@ import org.benp.addressparser.data.Split;
 
 public abstract class ComponentBase {
 	
-	private boolean isValid;
+	private boolean isValid= false; // explicit default to false
 	
 	private List<Split> splitterIndecies = new ArrayList<>();
-
-	public abstract String getValue();
+	public boolean equals(ComponentBase inComponent) {
+		return false;
+	}
 	
-//	/**
-//	 * Normalized it all upper case for all words. 
-//	 * Basically, the most normalized version we can come up with.
-//	 * @return
-//	 */
-//	public abstract String getValueNormalized();
-//
-//	/**
-//	 * This is where the first letter is capitalized for all values except the State
-//	 * @return
-//	 */
-//	public abstract String getValueProper();
-//
-//	/**
-//	 * This is the configurable version. Until we start using the config just have it return the 
-//	 * proper value.
-//	 * @return
-//	 */
-//	public String getValueCustom() {
-//		return getValueProper();
-//	}
+	
+	/**
+	 * Normalized it all upper case for all words. 
+	 * Basically, the most normalized version we can come up with.
+	 * @return
+	 */
+	public abstract String getValueNormalized();
+
+	/**
+	 * This is where the first letter is capitalized for all values except the State.
+	 * It uses the "WordUtils.capitalizeFully" to case it.
+	 * The default behavior is to just return the normalized value.
+	 * 
+	 */
+	public String getDefaultValue() {
+		return getValueNormalized();
+	}
+
+	/**
+	 * This is the configurable version. Until we start using the config just have it return the 
+	 * proper value.
+	 * @return
+	 */
+	public String getValueCustom() {
+		return getDefaultValue();
+	}
 
 	
 	/**
@@ -48,8 +54,8 @@ public abstract class ComponentBase {
 	}
 	
 	
-	public void setValid(boolean isValid) {
-		this.isValid = isValid;
+	public void setValid(boolean inIsValid) {
+		isValid = inIsValid;
 	}
 	
 

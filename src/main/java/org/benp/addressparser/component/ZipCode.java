@@ -28,7 +28,7 @@ public class ZipCode extends ComponentBase {
 	
 	
 	@Override
-	public String getValue() {
+	public String getValueNormalized() {
 		
 		if (zipCode == null) {
 			return "";
@@ -40,9 +40,5 @@ public class ZipCode extends ComponentBase {
 		}
 		return resultValue;
 	}
-	
-	
-
-
 	
 }

@@ -1,6 +1,7 @@
 package org.benp.addressparser.component;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -16,6 +17,23 @@ public class CityTest {
 //		
 //		city.setCityValue(tempCityValue);
 //		assertEquals("BOSTON", city.getValue());
+	}
+	
+	@Test 
+	public void equals() {
+		City city = new City();
+
+		assertTrue(city.equals(new City()));
+		assertFalse(city.equals(new State()));
+
+		city.setCityName("Springfield");
+
+		City city2 = new City();
+		city2.setCityName("Capital City");
+		assertFalse(city.equals(city2));
+		
+		city2.setCityName("Springfield");
+		assertTrue(city.equals(city2));
 	}
 
 }

@@ -20,7 +20,7 @@ import org.supercsv.prefs.CsvPreference;
  * You want "Complete ZIP Code Totals File"
  * URL: ftp://ftp.census.gov/econ2013/CBP_CSV/zbp13totals.zip
  * 
- * @author Ben Pritzker
+ * @author Ben P
  *
  */
 public class ApConvertZipCodeDownloadToCityStateZip {

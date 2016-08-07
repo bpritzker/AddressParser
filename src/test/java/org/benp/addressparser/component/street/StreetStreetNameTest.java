@@ -1,6 +1,7 @@
 package org.benp.addressparser.component.street;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.data.DirectionalEnum;
@@ -29,10 +30,10 @@ public class StreetStreetNameTest extends StreetNameStreetParser {
 		
 		StreetNameStreet actualAtreetName = new StreetNameStreet();
 		actualAtreetName = new StreetNameStreet();
-		assertEquals("", actualAtreetName.getValue());
+		assertFalse(actualAtreetName.isValid());
 		
 		actualAtreetName.setName("Evergreen");
-		assertEquals("Evergreen", actualAtreetName.getValue());
+		assertEquals("Evergreen", actualAtreetName.getDefaultValue());
 		
 		Directional directional = new Directional();
 		directional.setDirectional(DirectionalEnum.NORTH);
@@ -44,36 +45,36 @@ public class StreetStreetNameTest extends StreetNameStreetParser {
 	
 	@Test
 	public void getNormalizedValue() {
-		String actualNormalizedValue;
+		String actualProperValue;
 		
 		StreetNameStreet tempApStreetName = new StreetNameStreet();
 		
 		tempApStreetName.setName("Fake");
-		actualNormalizedValue = tempApStreetName.getNormalizedValue();
-		assertEquals("Fake", actualNormalizedValue);
+		actualProperValue = tempApStreetName.getDefaultValue();
+		assertEquals("Fake", actualProperValue);
 		
 		tempApStreetName.setName("Fake");
 		Directional tempApDirectional = new Directional();
 		tempApDirectional.setDirectional(DirectionalEnum.NORTH);
 		tempApDirectional.setValid(true);
 		tempApStreetName.setPreDirectional(tempApDirectional);
-		actualNormalizedValue = tempApStreetName.getNormalizedValue();
-		assertEquals("North Fake", actualNormalizedValue);
+		actualProperValue = tempApStreetName.getDefaultValue();
+		assertEquals("North Fake", actualProperValue);
 		
 		
 		// multiple street names
 		tempApStreetName = new StreetNameStreet();
 		tempApStreetName.setName("Fake Fake2");
 		tempApStreetName.setValid(true);
-		actualNormalizedValue = tempApStreetName.getNormalizedValue();
-		assertEquals("Fake Fake2", actualNormalizedValue);
+		actualProperValue = tempApStreetName.getDefaultValue();
+		assertEquals("Fake Fake2", actualProperValue);
 		
 		// Check for proper case
 		tempApStreetName = new StreetNameStreet();
 		tempApStreetName.setName("EVERGREEN");
 		tempApStreetName.setValid(true);
-		actualNormalizedValue = tempApStreetName.getNormalizedValue();
-		assertEquals("Evergreen", actualNormalizedValue);
+		actualProperValue = tempApStreetName.getDefaultValue();
+		assertEquals("Evergreen", actualProperValue);
 		
 	}
 

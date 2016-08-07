@@ -3,7 +3,6 @@ package org.benp.addressparser.component.street;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.text.WordUtils;
 import org.benp.addressparser.component.ComponentBase;
 import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.data.Split;
@@ -14,7 +13,7 @@ import org.benp.addressparser.data.StreetPostTypeEnum;
  * 2.2.1.5 Street Name Post Type
  * 
  * 
- * @author Ben
+ * @author Ben P
  *
  */
 public class StreetNamePostType extends ComponentBase {
@@ -49,35 +48,57 @@ public class StreetNamePostType extends ComponentBase {
 		return resultSplits;
 	}
 	
+	
+	
+	
 	@Override
-	// Test the null case
-	public String getValue() {
+	public String getValueNormalized() {
+		return getValue(true);
+	}
+	
+	@Override
+	public String getDefaultValue() {
+		return getValue(false);
+	}
+	
+	
+	private String getValue(boolean inIsNormalized) {
 		StringBuilder resultSb = new StringBuilder();
 		if (streetPostType == null) {
 			return null;
 		}
-		resultSb.append(streetPostType.getStandardAbbreviation());
+		
+//		if (inIsNormalized) {
+			resultSb.append(streetPostType.getStandardAbbreviation());
+//		} else {
+//			resultSb.append(WordUtils.capitalizeFully(streetPostType.getStandardAbbreviation()));
+//		}
+		
 		if (streetNamePostTypeDirectional != null) {
-			resultSb.append(" ").append(streetNamePostTypeDirectional.getValue());
+			if (inIsNormalized) {
+				resultSb.append(" ").append(streetNamePostTypeDirectional.getValueNormalized());
+			} else {
+				resultSb.append(" ").append(streetNamePostTypeDirectional.getDefaultValue());
+			}
 		}
 		
 		return resultSb.toString();
 	}
 
-	public String getNormalizedValue() {
-		if (streetPostType == null) {
-			return null;
-		}
-		
-		StringBuilder resultSb = new StringBuilder();
-		resultSb.append(WordUtils.capitalizeFully(streetPostType.getName()));
-		
-		if (streetNamePostTypeDirectional != null && streetNamePostTypeDirectional.isValid()) {
-			resultSb.append(" ").append(streetNamePostTypeDirectional.getNormalizedValue());
-		}
-		
-		return resultSb.toString();
-	}
+//	public String getNormalizedValue() {
+//		if (streetPostType == null) {
+//			return null;
+//		}
+//		
+//		StringBuilder resultSb = new StringBuilder();
+//		resultSb.append(WordUtils.capitalizeFully(streetPostType.getName()));
+//		
+//		if (streetNamePostTypeDirectional != null && streetNamePostTypeDirectional.isValid()) {
+//			resultSb.append(" ").append(streetNamePostTypeDirectional.getNormalizedValue());
+//		}
+//		
+//		return resultSb.toString();
+//	}
 	
 
 }

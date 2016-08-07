@@ -54,18 +54,18 @@ public class StreetParserTest extends StreetParser {
 
 		splitter = new ApSplitter("888 Lakewoods Village Mhp");
 		actualStreet = parse(splitter);
-		assertEquals("888 Lakewoods Village Mhp", actualStreet.getNormalizedValue());
+		assertEquals("888 Lakewoods VLG Mhp", actualStreet.getDefaultValue());
 		assertTrue(actualStreet.isValid());
 		
 		splitter = new ApSplitter("452 South Drive");
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
-		assertEquals("452 South Drive", actualStreet.getNormalizedValue());
+		assertEquals("452 South DR", actualStreet.getDefaultValue());
 		
-		splitter = new ApSplitter("20389 Lynchburg Highway");
+		splitter = new ApSplitter("20389 Lynchburg HWY");
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
-		assertEquals("20389 Lynchburg Highway", actualStreet.getNormalizedValue());
+		assertEquals("20389 Lynchburg HWY", actualStreet.getDefaultValue());
 	}
 
 	
@@ -79,15 +79,15 @@ public class StreetParserTest extends StreetParser {
 
 		splitter = new ApSplitter("742 Evergreen Terrace South");		
 		actualStreetNamePostType = getPostType(splitter);
-		assertEquals("TER SOUTH", actualStreetNamePostType.getValue());
+		assertEquals("TER SOUTH", actualStreetNamePostType.getValueNormalized());
 		
 		splitter = new ApSplitter("South Drive");
 		actualStreetNamePostType = getPostType(splitter);
-		assertEquals("Drive", actualStreetNamePostType.getNormalizedValue());
+		assertEquals("DR", actualStreetNamePostType.getDefaultValue());
 		
 		splitter = new ApSplitter("888 West Rarponn Boulevard Northwest");
 		actualStreetNamePostType = getPostType(splitter);
-		assertEquals("Boulevard Northwest", actualStreetNamePostType.getNormalizedValue());
+		assertEquals("BLVD Northwest", actualStreetNamePostType.getDefaultValue());
 		assertTrue(actualStreetNamePostType.isValid());
 
 
@@ -110,7 +110,7 @@ public class StreetParserTest extends StreetParser {
 		// Test single letter stree name
 		splitter = new ApSplitter("F Street");
 		actualStreet = parse(splitter);
-		assertEquals("F ST", actualStreet.getValue());
+		assertEquals("F ST", actualStreet.getValueNormalized());
 		
 		
 //		splitter = new ApSplitter("South Princeton Circle");

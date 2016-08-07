@@ -16,12 +16,11 @@ public class State extends ComponentBase  {
 	}
 
 	@Override
-	public String getValue() {
+	public String getValueNormalized() {
 		if (stateDefinition == null) {
 			return "";
 		}
 		return stateDefinition.getCode();
 	}
-
 
 }

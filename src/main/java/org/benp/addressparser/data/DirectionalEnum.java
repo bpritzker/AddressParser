@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableSet;
  * 1.7.2.2 Street Name Pre Directional 
  * For now we ignore the case of "North E", we can always add it later
  * 
- * @author Ben
+ * @author Ben P
  *
  */
 public enum DirectionalEnum {
@@ -24,14 +24,14 @@ public enum DirectionalEnum {
 	SOUTHWEST("SOUTH WEST", "Southwest", ImmutableSet.<String>of("SOUTH WEST", "SOUTHWEST", "SW", "S W"));
 	
 	
-	private final String value;
 	private final String normalizedValue;
+	private final String properValue;
 	private final Set<String> mappings;
 
-	private DirectionalEnum(String value, String normalizedValue, Set<String> mappings) {
-		this.value = value;
-		this.normalizedValue = normalizedValue;
-		this.mappings = mappings;
+	private DirectionalEnum(String inNormalizedValue, String inProperValue, Set<String> inMappings) {
+		normalizedValue = inNormalizedValue;
+		properValue = inProperValue;
+		mappings = inMappings;
 	}
 
 	public static DirectionalEnum fromMapping(String mappingName) {
@@ -47,12 +47,12 @@ public enum DirectionalEnum {
 		return null;
 	}
 	
-	public String getValue() {
-		return value;
+	public String getValueNormalized() {
+		return normalizedValue;
 	}
 	
-	public String getNormalizedValue() {
-		return normalizedValue;
+	public String getValueProper() {
+		return properValue;
 	}
 	
 	

@@ -8,13 +8,13 @@ import org.benp.addressparser.data.Split;
 /**
  * Catch all for anything that we don't know what to do whit that appears at the end of 
  * the street name
- * @author Ben
+ * @author Ben P
  *
  */
 public class StreetNamePostOther extends ComponentBase {
 	
 	@Override
-	public String getValue() {
+	public String getValueNormalized() {
 		List<Split> tempSplits = getSplitterIndecies();
 		if (tempSplits == null) {
 			return "";
@@ -29,22 +29,22 @@ public class StreetNamePostOther extends ComponentBase {
 		return resultSb.toString();
 	}
 
-	public Object getNormalizedValue() {
-
-		List<Split> tempSplits = getSplitterIndecies();
-		if (tempSplits == null || tempSplits.size() == 0) {
-			return "";
-		}
-		
-		StringBuilder resultSb = new StringBuilder();
-		String joinerStr = "";
-		for (Split currSplit : tempSplits) {
-			resultSb.append(joinerStr).append(currSplit.getValue());
-			joinerStr = " ";
-		}
-		return resultSb.toString();
-		
-	}
+//	public Object getNormalizedValue() {
+//
+//		List<Split> tempSplits = getSplitterIndecies();
+//		if (tempSplits == null || tempSplits.size() == 0) {
+//			return "";
+//		}
+//		
+//		StringBuilder resultSb = new StringBuilder();
+//		String joinerStr = "";
+//		for (Split currSplit : tempSplits) {
+//			resultSb.append(joinerStr).append(currSplit.getValue());
+//			joinerStr = " ";
+//		}
+//		return resultSb.toString();
+//		
+//	}
 	
 	
 }

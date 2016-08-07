@@ -19,7 +19,7 @@ import com.google.common.base.Splitter;
 /**
  * This class is used to hold all the different Mappings. 
  * Just create one of these to load and keep reference to mappings.
- * @author Ben
+ * @author Ben P
  *
  */
 public class Mapper {

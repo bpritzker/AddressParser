@@ -66,11 +66,11 @@ public class StreetNameStreetParserTest extends StreetNameStreetParser {
 		
 		splitter = new ApSplitter("Mt Evergreen");
 		actualStreetName = parser.parse(splitter);
-		assertEquals("Mt Evergreen", actualStreetName.getNormalizedValue());
+		assertEquals("Mt Evergreen", actualStreetName.getDefaultValue());
 		
 		splitter = new ApSplitter("Mount Evergreen");
 		actualStreetName = parser.parse(splitter);
-		assertEquals("Mount Evergreen", actualStreetName.getNormalizedValue());
+		assertEquals("Mount Evergreen", actualStreetName.getDefaultValue());
 		
 	}
 	

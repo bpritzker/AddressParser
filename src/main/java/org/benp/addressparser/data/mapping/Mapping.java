@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * There are situations where you have multiple keys that maps to 
  * multiple values.
- * @author Ben
+ * @author Ben P
  *
  */
 public class Mapping {

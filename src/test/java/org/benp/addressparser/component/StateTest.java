@@ -1,6 +1,7 @@
 package org.benp.addressparser.component;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.benp.addressparser.data.StateValue;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class StateTest {
 		State state = new State();
 		
 		// null/empty test
-		assertEquals("", state.getValue());
+		assertFalse(state.isValid());
 		
 		
 		StateValue tempStateValue = 
@@ -24,7 +25,7 @@ public class StateTest {
 				
 				
 		state.setStateDefinition(tempStateValue);
-		assertEquals("MA", state.getValue());
+		assertEquals("MA", state.getValueNormalized());
 		
 	}
 

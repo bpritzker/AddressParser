@@ -16,7 +16,7 @@ import com.google.common.base.Splitter;
  * This class is used to convert the data resource .csv files into code that can be copied into the corrosponding classes.
  * It's a little of a hack since it's just a one time run program.
  * 
- * @author Ben Pritzker
+ * @author Ben P
  *
  */
 public class ApConvertCsvToCode {
