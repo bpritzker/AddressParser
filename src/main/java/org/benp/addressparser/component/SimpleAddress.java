@@ -19,9 +19,14 @@ public class SimpleAddress {
 	}
 	
 	
-	public String getStreetAddress() {
-		return address.getStreeAddressDefault();
+	public String getStreetAddress1() {
+		return address.getStreet().getStreet1().getDefaultValue();
 	}
+
+	public String getStreetAddress2() {
+		return address.getStreet().getStreet2().getDefaultValue();
+	}
+
 	
 	public String getCity() {
 		return address.getCityDefault();

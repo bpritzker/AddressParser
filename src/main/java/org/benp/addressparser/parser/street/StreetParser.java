@@ -7,6 +7,8 @@ import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.component.street.Street;
 import org.benp.addressparser.component.street.StreetNameNumber;
+import org.benp.addressparser.component.street.StreetNamePart1;
+import org.benp.addressparser.component.street.StreetNamePart2;
 import org.benp.addressparser.component.street.StreetNamePostOther;
 import org.benp.addressparser.component.street.StreetNamePostType;
 import org.benp.addressparser.component.street.StreetNameStreet;
@@ -40,32 +42,36 @@ public class StreetParser extends ParserBase {
 	public Street parse(ApSplitter inSplitter) throws ApException {
 		Street resultStreet = new Street();
 		
+		StreetNamePart1 street1 = new StreetNamePart1();
+		StreetNamePart2 street2 = new StreetNamePart2();
 		
 		// Order here is important!
 		// First look for a post type cause they are the most standard. 
 		// we know what they look like, well, not always but we can make the best guess on them. 
 		StreetNamePostType addressPostType = getPostType(inSplitter);
-		resultStreet.setStreetPostType(addressPostType);
+		street1.setStreetPostType(addressPostType);
 		
 		
 		// Now that we have the post type anything after it is "Other"
 		StreetNamePostOther postOther = getPostOther(inSplitter, addressPostType);
-		resultStreet.setStreetPostOther(postOther);
+		if (postOther != null) {
+			street2.setStreetPostOther(postOther);
+			street2.setValid(postOther.isValid());
+		}
 		
 		// Next, get the address number, we know this needs to be number so that is more to 
 		// go on than the "name" that can be anything
 		StreetNameNumber addressNumber = streetNumberParser.parse(inSplitter);
-		resultStreet.setAddressNumber(addressNumber);
+		street1.setAddressNumber(addressNumber);
 		
 		StreetNameStreet streetName = streetNameParser.parse(inSplitter);
-		resultStreet.setStreetName(streetName);
+		street1.setStreetName(streetName);
 		
-		
-		
-
 		// We don't need a street suffix to be valid. Might want to change that some other time
 		if (addressNumber != null && streetName != null) {
 			resultStreet.setValid(true);
+			resultStreet.setStreet1(street1);
+			resultStreet.setStreet2(street2);
 		}
 		return resultStreet;
 	}

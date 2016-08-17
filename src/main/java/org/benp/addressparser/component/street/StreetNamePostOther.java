@@ -6,8 +6,14 @@ import org.benp.addressparser.component.ComponentBase;
 import org.benp.addressparser.data.Split;
 
 /**
- * Catch all for anything that we don't know what to do whit that appears at the end of 
- * the street name
+ * Catch all for anything that we don't know what to do with that appears at the end of 
+ * the street name.
+ * </B>
+ * Basically everything between the end of the street name and the City.
+ * </B>
+ * This is also known as Address 2
+ * </B>
+ * 
  * @author Ben P
  *
  */
@@ -27,6 +33,11 @@ public class StreetNamePostOther extends ComponentBase {
 			joinStr = " ";
 		}
 		return resultSb.toString();
+	}
+
+	@Override
+	public String getDefaultValue() {
+		return getValueNormalized();
 	}
 
 //	public Object getNormalizedValue() {

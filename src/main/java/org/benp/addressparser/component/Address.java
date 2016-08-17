@@ -16,53 +16,7 @@ public class Address extends ComponentMultiPart {
 	
 	private ErrorCode errorCode;
 	
-	public State getState() {
-		return state;
-	}
 
-	public void setState(State state) {
-		this.state = state;
-	}
-
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-
-	public Street getStreet() {
-		return street;
-	}
-
-	public void setStreet(Street street) {
-		this.street = street;
-	}
-
-	public ZipCode getZipCode() {
-		return zipCode;
-	}
-
-	public void setZipCode(ZipCode zipCode) {
-		this.zipCode = zipCode;
-	}
-	
-	public ErrorCode getErrorCode() {
-		return errorCode;
-	}
-
-	public void setErrorCode(ErrorCode errorCode) {
-		this.errorCode = errorCode;
-	}
-	
-	public String getOrigString() {
-		return origString;
-	}
-
-	public void setOrigString(String origString) {
-		this.origString = origString;
-	}
 	
 	@Override
 	public String getValueNormalized() {
@@ -145,7 +99,7 @@ public class Address extends ComponentMultiPart {
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////
-	//////////  shortcut methods
+	///                     shortcut methods
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -183,5 +137,74 @@ public class Address extends ComponentMultiPart {
 		}
 		return zipCode.getDefaultValue();
 	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///              BEGIN GETTERS AND SETTERS
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////	
+	
+	
+	
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+
+	public Street getStreet() {
+		return street;
+	}
+
+	public void setStreet(Street street) {
+		this.street = street;
+	}
+
+	public ZipCode getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(ZipCode zipCode) {
+		this.zipCode = zipCode;
+	}
+	
+	public ErrorCode getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(ErrorCode errorCode) {
+		this.errorCode = errorCode;
+	}
+	
+	public String getOrigString() {
+		return origString;
+	}
+
+	public void setOrigString(String origString) {
+		this.origString = origString;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

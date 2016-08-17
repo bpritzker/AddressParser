@@ -31,10 +31,10 @@ public class StreetParserTest extends StreetParser {
 		// basic simple standard
 		splitter = new ApSplitter("742 Evergreen Terrace");
 		actualStreet = parse(splitter);
-		assertEquals(742, actualStreet.getAddressNumber().getAddressNumber());
-		assertEquals("Evergreen", actualStreet.getStreetName().getName());
+		assertEquals(742, actualStreet.getStreet1().getAddressNumber().getAddressNumber());
+		assertEquals("Evergreen", actualStreet.getStreet1().getStreetName().getName());
 		assertEquals(StreetPostTypeEnum.TERRACE, 
-				actualStreet.getStreetPostType().getStreetPostType());
+				actualStreet.getStreet1().getStreetPostType().getStreetPostType());
 		assertTrue(actualStreet.isValid());
 		
 		// No suffix should still be valid
@@ -48,51 +48,57 @@ public class StreetParserTest extends StreetParser {
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
 		assertTrue(actualStreet.isValid());
-		assertTrue(actualStreet.getAddressNumber().isValid());
-		assertTrue(actualStreet.getStreetPostType().isValid());
-		assertTrue(actualStreet.getStreetPostType().getStreetNamePostTypeDirectional().isValid());
+		assertTrue(actualStreet.getStreet1().getAddressNumber().isValid());
+		assertTrue(actualStreet.getStreet1().getStreetPostType().isValid());
+		assertTrue(actualStreet.getStreet1().getStreetPostType().getStreetNamePostTypeDirectional().isValid());
 		
 
 		splitter = new ApSplitter("888 Lakewoods Village Mhp");
 		actualStreet = parse(splitter);
-		assertEquals("888 Lakewoods VLG Mhp", actualStreet.getDefaultValue());
+		assertEquals("888 Lakewoods Village Mhp", actualStreet.getDefaultValue());
 		assertTrue(actualStreet.isValid());
 		
 		splitter = new ApSplitter("452 South Drive");
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
-		assertEquals("452 South DR", actualStreet.getDefaultValue());
+		assertEquals("452 South Drive", actualStreet.getDefaultValue());
 		
 		splitter = new ApSplitter("20389 Lynchburg HWY");
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
-		assertEquals("20389 Lynchburg HWY", actualStreet.getDefaultValue());
+		assertEquals("20389 Lynchburg Highway", actualStreet.getDefaultValue());
 	}
 
-	
+	@Test
+	public void streetNameSecondPart() throws Exception {
+		ApSplitter splitter;
+		Street actualStreet;
+		
+		splitter = new ApSplitter("742 Evergreen Terrace South Unit #4303");		
+		actualStreet = parse(splitter);
+		assertEquals("Unit #4303", actualStreet.getStreet2().getStreetPostOther().getDefaultValue());
+		
+	}
 	
 	
 	@Test
-	public void StreetNamePostType() throws Exception {
+	public void streetNamePostType() throws Exception {
 		
 		ApSplitter splitter;
 		StreetNamePostType actualStreetNamePostType;
 
 		splitter = new ApSplitter("742 Evergreen Terrace South");		
 		actualStreetNamePostType = getPostType(splitter);
-		assertEquals("TER SOUTH", actualStreetNamePostType.getValueNormalized());
+		assertEquals("TERRACE SOUTH", actualStreetNamePostType.getValueNormalized());
 		
 		splitter = new ApSplitter("South Drive");
 		actualStreetNamePostType = getPostType(splitter);
-		assertEquals("DR", actualStreetNamePostType.getDefaultValue());
+		assertEquals("Drive", actualStreetNamePostType.getDefaultValue());
 		
 		splitter = new ApSplitter("888 West Rarponn Boulevard Northwest");
 		actualStreetNamePostType = getPostType(splitter);
-		assertEquals("BLVD Northwest", actualStreetNamePostType.getDefaultValue());
+		assertEquals("Boulevard Northwest", actualStreetNamePostType.getDefaultValue());
 		assertTrue(actualStreetNamePostType.isValid());
-
-
-	
 	}
 	
 	
@@ -111,24 +117,24 @@ public class StreetParserTest extends StreetParser {
 		// Test single letter stree name
 		splitter = new ApSplitter("F Street");
 		actualStreet = parse(splitter);
-		assertEquals("F ST", actualStreet.getValueNormalized());
+		assertEquals("F STREET", actualStreet.getValueNormalized());
 		
 		
 		splitter = new ApSplitter("South Princeton Circle");
 		actualStreet = parse(splitter);
-		assertEquals(DirectionalEnum.SOUTH, actualStreet.getStreetName().getPreDirectional().getDirectional());
-		assertEquals("South Princeton CIR", actualStreet.getDefaultValue());
+		assertEquals(DirectionalEnum.SOUTH, actualStreet.getStreet1().getStreetName().getPreDirectional().getDirectional());
+		assertEquals("South Princeton Circle", actualStreet.getStreet1().getDefaultValue());
 		
 		
 		splitter = new ApSplitter("3521 West Highway");
 		actualStreet = parse(splitter);
-		assertEquals("West", actualStreet.getStreetName().getName());
+		assertEquals("West", actualStreet.getStreet1().getStreetName().getName());
 		assertTrue(actualStreet.isValid());
 		
 		// caused split non continuous error
 		splitter = new ApSplitter("14750 Senior 31");
 		actualStreet = parse(splitter);
-		assertEquals("Senior 31", actualStreet.getStreetName().getName());
+		assertEquals("Senior 31", actualStreet.getStreet1().getStreetName().getName());
 		assertTrue(actualStreet.isValid());
 		
 		// This was causing null pointer exception
@@ -150,7 +156,7 @@ public class StreetParserTest extends StreetParser {
 		splitter = new ApSplitter("742 Evergreen Terrace S");
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
-		assertEquals("South", actualStreet.getStreetPostType().getStreetNamePostTypeDirectional().getDefaultValue());
+		assertEquals("South", actualStreet.getStreet1().getStreetPostType().getStreetNamePostTypeDirectional().getDefaultValue());
 	}
 	
 	

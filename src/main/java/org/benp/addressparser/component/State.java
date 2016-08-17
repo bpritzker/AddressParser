@@ -23,4 +23,9 @@ public class State extends ComponentBase  {
 		return stateDefinition.getCode();
 	}
 
+	@Override
+	public String getDefaultValue() {
+		return stateDefinition.getCode();
+	}
+
 }

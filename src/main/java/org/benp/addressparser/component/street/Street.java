@@ -5,110 +5,81 @@ import org.benp.addressparser.component.ComponentMultiPart;
 /**
  * This is based off the document:
  * https://www.fgdc.gov/standards/projects/FGDC-standards-projects/street-address/05-11.2ndDraft.CompleteDoc.pdf
+ * </B>
+ * NOTE: A street address only needs the first part so when it comes to complete and partial we only care about street1.
+ * Street2 is total side thought.
  * 
  * @author Ben P
  *
  */
 public class Street extends ComponentMultiPart {
-
-	private StreetNameNumber addressNumber;
-    private StreetNameStreet streetName; // Street Name
-    private StreetNamePostType streetPostType;
-    private StreetNamePostOther streetPostOther;
-//    private DirectionalEnum postDirection;
-    
-    
-    
-	public StreetNamePostOther getStreetPostOther() {
-		return streetPostOther;
+	
+	private StreetNamePart1 street1;
+	private StreetNamePart2 street2;
+	
+	
+	@Override
+	public boolean isComplete() {
+		if (street1 == null) {
+			return false;
+		}
+		
+		return street1.isComplete();
 	}
-	public void setStreetPostOther(StreetNamePostOther streetPostOther) {
-		this.streetPostOther = streetPostOther;
-	}
-	public StreetNameNumber getAddressNumber() {
-		return addressNumber;
-	}
-	public void setAddressNumber(StreetNameNumber addressNumber) {
-		this.addressNumber = addressNumber;
-	}
-
-	public StreetNameStreet getStreetName() {
-		return streetName;
-	}
-	public void setStreetName(StreetNameStreet streetName) {
-		this.streetName = streetName;
-	}
-	public StreetNamePostType getStreetPostType() {
-		return streetPostType;
-	}
-	public void setStreetPostType(StreetNamePostType streetPostType) {
-		this.streetPostType = streetPostType;
+	@Override
+	public boolean isPartial() {
+		if (street1 == null) {
+			return false;
+		}
+		return street1.isComplete();
 	}
 
 	
 	@Override
 	public String getValueNormalized() {
-		return getValue(true);
-	}
-	
-	@Override
-	public String getDefaultValue() {
-		return getValue(false);
-	}
-	
-	
-	private String getValue(boolean inIsNormalized) {
-
 		StringBuilder resultSb = new StringBuilder();
-
-		String separatorPrefix = "";
 		
-		if (addressNumber != null && addressNumber.isValid()) {
-			resultSb.append(addressNumber.getValueNormalized());
-			separatorPrefix = " ";
-		}
-		
-		if (streetName != null && streetName.isValid()) {
-			if (inIsNormalized) {
-				resultSb.append(separatorPrefix).append(streetName.getValueNormalized());
-			} else {
-				resultSb.append(separatorPrefix).append(streetName.getDefaultValue());
-			}
-			separatorPrefix = " ";
-		}
-		
-		if (streetPostType != null && streetPostType.isValid()) {
-			resultSb.append(separatorPrefix).append(streetPostType.getValueNormalized());
-			separatorPrefix = " ";
-		}
-		
-		if (streetPostOther != null && streetPostOther.isValid()) {
-			resultSb.append(separatorPrefix).append(streetPostOther.getValueNormalized());
-			separatorPrefix = " ";
+		if (street1 != null) {
+			resultSb.append(street1.getValueNormalized());
 			
+			if (street2 != null && street2.isValid()) {
+				resultSb.append(" ").append(street2.getValueNormalized());
+			}
 		}
-		
 		return resultSb.toString();
 	}
-	
-	
+
 	@Override
-	public boolean isComplete() {
-		if (addressNumber.isValid() && streetName.isValid() && streetPostType.isValid()) {
-			return true;
-		} else {
-			return false;
+	public String getDefaultValue() {
+		StringBuilder resultSb = new StringBuilder();
+		
+		if (street1 != null) {
+			resultSb.append(street1.getDefaultValue());
+			
+			if (street2 != null && street2.isValid()) {
+				resultSb.append(" ").append(street2.getDefaultValue());
+			}
 		}
+		return resultSb.toString();
 	}
-	
-	
-	@Override
-	public boolean isPartial() {
-		if (addressNumber.isValid() || streetName.isValid() || streetPostType.isValid()) {
-			return true;
-		} else {
-			return false;
-		}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///              BEGIN GETTERS AND SETTERS
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	public StreetNamePart1 getStreet1() {
+		return street1;
+	}
+	public void setStreet1(StreetNamePart1 street1) {
+		this.street1 = street1;
+	}
+	public StreetNamePart2 getStreet2() {
+		return street2;
+	}
+	public void setStreet2(StreetNamePart2 street2) {
+		this.street2 = street2;
 	}
 	
 	

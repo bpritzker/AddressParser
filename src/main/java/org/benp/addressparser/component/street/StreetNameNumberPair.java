@@ -4,7 +4,7 @@ package org.benp.addressparser.component.street;
 /**
  * I didn't want to just return a pair because well... that is lazy and doesn't tell you about 
  * the result. Created this class just for that.
- * @author Ben
+ * @author Ben P
  *
  */
 public class StreetNameNumberPair {

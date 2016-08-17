@@ -5,6 +5,16 @@ import java.util.List;
 
 import org.benp.addressparser.data.Split;
 
+
+/**
+ * This is the base class for all components. 
+ * 
+ * All Components have a splitter indices that indicate what parts of the split they lay claim on.
+ * 
+ * 
+ * @author Ben P
+ *
+ */
 public abstract class ComponentBase {
 	
 	private boolean isValid= false; // explicit default to false
@@ -16,26 +26,21 @@ public abstract class ComponentBase {
 	
 	
 	/**
-	 * Normalized it all upper case for all words. 
+	 * Normalized it all upper case spelled out for all words. 
 	 * Basically, the most normalized version we can come up with.
-	 * @return
 	 */
 	public abstract String getValueNormalized();
 
 	/**
-	 * This is where the first letter is capitalized for all values except the State.
-	 * It uses the "WordUtils.capitalizeFully" to case it.
-	 * The default behavior is to just return the normalized value.
-	 * 
+	 * This is what an address would look like if you wrote it out properly
 	 */
-	public String getDefaultValue() {
-		return getValueNormalized();
-	}
+	public abstract String getDefaultValue();
 
 	/**
 	 * This is the configurable version. Until we start using the config just have it return the 
 	 * proper value.
-	 * @return
+	 * </B>
+	 * For now just have it return the default value
 	 */
 	public String getValueCustom() {
 		return getDefaultValue();

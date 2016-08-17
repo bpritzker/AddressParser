@@ -24,7 +24,7 @@ public class AddressParserManualRunner {
 	private void run() throws ApException {
 		AddressParser addressParser = new AddressParser();
 
-		String address = "742 Evergreen Terrace Springfield MA";
+		String address = "742 Evergreen Terrace Springfield MA 02021";
 		Address actualAddress =addressParser.parseAddress(address);
 		System.out.println("Street : " + actualAddress.getStreeAddressDefault());
 		System.out.println("City   : " + actualAddress.getCityDefault());

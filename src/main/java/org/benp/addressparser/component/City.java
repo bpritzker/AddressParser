@@ -8,25 +8,11 @@ public class City extends ComponentBase {
 	private MappingValue stateValues;
 	private String cityName;
 	
-	public String getCityName() {
-		return cityName;
-	}
-
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
-	}
 
 	public City() {
 		super.setValid(false);
 	}
 
-	public MappingValue getStateValues() {
-		return stateValues;
-	}
-
-	public void setStateValues(MappingValue inStateValues) {
-		stateValues = inStateValues;
-	}
 
 	@Override
 	public String getValueNormalized() {
@@ -63,5 +49,32 @@ public class City extends ComponentBase {
 		
 		return true;
 	}
+	
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///              BEGIN GETTERS AND SETTERS
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////	
+	
+	
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+	
+	
+	
+	public MappingValue getStateValues() {
+		return stateValues;
+	}
+
+	public void setStateValues(MappingValue inStateValues) {
+		stateValues = inStateValues;
+	}
+	
 
 }

@@ -20,27 +20,29 @@ public class StreetTest {
 		assertFalse(street.isValid());
 		
 		street = buildSimpleStreet();
-		assertEquals("742 Evergreen TER", street.getDefaultValue());
+		assertEquals("742 Evergreen Terrace", street.getDefaultValue());
 	}
 
 	private Street buildSimpleStreet() {
 
 		Street resultStreet = new Street();
+		StreetNamePart1 streetNamePart1 = new StreetNamePart1();
 		
 		StreetNameNumber streetNumber = new StreetNameNumber();
 		streetNumber.setAddressNumber(742);
 		streetNumber.setValid(true);
-		resultStreet.setAddressNumber(streetNumber);
+		streetNamePart1.setAddressNumber(streetNumber);
+		resultStreet.setStreet1(streetNamePart1);
 		
 		StreetNameStreet streetName = new StreetNameStreet();
 		streetName.setName("Evergreen");
 		streetName.setValid(true);
-		resultStreet.setStreetName(streetName);
+		resultStreet.getStreet1().setStreetName(streetName);
 		
 		StreetNamePostType streetSuffix = new StreetNamePostType();
 		streetSuffix.setStreetPostType(StreetPostTypeEnum.TERRACE);
 		streetSuffix.setValid(true);
-		resultStreet.setStreetPostType(streetSuffix);
+		resultStreet.getStreet1().setStreetPostType(streetSuffix);
 		
 		return resultStreet;
 	}
@@ -48,22 +50,51 @@ public class StreetTest {
 	
 	@Test
 	public void getNormalizedValue() {
-		Street apStreet = new Street();
+		Street street = new Street();
+		StreetNamePart1 streetNamePart1 = new StreetNamePart1();
+		
 		StreetNameNumber tempNumber = new StreetNameNumber();
 		tempNumber.setAddressNumber(123);
 		tempNumber.setValid(true);
-		apStreet.setAddressNumber(tempNumber);
+		streetNamePart1 = new StreetNamePart1();
+		streetNamePart1.setAddressNumber(tempNumber);
+		street.setStreet1(streetNamePart1);
 		StreetNameStreet tempStreetname = new StreetNameStreet();
 		tempStreetname.setName("Fake");
 		tempStreetname.setValid(true);
-		apStreet.setStreetName(tempStreetname);
+		street.getStreet1().setStreetName(tempStreetname);
 		StreetNamePostType tempStreetSuffix = new StreetNamePostType();
 		tempStreetSuffix.setStreetPostType(StreetPostTypeEnum.STREET);
 		tempStreetSuffix.setValid(true);
-		apStreet.setStreetPostType(tempStreetSuffix);
+		street.getStreet1().setStreetPostType(tempStreetSuffix);
 		
-		String actualProperValue = apStreet.getDefaultValue();
-		assertEquals("123 Fake ST", actualProperValue);
+		String actualProperValue = street.getValueNormalized();
+		assertEquals("123 FAKE STREET", actualProperValue);
+	}
+	
+	@Test
+	public void getDefaultValue() {
+		Street street = new Street();
+		StreetNamePart1 streetNamePart1 = new StreetNamePart1();
+		
+		StreetNameNumber tempNumber = new StreetNameNumber();
+		tempNumber.setAddressNumber(123);
+		tempNumber.setValid(true);
+		streetNamePart1 = new StreetNamePart1();
+		streetNamePart1.setAddressNumber(tempNumber);
+		street.setStreet1(streetNamePart1);
+		StreetNameStreet tempStreetname = new StreetNameStreet();
+		tempStreetname.setName("Fake");
+		tempStreetname.setValid(true);
+		street.getStreet1().setStreetName(tempStreetname);
+		StreetNamePostType tempStreetSuffix = new StreetNamePostType();
+		tempStreetSuffix.setStreetPostType(StreetPostTypeEnum.STREET);
+		tempStreetSuffix.setValid(true);
+		street.getStreet1().setStreetPostType(tempStreetSuffix);
+		
+		String actualProperValue = street.getDefaultValue();
+		assertEquals("123 Fake Street", actualProperValue);
+		
 	}
 
 }

@@ -3,6 +3,7 @@ package org.benp.addressparser.component.street;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.benp.addressparser.component.ComponentBase;
 import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.data.Split;
@@ -21,21 +22,7 @@ public class StreetNamePostType extends ComponentBase {
 	private StreetPostTypeEnum streetPostType;
 	private Directional streetNamePostTypeDirectional;
 
-	public Directional getStreetNamePostTypeDirectional() {
-		return streetNamePostTypeDirectional;
-	}
 
-	public void setStreetNamePostTypeDirectional(Directional inStreetNamePostTypeDirectional) {
-		streetNamePostTypeDirectional = inStreetNamePostTypeDirectional;
-	}
-
-	public StreetPostTypeEnum getStreetPostType() {
-		return streetPostType;
-	}
-
-	public void setStreetPostType(StreetPostTypeEnum inStreetPostType) {
-		streetPostType = inStreetPostType;
-	}
 
 	
 	// FIXME: Should do this better. In the Base, remove the getValues and make it abstract
@@ -62,20 +49,20 @@ public class StreetNamePostType extends ComponentBase {
 	}
 	
 	
-	private String getValue(boolean inIsNormalized) {
+	private String getValue(boolean inNormalized) {
 		StringBuilder resultSb = new StringBuilder();
 		if (streetPostType == null) {
 			return null;
 		}
 		
-//		if (inIsNormalized) {
-			resultSb.append(streetPostType.getStandardAbbreviation());
-//		} else {
-//			resultSb.append(WordUtils.capitalizeFully(streetPostType.getStandardAbbreviation()));
-//		}
+		if (inNormalized) {
+			resultSb.append(streetPostType.getName().toUpperCase());
+		} else {
+			resultSb.append(WordUtils.capitalizeFully(streetPostType.getName()));
+		}
 		
 		if (streetNamePostTypeDirectional != null) {
-			if (inIsNormalized) {
+			if (inNormalized) {
 				resultSb.append(" ").append(streetNamePostTypeDirectional.getValueNormalized());
 			} else {
 				resultSb.append(" ").append(streetNamePostTypeDirectional.getDefaultValue());
@@ -99,6 +86,37 @@ public class StreetNamePostType extends ComponentBase {
 //		
 //		return resultSb.toString();
 //	}
+	
+	
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///              BEGIN GETTERS AND SETTERS
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////	
+	
+	
+	
+	public Directional getStreetNamePostTypeDirectional() {
+		return streetNamePostTypeDirectional;
+	}
+
+	public void setStreetNamePostTypeDirectional(Directional inStreetNamePostTypeDirectional) {
+		streetNamePostTypeDirectional = inStreetNamePostTypeDirectional;
+	}
+
+	public StreetPostTypeEnum getStreetPostType() {
+		return streetPostType;
+	}
+
+	public void setStreetPostType(StreetPostTypeEnum inStreetPostType) {
+		streetPostType = inStreetPostType;
+	}
+	
+	
+	
 	
 
 }

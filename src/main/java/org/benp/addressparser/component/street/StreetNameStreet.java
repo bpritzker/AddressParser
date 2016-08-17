@@ -27,19 +27,7 @@ public class StreetNameStreet extends ComponentBase {
 	private Directional preDirectional;
 	private String name;
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public Directional getPreDirectional() {
-		return preDirectional;
-	}
-	public void setPreDirectional(Directional preDirectional) {
-		this.preDirectional = preDirectional;
-	}
+
 
 	
 	@Override
@@ -52,7 +40,14 @@ public class StreetNameStreet extends ComponentBase {
 		return getValue(false);
 	}
 	
-	private String getValue(boolean inIsNormalized) {
+	
+	/**
+	 * Default - 
+	 * Normalized - 
+	 * @param inNormalized
+	 * @return
+	 */
+	private String getValue(boolean inNormalized) {
 
 		if (name == null) {
 			return "";
@@ -63,7 +58,7 @@ public class StreetNameStreet extends ComponentBase {
 		StringBuilder resultSb = new StringBuilder();
 		
 		if (preDirectional != null && preDirectional.isValid()) {
-			if (inIsNormalized) {
+			if (inNormalized) {
 				resultSb.append(preDirectional.getValueNormalized());
 			} else {
 				resultSb.append(WordUtils.capitalizeFully(preDirectional.getValueNormalized()));
@@ -72,8 +67,8 @@ public class StreetNameStreet extends ComponentBase {
 		}
 		
 		if (name != null) {
-			if (inIsNormalized) {
-				resultSb.append(separatorPrefix).append(name);
+			if (inNormalized) {
+				resultSb.append(separatorPrefix).append(name.toUpperCase());
 			} else {
 				resultSb.append(separatorPrefix).append(WordUtils.capitalizeFully(name));
 			}
@@ -99,5 +94,25 @@ public class StreetNameStreet extends ComponentBase {
 //		return resultSb.toString();
 //	}
 	
-
+	
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///              BEGIN GETTERS AND SETTERS
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public Directional getPreDirectional() {
+		return preDirectional;
+	}
+	public void setPreDirectional(Directional preDirectional) {
+		this.preDirectional = preDirectional;
+	}
 }

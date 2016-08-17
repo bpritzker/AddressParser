@@ -12,12 +12,8 @@ public class CityTest {
 		
 		City city = new City();
 		assertFalse(city.isValid());
-//		
-//		CityValue tempCityValue = new CityValue("BOSTON", new HashSet<>(Arrays.asList("MA")));
-//		
-//		city.setCityValue(tempCityValue);
-//		assertEquals("BOSTON", city.getValue());
 	}
+
 	
 	@Test 
 	public void equals() {

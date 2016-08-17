@@ -9,21 +9,11 @@ import org.benp.addressparser.parser.street.StreetNameStreetParser;
 import org.junit.Test;
 
 public class StreetStreetNameTest extends StreetNameStreetParser {
-	
-//	private ApStreetNameParser parser;
-	
+
 	public StreetStreetNameTest() {
 		super(null, null);
 	}
 
-
-
-	
-//	@Before
-//	public void before() {
-//		ApAddressParserConfig addressParserConfig = new ApAddressParserConfig();
-//		parser = new ApStreetNameParser(addressParserConfig);
-//	}
 	
 	@Test
 	public void getValue() {
@@ -34,17 +24,18 @@ public class StreetStreetNameTest extends StreetNameStreetParser {
 		
 		actualAtreetName.setName("Evergreen");
 		assertEquals("Evergreen", actualAtreetName.getDefaultValue());
+		assertEquals("EVERGREEN", actualAtreetName.getValueNormalized());
 		
 		Directional directional = new Directional();
 		directional.setDirectional(DirectionalEnum.NORTH);
 		directional.setValid(true);
-//		actualAtreetName.setPreDirectional(directional);
-//		assertEquals("NORTH Evergreen", actualAtreetName.getValue());
+		actualAtreetName.setPreDirectional(directional);
+		assertEquals("North Evergreen", actualAtreetName.getDefaultValue());
 	}
 	
 	
 	@Test
-	public void getNormalizedValue() {
+	public void getDefaultValue() {
 		String actualProperValue;
 		
 		StreetNameStreet tempApStreetName = new StreetNameStreet();

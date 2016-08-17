@@ -40,5 +40,12 @@ public class ZipCode extends ComponentBase {
 		}
 		return resultValue;
 	}
+	/**
+	 * For Zip there is no difference between normalized and default
+	 */
+	@Override
+	public String getDefaultValue() {
+		return getValueNormalized();
+	}
 	
 }

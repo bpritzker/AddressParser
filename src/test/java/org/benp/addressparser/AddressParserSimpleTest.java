@@ -22,7 +22,7 @@ public class AddressParserSimpleTest {
 		String addressString = "123 Fake St. Springfield MA 01101";
 		AddressParser addressParser = new AddressParser();
 		SimpleAddress resultAddress = addressParser.parseAddressSimple(addressString);
-		assertEquals("123 Fake ST", resultAddress.getStreetAddress());
+		assertEquals("123 Fake Street", resultAddress.getStreetAddress1());
 		assertEquals("Springfield", resultAddress.getCity());
 		assertEquals("MA", resultAddress.getState());
 		assertEquals("01101", resultAddress.getZip());

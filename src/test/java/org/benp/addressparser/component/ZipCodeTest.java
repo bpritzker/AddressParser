@@ -22,8 +22,6 @@ public class ZipCodeTest {
 		zipCode.setPlus4Code("1234");
 		assertEquals("02123-1234", zipCode.getValueNormalized());
 
-		
-		
 	}
 
 }

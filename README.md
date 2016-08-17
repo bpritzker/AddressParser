@@ -6,6 +6,12 @@ This was created because I work with large data sets that contain addresses and 
 
 Since I work with large data sets I have access to a great series of test data and hope to get this working pretty well.  
 
+When parsing an address there are 3 types of results:
+1 - Default    : This is what normal Addresses written out look like: 123 N Evergreen Terrace, Springfield MA 02021
+2 - Normalized : When comparing addresses use this. It Upper cases all values and spells them out: 123 NORTH EVERGREEN TERRACE SPRINGFIELD, MA 02021  
+3 - Custom     : You need to write your own for this.
+
+
 NOTE: This is designed for US address only! (Maybe later down the road I'll improve it for international)
 
 NOTE: Streets are super complex and sometimes used on their own so I moved them to their own package

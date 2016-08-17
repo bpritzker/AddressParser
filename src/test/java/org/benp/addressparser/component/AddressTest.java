@@ -18,8 +18,5 @@ public class AddressTest {
 		// Test for class not equals
 		assertFalse(address.equals(new State()));
 		
-		
-//		address.setCity(city);
-		
 	}
 }

@@ -32,21 +32,6 @@ public class StreetNameNumber extends ComponentBase {
 	private String addressNumberSecondPart;
 
 
-	public String getAddressNumberSecondPart() {
-		return addressNumberSecondPart;
-	}
-
-	public void setAddressNumberSecondPart(String addressNumberSecondPart) {
-		this.addressNumberSecondPart = addressNumberSecondPart;
-	}
-
-	public int getAddressNumber() {
-		return addressNumber;
-	}
-
-	public void setAddressNumber(int addressNumber) {
-		this.addressNumber = addressNumber;
-	}
 
 	@Override
 	public String getValueNormalized() {
@@ -56,7 +41,7 @@ public class StreetNameNumber extends ComponentBase {
 		String separatorPrefix = "";
 		
 		if (addressNumberPrefix != null) {
-			resultSb.append(addressNumberPrefix);
+			resultSb.append(addressNumberPrefix.toUpperCase());
 			separatorPrefix = " ";
 		}
 		
@@ -77,4 +62,32 @@ public class StreetNameNumber extends ComponentBase {
 		// For a number they are the same
 		return getValueNormalized();
 	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///              BEGIN GETTERS AND SETTERS
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////	
+	
+	
+	public String getAddressNumberSecondPart() {
+		return addressNumberSecondPart;
+	}
+
+	public void setAddressNumberSecondPart(String addressNumberSecondPart) {
+		this.addressNumberSecondPart = addressNumberSecondPart;
+	}
+
+	public int getAddressNumber() {
+		return addressNumber;
+	}
+
+	public void setAddressNumber(int addressNumber) {
+		this.addressNumber = addressNumber;
+	}
+	
+	
+	
+	
+	
 }
