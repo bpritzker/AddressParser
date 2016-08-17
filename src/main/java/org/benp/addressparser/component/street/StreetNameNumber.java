@@ -1,5 +1,6 @@
 package org.benp.addressparser.component.street;
 
+import org.apache.commons.lang3.StringUtils;
 import org.benp.addressparser.component.ComponentBase;
 
 /**
@@ -21,11 +22,23 @@ public class StreetNameNumber extends ComponentBase {
 
 	private String addressNumberPrefix;
 
-	// Address Numbers should be numbers, like yea I know
-	// They should also be string to keep track of the full value.
-	//  Example: 194-03 address number is 03 or 3
+	// Address Numbers should be numbers
 	private int addressNumber;
 
+	
+	// They should also be string to keep track of the full value.
+	//  Example: 194-03 address number is 03 or 3
+	// If an address starts off with numbers but then has other chars... this is the other chars
+	private String addressNumberSecondPart;
+
+
+	public String getAddressNumberSecondPart() {
+		return addressNumberSecondPart;
+	}
+
+	public void setAddressNumberSecondPart(String addressNumberSecondPart) {
+		this.addressNumberSecondPart = addressNumberSecondPart;
+	}
 
 	public int getAddressNumber() {
 		return addressNumber;
@@ -47,8 +60,12 @@ public class StreetNameNumber extends ComponentBase {
 			separatorPrefix = " ";
 		}
 		
+		
+		
 		if (addressNumber != INVALID_ADDRESS_NUMBER) {
-			resultSb.append(separatorPrefix).append(addressNumber);
+
+			// If the address number second part exits, there is NO space so just add it.
+			resultSb.append(separatorPrefix).append(addressNumber + StringUtils.defaultString(addressNumberSecondPart).toUpperCase());
 			separatorPrefix = " ";
 		}
 		

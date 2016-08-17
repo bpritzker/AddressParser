@@ -2,7 +2,7 @@ package org.benp.addressparser;
 
 import static org.junit.Assert.assertEquals;
 
-import org.benp.addressparser.component.Address;
+import org.benp.addressparser.component.SimpleAddress;
 import org.junit.Test;
 
 /*
@@ -21,12 +21,11 @@ public class AddressParserSimpleTest {
 	public void testSimpleExamples() throws Exception {
 		String addressString = "123 Fake St. Springfield MA 01101";
 		AddressParser addressParser = new AddressParser();
-		Address resultAddress = addressParser.parseAddress(addressString);
-		assertEquals("123 Fake ST", resultAddress.getStreeAddressDefault());
-		assertEquals("Springfield", resultAddress.getCityDefault());
-		assertEquals("MA", resultAddress.getStateDefault());
-		assertEquals("01101", resultAddress.getZipDefault());
-		
+		SimpleAddress resultAddress = addressParser.parseAddressSimple(addressString);
+		assertEquals("123 Fake ST", resultAddress.getStreetAddress());
+		assertEquals("Springfield", resultAddress.getCity());
+		assertEquals("MA", resultAddress.getState());
+		assertEquals("01101", resultAddress.getZip());
 	}
 	
 	

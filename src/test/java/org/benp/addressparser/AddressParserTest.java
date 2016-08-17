@@ -32,23 +32,28 @@ public class AddressParserTest extends AddressParser {
 
 	
 	@Test
-	public void parseAddressSimple() throws Exception {
+	public void parseAddressBasic() throws Exception {
 		
 		Address actualAddress;
 		
 		// Check to make sure we don't cause any null pointer exceptions
 		actualAddress = addressParser.parseAddress(null);
 		assertFalse(actualAddress.isValid());
+		
 		// Check to make sure we don't cause any null pointer exceptions, and it's not valid
 		actualAddress = addressParser.parseAddress("Invalid Address");
 		assertFalse(actualAddress.isValid());
 		
+		// Basic test of a valid Address
 		actualAddress = addressParser.parseAddress("742 Evergreen Terrace. Springfield MA 02111");
 		assert742EvergreenTerrace(actualAddress);
 	}
 	
 	
-	// These are cases where in the past the address parser failed 
+	/**
+	 * These are cases where in the past the address parser failed.
+	 * 
+	 */
 	@Test
 	public void parseAddressFails() throws Exception {
 		
@@ -56,38 +61,34 @@ public class AddressParserTest extends AddressParser {
 		String address;
 		
 		
-////		
-////		// The street number has a letter in it
-////		address = "3161D Britannia Blvd. Kissimmee FL 34747";
-////		actualAddress = addressParser.parseAddress(address);
-////		assertEquals("34747", actualAddress.getZipCode().getZipCode());
-////		// TODO: test for 3161D.. Should be split
-////		assertTrue(actualAddress.isValid());
-//
-//		
-//		
-//		
-//		// Bad data after the Zip 
-//		address = "2461 Eisenhower Avenue Alexandria VA 02123 BADDATA";
-//		actualAddress = addressParser.parseAddress(address);
-//		assertEquals("02123", actualAddress.getZipCode().getZipCode());
-//		assertTrue(actualAddress.isValid());
-//
-//		
-//		// Bad data after the state
-//		address = "2461 Eisenhower Avenue Alexandria VA BADDATA";
-//		actualAddress = addressParser.parseAddress(address);
-//		assertTrue(actualAddress.isValid());
-//
-//		address = "1244 null St Washington DC 20018";
-//		actualAddress = addressParser.parseAddress(address);
-//		assertTrue(actualAddress.isValid());
-//
-////		address = "1014 St # Washington DC 20018";
-////		actualAddress = addressParser.parseAddress(address);
-////		assertTrue(actualAddress.isValid());
-////		assertFalse(actualAddress.isComplete());
 		
+		// The street number has a letter in it
+		address = "3161D Britannia Blvd. Kissimmee FL 34747";
+		actualAddress = addressParser.parseAddress(address);
+		assertEquals("3161D Britannia BLVD", actualAddress.getStreeAddressDefault());
+		assertEquals("34747", actualAddress.getZipCode().getZipCode());
+		assertTrue(actualAddress.isValid());
+
+		
+		
+		
+		// Bad data after the Zip 
+		address = "7777 Eisenhower Avenue Alexandria VA 02123 BADDATA";
+		actualAddress = addressParser.parseAddress(address);
+		assertEquals("7777 Eisenhower AVE", actualAddress.getStreeAddressDefault());
+		assertEquals("02123", actualAddress.getZipCode().getZipCode());
+		assertTrue(actualAddress.isValid());
+
+		
+		// Bad data after the state
+		address = "7777 Eisenhower Avenue Alexandria VA BADDATA";
+		actualAddress = addressParser.parseAddress(address);
+		assertTrue(actualAddress.isValid());
+
+		address = "1244 null St Washington DC 20018";
+		actualAddress = addressParser.parseAddress(address);
+		assertEquals("1244 Null ST", actualAddress.getStreet().getDefaultValue());
+		assertTrue(actualAddress.isValid());
 		
 		address = "2100 Clarendon Arlington VA 22201";
 		actualAddress = addressParser.parseAddress(address);
@@ -105,19 +106,19 @@ public class AddressParserTest extends AddressParser {
 		actualAddress = addressParser.parseAddress(address);
 		assertTrue(actualAddress.isValid());
 		
-		
-
-		// TODO: These should work eventually
-//		address = "50 south drive  bethesda MD 20892";
-//		actualAddress = addressParser.parseAddress(address);
-//		assertTrue(actualAddress.isValid());
-//		assertTrue(actualAddress.isComplete());
-		
+		address = "50 south drive  bethesda MD 20892";
+		actualAddress = addressParser.parseAddress(address);
+		assertTrue(actualAddress.isValid());
+		assertTrue(actualAddress.isComplete());
 	}
 	
 
 
 
+	/**
+	 * These are some of the more complex addresses that need to be tested
+	 * @throws Exception
+	 */
 	@Test
 	public void parseAddressComplex() throws Exception {
 		

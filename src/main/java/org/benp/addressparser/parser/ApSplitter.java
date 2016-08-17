@@ -104,6 +104,10 @@ public class ApSplitter {
 	}
 
 
+	/**
+	 * This is one of the key methods.. these are the ONLY characters the basic string will split on!
+	 * NOTE: It does NOT split on dash -
+	 */
 	private boolean isSplitChar(char inChar) {
 		if (inChar == ' ' || inChar == ',' || inChar == '.') {
 			return true;

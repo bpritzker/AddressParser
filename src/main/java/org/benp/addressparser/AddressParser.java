@@ -2,6 +2,7 @@ package org.benp.addressparser;
 
 import org.benp.addressparser.component.Address;
 import org.benp.addressparser.component.City;
+import org.benp.addressparser.component.SimpleAddress;
 import org.benp.addressparser.component.State;
 import org.benp.addressparser.component.ZipCode;
 import org.benp.addressparser.component.street.Street;
@@ -50,6 +51,31 @@ public class AddressParser {
 	}
 
 
+	/**
+	 * Want to get started quickly... use this. It takes in an address as a single string 
+	 * will parse it and just exposes the most basic methods to get the data. 
+	 * </B>
+	 * Basically, it's "Simple" easy to use.
+	 * </B>
+	 * NOTE: This swallows the ApException!!!!!!
+	 * If you want to parse the address correctly then use the main address parse. If it works you get 
+	 * your address. If not, you get a null.
+	 * @throws ApException 
+	 */
+	public SimpleAddress parseAddressSimple(final String address) {
+		SimpleAddress resultSimpleAddress = null;
+		try {
+			Address tempAddress = parse(address);
+			resultSimpleAddress = new SimpleAddress(tempAddress);
+			
+			resultSimpleAddress = new SimpleAddress(tempAddress);
+		} catch (ApException ap) {
+			// Seriously, swallow this. It's a simple parser. If it doesn't work then just return null.
+		}
+		return resultSimpleAddress;
+	}
+	
+	
 
 	/**
 	 * Use this method to parse an address!

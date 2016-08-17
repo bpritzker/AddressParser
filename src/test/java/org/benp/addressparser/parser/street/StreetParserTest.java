@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.street.Street;
 import org.benp.addressparser.component.street.StreetNamePostType;
+import org.benp.addressparser.data.DirectionalEnum;
 import org.benp.addressparser.data.StreetPostTypeEnum;
 import org.benp.addressparser.parser.ApSplitter;
 import org.junit.Test;
@@ -113,11 +114,11 @@ public class StreetParserTest extends StreetParser {
 		assertEquals("F ST", actualStreet.getValueNormalized());
 		
 		
-//		splitter = new ApSplitter("South Princeton Circle");
-//		actualStreet = parse(splitter);
-//		assertEquals(ApDirectionalEnum.SOUTH, actualStreet.getStreetName().getPreDirectional().getDirectional());
-//		assertEquals("SOUTH Princeton CIRCLE", actualStreet.getValue());
-//		
+		splitter = new ApSplitter("South Princeton Circle");
+		actualStreet = parse(splitter);
+		assertEquals(DirectionalEnum.SOUTH, actualStreet.getStreetName().getPreDirectional().getDirectional());
+		assertEquals("South Princeton CIR", actualStreet.getDefaultValue());
+		
 		
 		splitter = new ApSplitter("3521 West Highway");
 		actualStreet = parse(splitter);
@@ -146,10 +147,10 @@ public class StreetParserTest extends StreetParser {
 		assertTrue(actualStreet.isValid());
 		
 		
-//		splitter = new ApSplitter("742 Evergreen Terrace S");
-//		actualStreet = parse(splitter);
-//		assertTrue(actualStreet.isValid());
-//		assertEquals("E", actualStreet.getPostDirection().getValue());
+		splitter = new ApSplitter("742 Evergreen Terrace S");
+		actualStreet = parse(splitter);
+		assertTrue(actualStreet.isValid());
+		assertEquals("South", actualStreet.getStreetPostType().getStreetNamePostTypeDirectional().getDefaultValue());
 	}
 	
 	

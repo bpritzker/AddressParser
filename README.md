@@ -47,19 +47,10 @@ NOT USED YET http://www.semaphorecorp.com/cgi/abbrev.html
 
 ## Release Notes
 
-### 0.6.2
-* Bug Fix - City Parser was not loading cities. (Null pointer exception)
-* Added Address Number Prefix
-* re-factored "primaryNumber" to "addressNumber"
+### 0.0.0
+* Add change here.
 
-### 0.6.1
-* Added LICENSE.txt
-* Added getValue to ApComponentBase - This changes a lot
-* Moved PostDirectional to Street Name (with PreDirectional)
 
-### 0.5.1
-* Initial Check-in
-Working version - Parses simple addresses
 
 
 
