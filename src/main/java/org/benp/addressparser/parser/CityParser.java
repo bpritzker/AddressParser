@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
 
 public class CityParser extends ParserBase {
 	
-	private Mapper mapper;
+	private Mapper mapper = null;
 	
 
 	public CityParser(Mapper inMapper, AddressParserConfig inConfig) {

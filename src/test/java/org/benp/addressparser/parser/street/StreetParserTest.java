@@ -7,7 +7,6 @@ import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.street.Street;
 import org.benp.addressparser.component.street.StreetNamePostType;
 import org.benp.addressparser.data.DirectionalEnum;
-import org.benp.addressparser.data.StreetPostTypeEnum;
 import org.benp.addressparser.parser.ApSplitter;
 import org.junit.Test;
 
@@ -33,8 +32,8 @@ public class StreetParserTest extends StreetParser {
 		actualStreet = parse(splitter);
 		assertEquals(742, actualStreet.getStreet1().getAddressNumber().getAddressNumber());
 		assertEquals("Evergreen", actualStreet.getStreet1().getStreetName().getName());
-		assertEquals(StreetPostTypeEnum.TERRACE, 
-				actualStreet.getStreet1().getStreetPostType().getStreetPostType());
+		assertEquals("TERRACE", 
+				actualStreet.getStreet1().getStreetPostType().getStreetPostType().getDefualtValue());
 		assertTrue(actualStreet.isValid());
 		
 		// No suffix should still be valid

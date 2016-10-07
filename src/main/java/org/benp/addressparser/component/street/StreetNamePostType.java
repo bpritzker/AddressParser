@@ -7,7 +7,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.benp.addressparser.component.ComponentBase;
 import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.data.Split;
-import org.benp.addressparser.data.StreetPostTypeEnum;
+import org.benp.addressparser.data.mapping.MappingValue;
 
 
 /**
@@ -19,7 +19,8 @@ import org.benp.addressparser.data.StreetPostTypeEnum;
  */
 public class StreetNamePostType extends ComponentBase {
 
-	private StreetPostTypeEnum streetPostType;
+//	private StreetPostTypeEnum streetPostType;
+	private MappingValue streetPostType;
 	private Directional streetNamePostTypeDirectional;
 
 
@@ -56,9 +57,9 @@ public class StreetNamePostType extends ComponentBase {
 		}
 		
 		if (inNormalized) {
-			resultSb.append(streetPostType.getName().toUpperCase());
+			resultSb.append(streetPostType.getDefualtValue());
 		} else {
-			resultSb.append(WordUtils.capitalizeFully(streetPostType.getName()));
+			resultSb.append(WordUtils.capitalizeFully(streetPostType.getDefualtValue()));
 		}
 		
 		if (streetNamePostTypeDirectional != null) {
@@ -107,13 +108,27 @@ public class StreetNamePostType extends ComponentBase {
 		streetNamePostTypeDirectional = inStreetNamePostTypeDirectional;
 	}
 
-	public StreetPostTypeEnum getStreetPostType() {
+
+
+
+	public MappingValue getStreetPostType() {
 		return streetPostType;
 	}
 
-	public void setStreetPostType(StreetPostTypeEnum inStreetPostType) {
-		streetPostType = inStreetPostType;
+
+
+
+	public void setStreetPostType(MappingValue streetPostType) {
+		this.streetPostType = streetPostType;
 	}
+
+//	public StreetPostTypeEnum getStreetPostType() {
+//		return streetPostType;
+//	}
+//
+//	public void setStreetPostType(StreetPostTypeEnum inStreetPostType) {
+//		streetPostType = inStreetPostType;
+//	}
 	
 	
 	

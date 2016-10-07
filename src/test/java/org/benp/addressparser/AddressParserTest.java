@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.benp.addressparser.component.Address;
 import org.benp.addressparser.data.DirectionalEnum;
-import org.benp.addressparser.data.StreetPostTypeEnum;
 import org.benp.addressparser.parser.CityParser;
 import org.benp.addressparser.parser.CityParserTest;
 import org.junit.Before;
@@ -177,7 +176,7 @@ public class AddressParserTest extends AddressParser {
 		assertEquals("SPRINGFIELD", actualAddress.getCity().getCityName());
 		assertEquals(742, actualAddress.getStreet().getStreet1().getAddressNumber().getAddressNumber());
 		assertEquals("Evergreen", actualAddress.getStreet().getStreet1().getStreetName().getName());
-		assertEquals(StreetPostTypeEnum.TERRACE, actualAddress.getStreet().getStreet1().getStreetPostType().getStreetPostType());
+		assertEquals("TERRACE", actualAddress.getStreet().getStreet1().getStreetPostType().getStreetPostType().getDefualtValue());
 	}
 	
 	

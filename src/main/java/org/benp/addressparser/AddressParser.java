@@ -184,8 +184,7 @@ public class AddressParser {
 	}
 	
 	
-	
-	
+
 	
 	/*
 	 * Override this for testing with mock object

@@ -20,8 +20,15 @@ public abstract class ComponentBase {
 	private boolean isValid= false; // explicit default to false
 	
 	private List<Split> splitterIndecies = new ArrayList<>();
+	
 	public boolean equals(ComponentBase inComponent) {
-		return false;
+		String thisNormalizedValue = getValueNormalized();
+		String inComponentNormalizedValue = inComponent.getValueNormalized();
+		if (thisNormalizedValue.equals(inComponentNormalizedValue)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	

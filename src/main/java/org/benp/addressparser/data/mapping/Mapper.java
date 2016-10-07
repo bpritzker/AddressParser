@@ -27,12 +27,21 @@ public class Mapper {
 	private AddressParserConfig config;
 	private Mapping businessWord;
 	private Mapping city;
+	private Mapping streetPostType;
+//	private Mapping missSpellings;
 	
 	public Mapping getCity() throws ApException {
 		if (city == null) {
 			city = loadMapping("AddressParser_UsCity_Default.csv",config);
 		}
 		return city;
+	}
+	
+	public Mapping getStreetPostType() throws ApException {
+		if (streetPostType == null) {
+			streetPostType = loadMapping("StreetPostType.csv", config);
+		}
+		return streetPostType;
 	}
 
 	public Mapper(AddressParserConfig inConfig) {
@@ -74,6 +83,7 @@ public class Mapper {
 				MappingValue tempMappingValues = tempMapping.get(key);
 				if (tempMappingValues == null) {
 					tempMappingValues = new MappingValue();
+					tempMappingValues.setDefualtValue(key);
 				}
 				tempMappingValues.addValue(value);
 				boolean isDuplicateValue = allValues.add(value);

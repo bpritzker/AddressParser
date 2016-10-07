@@ -19,7 +19,7 @@ public class AddressParserSimpleTest {
 
 	@Test
 	public void testSimpleExamples() throws Exception {
-		String addressString = "123 Fake St. Springfield MA 01101";
+		String addressString = "123 Fake Street Springfield MA 01101";
 		AddressParser addressParser = new AddressParser();
 		SimpleAddress resultAddress = addressParser.parseAddressSimple(addressString);
 		assertEquals("123 Fake Street", resultAddress.getStreetAddress1());

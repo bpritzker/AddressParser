@@ -3,11 +3,7 @@ package org.benp.addressparser.component.street;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import org.benp.addressparser.component.street.Street;
-import org.benp.addressparser.component.street.StreetNameNumber;
-import org.benp.addressparser.component.street.StreetNameStreet;
-import org.benp.addressparser.component.street.StreetNamePostType;
-import org.benp.addressparser.data.StreetPostTypeEnum;
+import org.benp.addressparser.data.mapping.MappingValue;
 import org.junit.Test;
 
 public class StreetTest {
@@ -40,7 +36,9 @@ public class StreetTest {
 		resultStreet.getStreet1().setStreetName(streetName);
 		
 		StreetNamePostType streetSuffix = new StreetNamePostType();
-		streetSuffix.setStreetPostType(StreetPostTypeEnum.TERRACE);
+		MappingValue streetPostTypeValue = new MappingValue();
+		streetPostTypeValue.setDefualtValue("TERRACE");
+		streetSuffix.setStreetPostType(streetPostTypeValue);
 		streetSuffix.setValid(true);
 		resultStreet.getStreet1().setStreetPostType(streetSuffix);
 		
@@ -64,7 +62,9 @@ public class StreetTest {
 		tempStreetname.setValid(true);
 		street.getStreet1().setStreetName(tempStreetname);
 		StreetNamePostType tempStreetSuffix = new StreetNamePostType();
-		tempStreetSuffix.setStreetPostType(StreetPostTypeEnum.STREET);
+		MappingValue streetPostTypeValue = new MappingValue();
+		streetPostTypeValue.setDefualtValue("STREET");
+		tempStreetSuffix.setStreetPostType(streetPostTypeValue);
 		tempStreetSuffix.setValid(true);
 		street.getStreet1().setStreetPostType(tempStreetSuffix);
 		
@@ -88,7 +88,9 @@ public class StreetTest {
 		tempStreetname.setValid(true);
 		street.getStreet1().setStreetName(tempStreetname);
 		StreetNamePostType tempStreetSuffix = new StreetNamePostType();
-		tempStreetSuffix.setStreetPostType(StreetPostTypeEnum.STREET);
+		MappingValue streetPostTypeValue = new MappingValue();
+		streetPostTypeValue.setDefualtValue("STREET");
+		tempStreetSuffix.setStreetPostType(streetPostTypeValue);
 		tempStreetSuffix.setValid(true);
 		street.getStreet1().setStreetPostType(tempStreetSuffix);
 		

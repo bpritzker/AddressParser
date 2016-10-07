@@ -20,7 +20,7 @@ public class StreetNameNumber extends ComponentBase {
 	
 	public static int INVALID_ADDRESS_NUMBER = -1;
 
-	private String addressNumberPrefix;
+//	private String addressNumberPrefix;
 
 	// Address Numbers should be numbers
 	private int addressNumber;
@@ -40,10 +40,10 @@ public class StreetNameNumber extends ComponentBase {
 
 		String separatorPrefix = "";
 		
-		if (addressNumberPrefix != null) {
-			resultSb.append(addressNumberPrefix.toUpperCase());
-			separatorPrefix = " ";
-		}
+//		if (addressNumberPrefix != null) {
+//			resultSb.append(addressNumberPrefix.toUpperCase());
+//			separatorPrefix = " ";
+//		}
 		
 		
 		

@@ -14,8 +14,9 @@ import org.benp.addressparser.component.street.StreetNamePostType;
 import org.benp.addressparser.component.street.StreetNameStreet;
 import org.benp.addressparser.data.DirectionalEnum;
 import org.benp.addressparser.data.Split;
-import org.benp.addressparser.data.StreetPostTypeEnum;
 import org.benp.addressparser.data.mapping.Mapper;
+import org.benp.addressparser.data.mapping.Mapping;
+import org.benp.addressparser.data.mapping.MappingValue;
 import org.benp.addressparser.parser.ApSplitter;
 import org.benp.addressparser.parser.ParserBase;
 
@@ -111,7 +112,7 @@ public class StreetParser extends ParserBase {
 		Split firstRightValue = inSplitter.getNextRightValue();
 		while (firstRightValue != null) {
 			String tempStreetSteetNamePostTypeValue = firstRightValue.getValue().toUpperCase();
-			StreetPostTypeEnum tempStreetNamePostType = StreetPostTypeEnum.fromCommonAbbreviation(tempStreetSteetNamePostTypeValue);
+			MappingValue tempStreetNamePostType = fromCommonAbbreviation(tempStreetSteetNamePostTypeValue);
 			
 			if (tempStreetNamePostType != null) {
 				inSplitter.addUsedSplit(firstRightValue);
@@ -140,6 +141,13 @@ public class StreetParser extends ParserBase {
 			firstRightValue = inSplitter.getNextRightValue(rightValueOffset);
 		}
 		return resultStreetNamePostType;
+	}
+
+
+	private MappingValue fromCommonAbbreviation(String tempStreetSteetNamePostTypeValue) throws ApException {
+		Mapping mapping = mapper.getStreetPostType();
+		MappingValue resultValue = mapping.fromValue(tempStreetSteetNamePostTypeValue);
+		return resultValue;
 	}
 
 	
