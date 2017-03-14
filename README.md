@@ -26,12 +26,17 @@ either for speed or simplicity
 ## Requirements:
 * This requires Java 1.7 or above
 
+## TODO
+* Might want to to change to Address Manager since it's not only parses but normalizes
+
 
 ## References:
 Address Components Definition:
 https://www.fgdc.gov/standards/projects/FGDC-standards-projects/street-address/05-11.2ndDraft.CompleteDoc.pdf
 
 You can get the list of all zip codes from: http://federalgovernmentzipcodes.us/
+
+Help with normalizations and abbrivations: http://pe.usps.gov/text/pub28/28c2_002.htm
 
 States to names: http://en.wikipedia.org/wiki/List_of_U.S._state_abbreviations
 
@@ -45,7 +50,7 @@ http://results.openaddresses.io/
 TODO: The default get value should be:
 https://en.wikipedia.org/wiki/Coding_Accuracy_Support_System
 
-Word Abbrivations:
+Word Abbrivations: (BusinessWordAbbreviations.csv)
 http://pe.usps.gov/text/pub28/28apg.htm
 
 NOT USED YET http://www.semaphorecorp.com/cgi/abbrev.html

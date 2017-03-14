@@ -13,10 +13,10 @@ public class AddressTest {
 		Address address = new Address();
 		
 		// Test for class equality
-		assertTrue(address.equals(new Address()));
+		assertTrue(address.equalsNormalized(new Address()));
 		
 		// Test for class not equals
-		assertFalse(address.equals(new State()));
+		assertFalse(address.equalsNormalized(new State()));
 		
 	}
 }

@@ -54,18 +54,18 @@ public class StreetParserTest extends StreetParser {
 
 		splitter = new ApSplitter("888 Lakewoods Village Mhp");
 		actualStreet = parse(splitter);
-		assertEquals("888 Lakewoods Village Mhp", actualStreet.getDefaultValue());
+		assertEquals("888 Lakewoods Village Mhp", actualStreet.getValueDefault());
 		assertTrue(actualStreet.isValid());
 		
 		splitter = new ApSplitter("452 South Drive");
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
-		assertEquals("452 South Drive", actualStreet.getDefaultValue());
+		assertEquals("452 South Drive", actualStreet.getValueDefault());
 		
 		splitter = new ApSplitter("20389 Lynchburg HWY");
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
-		assertEquals("20389 Lynchburg Highway", actualStreet.getDefaultValue());
+		assertEquals("20389 Lynchburg Highway", actualStreet.getValueDefault());
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class StreetParserTest extends StreetParser {
 		
 		splitter = new ApSplitter("742 Evergreen Terrace South Unit #4303");		
 		actualStreet = parse(splitter);
-		assertEquals("Unit #4303", actualStreet.getStreet2().getStreetPostOther().getDefaultValue());
+		assertEquals("Unit #4303", actualStreet.getStreet2().getStreetPostOther().getValueDefault());
 		
 	}
 	
@@ -92,11 +92,11 @@ public class StreetParserTest extends StreetParser {
 		
 		splitter = new ApSplitter("South Drive");
 		actualStreetNamePostType = getPostType(splitter);
-		assertEquals("Drive", actualStreetNamePostType.getDefaultValue());
+		assertEquals("Drive", actualStreetNamePostType.getValueDefault());
 		
 		splitter = new ApSplitter("888 West Rarponn Boulevard Northwest");
 		actualStreetNamePostType = getPostType(splitter);
-		assertEquals("Boulevard Northwest", actualStreetNamePostType.getDefaultValue());
+		assertEquals("Boulevard Northwest", actualStreetNamePostType.getValueDefault());
 		assertTrue(actualStreetNamePostType.isValid());
 	}
 	
@@ -122,7 +122,7 @@ public class StreetParserTest extends StreetParser {
 		splitter = new ApSplitter("South Princeton Circle");
 		actualStreet = parse(splitter);
 		assertEquals(DirectionalEnum.SOUTH, actualStreet.getStreet1().getStreetName().getPreDirectional().getDirectional());
-		assertEquals("South Princeton Circle", actualStreet.getStreet1().getDefaultValue());
+		assertEquals("South Princeton Circle", actualStreet.getStreet1().getValueDefault());
 		
 		
 		splitter = new ApSplitter("3521 West Highway");
@@ -155,7 +155,7 @@ public class StreetParserTest extends StreetParser {
 		splitter = new ApSplitter("742 Evergreen Terrace S");
 		actualStreet = parse(splitter);
 		assertTrue(actualStreet.isValid());
-		assertEquals("South", actualStreet.getStreet1().getStreetPostType().getStreetNamePostTypeDirectional().getDefaultValue());
+		assertEquals("South", actualStreet.getStreet1().getStreetPostType().getStreetNamePostTypeDirectional().getValueDefault());
 	}
 	
 	

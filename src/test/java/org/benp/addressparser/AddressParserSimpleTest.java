@@ -30,7 +30,32 @@ public class AddressParserSimpleTest {
 	
 	
 	
+	@Test
+	public void testNormalizeAddress() throws Exception {
+
+		String addressString;
+		AddressParser addressParser = new AddressParser();
+		SimpleAddress resultAddress;
+
+//		addressString = "123 Fake Street Springfield MA 01101";
+//		resultAddress = addressParser.parseAddressSimple(addressString);
+//		assertEquals("123 FAKE STREET SPRINGFIELD MA 01101", resultAddress.getNormalized());
+//
+//		addressString = "123 Fake st Springfield Mass 01101";
+//		resultAddress = addressParser.parseAddressSimple(addressString);
+//		assertEquals("123 FAKE STREET SPRINGFIELD MA 01101", resultAddress.getNormalized());
 	
+		// FIXME: How to we normalize these?????
+		addressString = "591 W Bianca Cir  Saint Augustine  FL  32086";
+		resultAddress = addressParser.parseAddressSimple(addressString);
+		assertEquals("591 WEST BIANCA CIRCLE SAINT AUGUSTINE FL 32086", resultAddress.getNormalized());
+
+		
+		addressString = "591 W Bianca Cir  St Augustine  FL  32086";
+		resultAddress = addressParser.parseAddressSimple(addressString);
+		assertEquals("591 WEST BIANCA CIRCLE ST AUGUSTINE FL 32086", resultAddress.getNormalized());
+
+	}
 	
 	
 	

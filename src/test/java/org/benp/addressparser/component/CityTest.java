@@ -19,17 +19,17 @@ public class CityTest {
 	public void equals() {
 		City city = new City();
 
-		assertTrue(city.equals(new City()));
-		assertFalse(city.equals(new State()));
+		assertTrue(city.equalsNormalized(new City()));
+		assertFalse(city.equalsNormalized(new State()));
 
 		city.setCityName("Springfield");
 
 		City city2 = new City();
 		city2.setCityName("Capital City");
-		assertFalse(city.equals(city2));
+		assertFalse(city.equalsNormalized(city2));
 		
 		city2.setCityName("Springfield");
-		assertTrue(city.equals(city2));
+		assertTrue(city.equalsNormalized(city2));
 	}
 
 }

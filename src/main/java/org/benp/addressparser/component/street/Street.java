@@ -50,14 +50,14 @@ public class Street extends ComponentMultiPart {
 	}
 
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		StringBuilder resultSb = new StringBuilder();
 		
 		if (street1 != null) {
-			resultSb.append(street1.getDefaultValue());
+			resultSb.append(street1.getValueDefault());
 			
 			if (street2 != null && street2.isValid()) {
-				resultSb.append(" ").append(street2.getDefaultValue());
+				resultSb.append(" ").append(street2.getValueDefault());
 			}
 		}
 		return resultSb.toString();

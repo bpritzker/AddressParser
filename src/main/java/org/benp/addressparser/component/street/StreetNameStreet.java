@@ -36,7 +36,7 @@ public class StreetNameStreet extends ComponentBase {
 	}
 	
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		return getValue(false);
 	}
 	

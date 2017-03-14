@@ -21,10 +21,10 @@ public abstract class ComponentBase {
 	
 	private List<Split> splitterIndecies = new ArrayList<>();
 	
-	public boolean equals(ComponentBase inComponent) {
+	public boolean equalsNormalized(ComponentBase inComponent) {
 		String thisNormalizedValue = getValueNormalized();
 		String inComponentNormalizedValue = inComponent.getValueNormalized();
-		if (thisNormalizedValue.equals(inComponentNormalizedValue)) {
+		if (thisNormalizedValue.equalsIgnoreCase(inComponentNormalizedValue)) {
 			return true;
 		} else {
 			return false;
@@ -41,7 +41,7 @@ public abstract class ComponentBase {
 	/**
 	 * This is what an address would look like if you wrote it out properly
 	 */
-	public abstract String getDefaultValue();
+	public abstract String getValueDefault();
 
 	/**
 	 * This is the configurable version. Until we start using the config just have it return the 
@@ -50,7 +50,7 @@ public abstract class ComponentBase {
 	 * For now just have it return the default value
 	 */
 	public String getValueCustom() {
-		return getDefaultValue();
+		return getValueDefault();
 	}
 
 	

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.benp.addressparser.component.ComponentBase;
 import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.data.Split;
-import org.benp.addressparser.data.mapping.MappingValue;
+import org.benp.addressparser.data.normalize.MappingValue;
 
 
 /**
@@ -45,7 +45,7 @@ public class StreetNamePostType extends ComponentBase {
 	}
 	
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		return getValue(false);
 	}
 	
@@ -66,7 +66,7 @@ public class StreetNamePostType extends ComponentBase {
 			if (inNormalized) {
 				resultSb.append(" ").append(streetNamePostTypeDirectional.getValueNormalized());
 			} else {
-				resultSb.append(" ").append(streetNamePostTypeDirectional.getDefaultValue());
+				resultSb.append(" ").append(streetNamePostTypeDirectional.getValueDefault());
 			}
 		}
 		

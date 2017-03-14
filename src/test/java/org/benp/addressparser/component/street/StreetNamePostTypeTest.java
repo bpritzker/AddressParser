@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.data.DirectionalEnum;
-import org.benp.addressparser.data.mapping.MappingValue;
+import org.benp.addressparser.data.normalize.MappingValue;
 import org.junit.Test;
 
 public class StreetNamePostTypeTest {
@@ -21,13 +21,13 @@ public class StreetNamePostTypeTest {
 		MappingValue streetPostTypeValue = new MappingValue();
 		streetPostTypeValue.setDefualtValue("ALLEY");
 		streetNamePostType.setStreetPostType(streetPostTypeValue);
-		assertEquals("Alley", streetNamePostType.getDefaultValue());
+		assertEquals("Alley", streetNamePostType.getValueDefault());
 		
 		Directional tempDirectional = new Directional();
 		tempDirectional.setDirectional(DirectionalEnum.SOUTH);
 		tempDirectional.setValid(true);
 		streetNamePostType.setStreetNamePostTypeDirectional(tempDirectional);
-		assertEquals("Alley South", streetNamePostType.getDefaultValue());
+		assertEquals("Alley South", streetNamePostType.getValueDefault());
 	}
 	
 	

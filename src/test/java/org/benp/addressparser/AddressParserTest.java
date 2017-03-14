@@ -83,7 +83,7 @@ public class AddressParserTest extends AddressParser {
 
 		address = "1244 null St Washington DC 20018";
 		actualAddress = addressParser.parseAddress(address);
-		assertEquals("1244 Null Street", actualAddress.getStreet().getDefaultValue());
+		assertEquals("1244 Null Street", actualAddress.getStreet().getValueDefault());
 		assertTrue(actualAddress.isValid());
 		
 		address = "2100 Clarendon Arlington VA 22201";

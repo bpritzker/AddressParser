@@ -1,9 +1,12 @@
-package org.benp.addressparser.data.mapping;
+package org.benp.addressparser.data.normalize;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class MappingValue {
+	
+	private String rawKey;
+//	private String normalizedKey;
 	
 	private Set<String> values = new HashSet<>();
 	private String defualtValue;
@@ -24,6 +27,12 @@ public class MappingValue {
 	
 	public void addValue(String inValue) {
 		values.add(inValue);
+	}
+	public String getRawKey() {
+		return rawKey;
+	}
+	public void setRawKey(String rawKey) {
+		this.rawKey = rawKey;
 	}
 
 	

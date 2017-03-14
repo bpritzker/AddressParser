@@ -24,7 +24,7 @@ public class Directional extends ComponentBase {
 	}
 
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		if (directional == null) {
 			return null;
 		}

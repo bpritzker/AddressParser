@@ -1,14 +1,22 @@
 package org.benp.addressparser.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.City;
 import org.benp.addressparser.data.Split;
+import org.benp.addressparser.data.normalize.MapperMock;
+import org.benp.addressparser.data.normalize.Mapping;
+import org.benp.addressparser.data.normalize.MappingValue;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.common.base.Splitter;
 
 public class CityParserTest extends CityParser {
 	
@@ -106,6 +114,27 @@ public class CityParserTest extends CityParser {
 		assertEquals("Haverbrook", actualValues.get(2).get(2).getValue());
 	}
 	
+	@Test
+	public void findCityMappingValue() throws Exception {
+		
+		String cityNameToFind = "SAINT AUGUSTINE";
+		MappingValue actual = findCityMappingValue(cityNameToFind);
+		assertNotNull(actual);
+	}
+	
+	
+	@Test
+	public void findBusinessMatch() throws Exception {
+		
+		MapperMock mockMapper = buildMockMapper();
+		
+		CityParser localCityParser = new CityParser(mockMapper, null);
+		List<String> splits = Splitter.on(" ").splitToList("SAINT AUGUSTINE");
+		
+		MappingValue actualMappingValue = localCityParser.findBusinessMatch(null, splits);
+		assertNotNull(actualMappingValue);
+	}
+		
 
 
 //	@Override
@@ -115,6 +144,39 @@ public class CityParserTest extends CityParser {
 //		return resultCityValues;
 //	}
 	
+	private MapperMock buildMockMapper() {
+		Mapping businessWordOverride = new Mapping();
+		Map<String, MappingValue> tempMapping = new HashMap<>();
+		MappingValue tempMappingValue = new MappingValue();
+		tempMappingValue.addValue("ST");
+		tempMappingValue.addValue("SAINT");
+		tempMappingValue.setDefualtValue("ST");
+		tempMapping.put("SAINT", tempMappingValue);
+		businessWordOverride.setMappings(tempMapping);
+		
+		
+		
+		Mapping cityOverride = new Mapping();
+		tempMapping = new HashMap<>();
+		tempMappingValue = new MappingValue();
+		tempMappingValue.addValue("FL");
+		tempMappingValue.setDefualtValue("FL");
+		tempMapping.put("ST AUGUSTINE", tempMappingValue);
+		cityOverride.setMappings(tempMapping);
+		
+		
+		MapperMock resultMockMapper = new MapperMock();
+		resultMockMapper.setBusinessWordOverride(businessWordOverride);
+		resultMockMapper.setCityOverride(cityOverride);
+
+		
+		
+		return resultMockMapper;
+		
+	}
+
+
+
 	public CityParser buildTestingCityParser() {
 		CityParserTest resultCityParser = new CityParserTest();
 		return resultCityParser;

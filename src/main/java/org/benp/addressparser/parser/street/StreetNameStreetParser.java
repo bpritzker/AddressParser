@@ -10,7 +10,7 @@ import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.component.street.StreetNameStreet;
 import org.benp.addressparser.data.DirectionalEnum;
 import org.benp.addressparser.data.Split;
-import org.benp.addressparser.data.mapping.Mapper;
+import org.benp.addressparser.data.normalize.Mapper;
 import org.benp.addressparser.parser.ApSplitter;
 import org.benp.addressparser.parser.ParserBase;
 

@@ -20,11 +20,11 @@ public class SimpleAddress {
 	
 	
 	public String getStreetAddress1() {
-		return address.getStreet().getStreet1().getDefaultValue();
+		return address.getStreet().getStreet1().getValueDefault();
 	}
 
 	public String getStreetAddress2() {
-		return address.getStreet().getStreet2().getDefaultValue();
+		return address.getStreet().getStreet2().getValueDefault();
 	}
 
 	
@@ -38,6 +38,10 @@ public class SimpleAddress {
 	
 	public String getZip() {
 		return address.getZipDefault();
+	}
+	
+	public String getNormalized() {
+		return address.getValueNormalized();
 	}
 
 }

@@ -1,7 +1,7 @@
 package org.benp.addressparser.component;
 
 import org.apache.commons.lang3.text.WordUtils;
-import org.benp.addressparser.data.mapping.MappingValue;
+import org.benp.addressparser.data.normalize.MappingValue;
 
 public class City extends ComponentBase {
 	
@@ -16,16 +16,16 @@ public class City extends ComponentBase {
 
 	@Override
 	public String getValueNormalized() {
-		return cityName;
+		return cityName.toUpperCase();
 	}
 	
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		return WordUtils.capitalizeFully(cityName);
 	}
 	
 	@Override
-	public boolean equals(ComponentBase inComponent) {
+	public boolean equalsNormalized(ComponentBase inComponent) {
 		if (inComponent == null) {
 			return false;
 		}

@@ -16,7 +16,7 @@ public class StreetNamePart1 extends ComponentMultiPart {
 	}
 	
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		return getValue(false);
 	}
 	
@@ -36,7 +36,7 @@ public class StreetNamePart1 extends ComponentMultiPart {
 			if (inNormalize) {
 				resultSb.append(separatorPrefix).append(streetName.getValueNormalized());
 			} else {
-				resultSb.append(separatorPrefix).append(streetName.getDefaultValue());
+				resultSb.append(separatorPrefix).append(streetName.getValueDefault());
 			}
 			separatorPrefix = " ";
 		}

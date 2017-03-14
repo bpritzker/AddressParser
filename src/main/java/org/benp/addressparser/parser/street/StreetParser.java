@@ -14,9 +14,9 @@ import org.benp.addressparser.component.street.StreetNamePostType;
 import org.benp.addressparser.component.street.StreetNameStreet;
 import org.benp.addressparser.data.DirectionalEnum;
 import org.benp.addressparser.data.Split;
-import org.benp.addressparser.data.mapping.Mapper;
-import org.benp.addressparser.data.mapping.Mapping;
-import org.benp.addressparser.data.mapping.MappingValue;
+import org.benp.addressparser.data.normalize.Mapper;
+import org.benp.addressparser.data.normalize.Mapping;
+import org.benp.addressparser.data.normalize.MappingValue;
 import org.benp.addressparser.parser.ApSplitter;
 import org.benp.addressparser.parser.ParserBase;
 

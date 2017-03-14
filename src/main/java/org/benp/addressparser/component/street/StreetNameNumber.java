@@ -58,7 +58,7 @@ public class StreetNameNumber extends ComponentBase {
 	}
 	
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		// For a number they are the same
 		return getValueNormalized();
 	}

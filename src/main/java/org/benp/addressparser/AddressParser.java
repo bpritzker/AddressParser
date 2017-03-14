@@ -6,7 +6,7 @@ import org.benp.addressparser.component.SimpleAddress;
 import org.benp.addressparser.component.State;
 import org.benp.addressparser.component.ZipCode;
 import org.benp.addressparser.component.street.Street;
-import org.benp.addressparser.data.mapping.Mapper;
+import org.benp.addressparser.data.normalize.Mapper;
 import org.benp.addressparser.parser.ApSplitter;
 import org.benp.addressparser.parser.CityParser;
 import org.benp.addressparser.parser.StateParser;

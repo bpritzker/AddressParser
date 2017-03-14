@@ -23,14 +23,14 @@ public class StreetStreetNameTest extends StreetNameStreetParser {
 		assertFalse(actualAtreetName.isValid());
 		
 		actualAtreetName.setName("Evergreen");
-		assertEquals("Evergreen", actualAtreetName.getDefaultValue());
+		assertEquals("Evergreen", actualAtreetName.getValueDefault());
 		assertEquals("EVERGREEN", actualAtreetName.getValueNormalized());
 		
 		Directional directional = new Directional();
 		directional.setDirectional(DirectionalEnum.NORTH);
 		directional.setValid(true);
 		actualAtreetName.setPreDirectional(directional);
-		assertEquals("North Evergreen", actualAtreetName.getDefaultValue());
+		assertEquals("North Evergreen", actualAtreetName.getValueDefault());
 	}
 	
 	
@@ -41,7 +41,7 @@ public class StreetStreetNameTest extends StreetNameStreetParser {
 		StreetNameStreet tempApStreetName = new StreetNameStreet();
 		
 		tempApStreetName.setName("Fake");
-		actualProperValue = tempApStreetName.getDefaultValue();
+		actualProperValue = tempApStreetName.getValueDefault();
 		assertEquals("Fake", actualProperValue);
 		
 		tempApStreetName.setName("Fake");
@@ -49,7 +49,7 @@ public class StreetStreetNameTest extends StreetNameStreetParser {
 		tempApDirectional.setDirectional(DirectionalEnum.NORTH);
 		tempApDirectional.setValid(true);
 		tempApStreetName.setPreDirectional(tempApDirectional);
-		actualProperValue = tempApStreetName.getDefaultValue();
+		actualProperValue = tempApStreetName.getValueDefault();
 		assertEquals("North Fake", actualProperValue);
 		
 		
@@ -57,14 +57,14 @@ public class StreetStreetNameTest extends StreetNameStreetParser {
 		tempApStreetName = new StreetNameStreet();
 		tempApStreetName.setName("Fake Fake2");
 		tempApStreetName.setValid(true);
-		actualProperValue = tempApStreetName.getDefaultValue();
+		actualProperValue = tempApStreetName.getValueDefault();
 		assertEquals("Fake Fake2", actualProperValue);
 		
 		// Check for proper case
 		tempApStreetName = new StreetNameStreet();
 		tempApStreetName.setName("EVERGREEN");
 		tempApStreetName.setValid(true);
-		actualProperValue = tempApStreetName.getDefaultValue();
+		actualProperValue = tempApStreetName.getValueDefault();
 		assertEquals("Evergreen", actualProperValue);
 		
 	}

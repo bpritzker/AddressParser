@@ -8,7 +8,7 @@ import java.util.List;
 import org.benp.addressparser.AddressParserConfig;
 import org.benp.addressparser.ApException;
 import org.benp.addressparser.component.street.StreetNameStreet;
-import org.benp.addressparser.data.mapping.Mapper;
+import org.benp.addressparser.data.normalize.Mapper;
 import org.benp.addressparser.parser.ApSplitter;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,11 +66,11 @@ public class StreetNameStreetParserTest extends StreetNameStreetParser {
 		
 		splitter = new ApSplitter("Mt Evergreen");
 		actualStreetName = parser.parse(splitter);
-		assertEquals("Mt Evergreen", actualStreetName.getDefaultValue());
+		assertEquals("Mt Evergreen", actualStreetName.getValueDefault());
 		
 		splitter = new ApSplitter("Mount Evergreen");
 		actualStreetName = parser.parse(splitter);
-		assertEquals("Mount Evergreen", actualStreetName.getDefaultValue());
+		assertEquals("Mount Evergreen", actualStreetName.getValueDefault());
 		
 	}
 	

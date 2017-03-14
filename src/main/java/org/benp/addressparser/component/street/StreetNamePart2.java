@@ -18,7 +18,7 @@ public class StreetNamePart2 extends ComponentBase {
 	
 	// TODO: Might want to take a look at this.
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		if (streetPostOther == null) {
 			return "";
 		}

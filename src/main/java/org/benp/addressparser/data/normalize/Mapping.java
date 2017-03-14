@@ -1,4 +1,4 @@
-package org.benp.addressparser.data.mapping;
+package org.benp.addressparser.data.normalize;
 
 import java.util.HashSet;
 import java.util.Map;

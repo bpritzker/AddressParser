@@ -24,7 +24,7 @@ public class State extends ComponentBase  {
 	}
 
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		return stateDefinition.getCode();
 	}
 

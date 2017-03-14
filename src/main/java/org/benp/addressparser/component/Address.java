@@ -24,7 +24,7 @@ public class Address extends ComponentMultiPart {
 	}
 	
 	@Override
-	public String getDefaultValue() {
+	public String getValueDefault() {
 		return getValue(false);
 	}
 
@@ -43,7 +43,7 @@ public class Address extends ComponentMultiPart {
 			if (inIsNormalized) {
 				resultSb.append(street.getValueNormalized());
 			} else {
-				resultSb.append(street.getDefaultValue());
+				resultSb.append(street.getValueDefault());
 			}
 			joinString = " ";
 		}
@@ -57,6 +57,13 @@ public class Address extends ComponentMultiPart {
 		// This does not change based on the isNormalized
 		if (state != null && state.isValid()) {
 			resultSb.append(joinString).append(state.getValueNormalized());
+			joinString = " ";
+		}
+		
+		
+		// This does not change based on the isNormalized
+		if (zipCode != null && zipCode.isValid()) {
+			resultSb.append(joinString).append(zipCode.getValueNormalized());
 			joinString = " ";
 		}
 
@@ -90,7 +97,7 @@ public class Address extends ComponentMultiPart {
 	}
 
 	@Override
-	public boolean equals(ComponentBase inComponent) {
+	public boolean equalsNormalized(ComponentBase inComponent) {
 		if (! inComponent.getClass().equals(this.getClass())) {
 			return false;
 		}
@@ -107,7 +114,7 @@ public class Address extends ComponentMultiPart {
 		if (street == null) {
 			return null;
 		}
-		return street.getDefaultValue();
+		return street.getValueDefault();
 	}
 	
 //	public String getStreeAddressOther() {
@@ -121,21 +128,21 @@ public class Address extends ComponentMultiPart {
 		if (city == null) {
 			return null;
 		}
-		return city.getDefaultValue();
+		return city.getValueDefault();
 	}
 	
 	public String getStateDefault() {
 		if (state == null) {
 			return null;
 		}
-		return state.getDefaultValue();
+		return state.getValueDefault();
 	}
 	
 	public String getZipDefault() {
 		if (zipCode == null) {
 			return null;
 		}
-		return zipCode.getDefaultValue();
+		return zipCode.getValueDefault();
 	}
 	
 	///////////////////////////////////////////////////////////////////////////

@@ -72,13 +72,13 @@ public class StreetNameNumberParserTest extends StreetNameNumberParser {
 		actualStreetAddressNumber = parser.getAddressNumber(splitter);
 		assertEquals(742, actualStreetAddressNumber.getAddressNumber());
 		assertEquals("D", actualStreetAddressNumber.getAddressNumberSecondPart());
-		assertEquals("742D", actualStreetAddressNumber.getDefaultValue());
+		assertEquals("742D", actualStreetAddressNumber.getValueDefault());
 		
 		splitter = new ApSplitter("742d-123 Evergreen");
 		actualStreetAddressNumber = parser.getAddressNumber(splitter);
 		assertEquals(742, actualStreetAddressNumber.getAddressNumber());
 		assertEquals("d-123", actualStreetAddressNumber.getAddressNumberSecondPart());
-		assertEquals("742D-123", actualStreetAddressNumber.getDefaultValue());
+		assertEquals("742D-123", actualStreetAddressNumber.getValueDefault());
 	}
 	
 	

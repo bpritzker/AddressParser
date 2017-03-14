@@ -3,7 +3,7 @@ package org.benp.addressparser.component.street;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import org.benp.addressparser.data.mapping.MappingValue;
+import org.benp.addressparser.data.normalize.MappingValue;
 import org.junit.Test;
 
 public class StreetTest {
@@ -16,7 +16,7 @@ public class StreetTest {
 		assertFalse(street.isValid());
 		
 		street = buildSimpleStreet();
-		assertEquals("742 Evergreen Terrace", street.getDefaultValue());
+		assertEquals("742 Evergreen Terrace", street.getValueDefault());
 	}
 
 	private Street buildSimpleStreet() {
@@ -94,7 +94,7 @@ public class StreetTest {
 		tempStreetSuffix.setValid(true);
 		street.getStreet1().setStreetPostType(tempStreetSuffix);
 		
-		String actualProperValue = street.getDefaultValue();
+		String actualProperValue = street.getValueDefault();
 		assertEquals("123 Fake Street", actualProperValue);
 		
 	}
