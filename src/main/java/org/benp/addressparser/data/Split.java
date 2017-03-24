@@ -31,12 +31,7 @@ public class Split {
 	public void setValue(String value) {
 		this.value = value;
 	}
-//	public int getIndex() {
-//		return index;
-//	}
-//	public void setIndex(int index) {
-//		this.index = index;
-//	}
+
 
 	public static String joinValues(List<Split> inValueIndices) {
 

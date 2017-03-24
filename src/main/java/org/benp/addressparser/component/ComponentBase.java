@@ -23,8 +23,8 @@ public abstract class ComponentBase {
 	
 	public boolean equalsNormalized(ComponentBase inComponent) {
 		String thisNormalizedValue = getValueNormalized();
-		String inComponentNormalizedValue = inComponent.getValueNormalized();
-		if (thisNormalizedValue.equalsIgnoreCase(inComponentNormalizedValue)) {
+		String componentNormalizedValue = inComponent.getValueNormalized();
+		if (thisNormalizedValue.equalsIgnoreCase(componentNormalizedValue)) {
 			return true;
 		} else {
 			return false;

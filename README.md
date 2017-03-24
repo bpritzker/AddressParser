@@ -24,10 +24,14 @@ There is a tag "OPTIMIZE:" used to locate places were the code could be optimize
 either for speed or simplicity
 
 ## Requirements:
-* This requires Java 1.7 or above
+* This requires Java 1.8 or above
 
 ## TODO
 * Might want to to change to Address Manager since it's not only parses but normalizes
+* Make a valid address configurable.
+* Consider in the Base, remove the getValues and make it abstract
+
+
 
 
 ## References:

@@ -17,7 +17,9 @@ public class Mapping {
 	/**
 	 * These are values that have more than one key.
 	 * Not very relevant for City/State but needed for Business normalization.
-	 * Example: TODO: Give an example
+	 * Example: "SRC" and "SOURCE" are both keys that map into each other.
+	 * 
+	 * 
 	 */
 	private Set<String> ambiguousValues = new HashSet<>();
 

@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
 import org.benp.addressparser.AddressParserConfig;
 import org.benp.addressparser.ApException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.supercsv.io.CsvListReader;
 import org.supercsv.prefs.CsvPreference;
 
@@ -27,11 +29,15 @@ import org.supercsv.prefs.CsvPreference;
  */
 public class Mapper {
 	
+	Logger logger = LoggerFactory.getLogger(Mapper.class);
+	
 	private AddressParserConfig config;
 	private Mapping businessWord;
 	private Mapping city;
 	private Mapping streetPostType;
 //	private Mapping missSpellings;
+	
+	
 	
 	private static final Pattern KEY_UNDESIRABLES = Pattern.compile("[\\Q][(){},.;!?<>%\\E]");
 	
@@ -72,7 +78,6 @@ public class Mapper {
 		List<List<String>> mappingFileValues = loadMappingValues(inMappingFileName);
 		
 		for (List<String> currVal : mappingFileValues) {
-			// TODO: check here for empty values
 			String rawKey = currVal.get(0);
 			String normalizedKey = normalizeKey(rawKey);
 			String value = currVal.get(1);
@@ -81,7 +86,6 @@ public class Mapper {
 				tempMappingValues = new MappingValue();
 				
 				tempMappingValues.setRawKey(rawKey);
-				// TODO: Do we need to fix this for city stuff?
 				tempMappingValues.setDefualtValue(rawKey);
 			}
 			tempMappingValues.addValue(value);
@@ -93,50 +97,6 @@ public class Mapper {
 			
 		}
 		
-//		
-//		try (BufferedReader reader = new BufferedReader(new FileReader(mappingFile))) {
-//			String currLine = reader.readLine();
-//			while (currLine != null) {
-//				// NOTE, this is NOT CSV, it's just a simple comma delimited
-//				// Keys and values can not have commas, if we need them will will need to change this.
-//				List<String> splits = Splitter.on(",").splitToList(currLine);
-//				if (splits.size() != 2) {
-//					throw new ApException("The mapping file has errors. "
-//							+ "\nThere are NO commas allowed in either the keys or values.",
-//							"File", mappingFile.getAbsolutePath(),
-//							"currLine", currLine);
-//				} else if (! splits.get(0).equals("#")) { // Skip any line that has # as the first element. this allows for comments
-//					String key = splits.get(0);
-//					String normalizedKey = normalizeKey(key);
-//					String value = splits.get(1);
-//					MappingValue tempMappingValues = tempMapping.get(normalizedKey);
-//					if (tempMappingValues == null) {
-//						tempMappingValues = new MappingValue();
-//						
-//						
-//						// TODO: Do we need to fix this for city stuff?
-//						tempMappingValues.setDefualtValue(key);
-//					}
-//					tempMappingValues.addValue(value);
-//					boolean isDuplicateValue = allValues.add(value);
-//					if (isDuplicateValue) {
-//						ambiguousValues.add(value);
-//					}
-//					tempMapping.put(key, tempMappingValues);
-//				}
-//
-//				currLine = reader.readLine();
-//			}
-//			
-//		} catch (FileNotFoundException fnfe) {
-//			throw new ApException("Could not find default mapping file.", fnfe, 
-//					"mappingFileName", inMappingFileName,
-//					"mappingFile", mappingFile.getAbsolutePath());
-//		} catch (IOException ioe) {
-//			throw new ApException("Error reading mapping file!", ioe, 
-//					"mappingFileName", inMappingFileName,
-//					"mappingFile", mappingFile.getAbsolutePath());
-//		}
 		Mapping resultMapping = new Mapping();
 		resultMapping.setAmbiguousValues(ambiguousValues);
 		resultMapping.setMappings(tempMapping);
@@ -149,9 +109,19 @@ public class Mapper {
 		List<List<String>> resultValues = new ArrayList<>();
 		Reader fileReader;
 		
-		File mappingFile = 
-				new File(Mapper.class.getProtectionDomain().getCodeSource().getLocation().getPath().toString() 
-				+ "org/benp/addressparser/data/normalize/" + inMappingFileName);
+//		File mappingFile = 
+//				new File(Mapper.class.getProtectionDomain().getCodeSource().getLocation().getPath().toString() 
+//				+ "org/benp/addressparser/data/normalize/" + inMappingFileName);
+
+		ClassLoader classLoader = getClass().getClassLoader();
+		File mappingFile;
+		try {
+			mappingFile = new File(classLoader.getResource("data/" + inMappingFileName).getFile());
+		} catch (Exception e) {
+			logger.debug("ERROR: Could not find mapping file!! <{}>", inMappingFileName );
+			throw new ApException("Error, Could not find File <" + inMappingFileName + ">", e);
+		}
+		
 		CsvListReader csvReader = null;
 		try {
 			fileReader = new FileReader(mappingFile);

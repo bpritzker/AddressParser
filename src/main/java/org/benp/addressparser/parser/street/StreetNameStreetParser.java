@@ -62,9 +62,9 @@ public class StreetNameStreetParser extends ParserBase {
 		if (StringUtils.isNotBlank(streetName)) {
 			// we now have a full street name
 			// Look for business abbreviations we can normalize
-			List<String> streetNameSplits = Splitter.on(" ").trimResults().splitToList(streetName);
+			List<String> streetNameSplits = Splitter.on(' ').trimResults().splitToList(streetName);
 			String tempStreetName = buildStreetName(streetNameSplits);
-			
+		
 			resultStreetName.setName(tempStreetName);
 			resultStreetName.setSplitterIndecies(remaingingSplits);
 			resultStreetName.setValid(true);

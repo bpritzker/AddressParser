@@ -30,7 +30,6 @@ public class Address extends ComponentMultiPart {
 
 	/**
 	 * Local method to build the value string to be returned
-	 * TODO: pass in a enum type instead of boolean
 	 * @param inIsNormalized - false is proper value
 	 */
 			

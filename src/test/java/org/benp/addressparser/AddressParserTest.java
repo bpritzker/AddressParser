@@ -28,6 +28,15 @@ public class AddressParserTest extends AddressParser {
 			e.printStackTrace();
 		}
 	}
+	
+	
+//	@Test
+//	public void parseAddressMultiParam() throws Exception {
+//		
+//		Address parseAddress(String street1, String street2, String city, String state, String zipCode) throws ApException {
+//
+//		
+//	}
 
 
 	
@@ -148,10 +157,6 @@ public class AddressParserTest extends AddressParser {
 		
 		actualAddress = addressParser.parseAddress("1800 Massachesetts Avenue  Washington DC");
 		assertFalse(actualAddress.isComplete());
-		
-
-		
-
 	}
 	
 	@Override
@@ -182,9 +187,7 @@ public class AddressParserTest extends AddressParser {
 	
 	// TODO: Add validation for case where we get a city and a state but the state is NOT in the city/Sate mapping
 	// Example: LYNCHBURG is valid for 5 states, verify an address is valid if LYNCHBURG's state is in the map
-	
-	
-	// TODO: How to handle this case????? "123 MONSVIEW PL LYNCHBURGS VA" should "LYNCHBURGS" be an invalid city????
+	// How to handle this case????? "123 MONSVIEW PL LYNCHBURGS VA" should "LYNCHBURGS" be an invalid city????
 	
 	
 	

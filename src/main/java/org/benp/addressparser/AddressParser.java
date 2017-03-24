@@ -15,8 +15,6 @@ import org.benp.addressparser.parser.street.StreetParser;
 
 public class AddressParser {
 	
-//	private static final Logger	logger	=  LogManager.getLogger(ApAddressParser.class.getName());
-	
 	private StreetParser streetParser;
 	private CityParser cityParser;
 	private StateParser stateParser;
@@ -174,7 +172,6 @@ public class AddressParser {
 		resultAddress.setStreet(street);
 		
 		// a valid address can have either a valid zip code OR valid city and state
-		// TODO: make a valid address configurable.
 		if (street.isValid()) {
 			if (zipCode.isValid() || (state.isValid() && city.isValid())) {
 				resultAddress.setValid(true);

@@ -30,6 +30,13 @@ public class CityTest {
 		
 		city2.setCityName("Springfield");
 		assertTrue(city.equalsNormalized(city2));
+		
+		// TODO: Test some of these: PORT ST. JOE,FL    ST. AUGUSTINE,FL
+//		ST. AUGUSTINE BEACH,FL
+//		ST. AUGUSTINE SHORES,FL
+//		ST. AUGUSTINE SOUTH,FL
+		
+		
 	}
 
 }

@@ -19,14 +19,9 @@ import org.benp.addressparser.data.normalize.MappingValue;
  */
 public class StreetNamePostType extends ComponentBase {
 
-//	private StreetPostTypeEnum streetPostType;
 	private MappingValue streetPostType;
 	private Directional streetNamePostTypeDirectional;
 
-
-
-	
-	// FIXME: Should do this better. In the Base, remove the getValues and make it abstract
 	@Override
 	public List<Split> getSplitterIndecies() {
 		List<Split> resultSplits = new ArrayList<>(super.getSplitterIndecies());
@@ -73,23 +68,6 @@ public class StreetNamePostType extends ComponentBase {
 		return resultSb.toString();
 	}
 
-//	public String getNormalizedValue() {
-//		if (streetPostType == null) {
-//			return null;
-//		}
-//		
-//		StringBuilder resultSb = new StringBuilder();
-//		resultSb.append(WordUtils.capitalizeFully(streetPostType.getName()));
-//		
-//		if (streetNamePostTypeDirectional != null && streetNamePostTypeDirectional.isValid()) {
-//			resultSb.append(" ").append(streetNamePostTypeDirectional.getNormalizedValue());
-//		}
-//		
-//		return resultSb.toString();
-//	}
-	
-	
-	
 	
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -121,17 +99,5 @@ public class StreetNamePostType extends ComponentBase {
 	public void setStreetPostType(MappingValue streetPostType) {
 		this.streetPostType = streetPostType;
 	}
-
-//	public StreetPostTypeEnum getStreetPostType() {
-//		return streetPostType;
-//	}
-//
-//	public void setStreetPostType(StreetPostTypeEnum inStreetPostType) {
-//		streetPostType = inStreetPostType;
-//	}
-	
-	
-	
-	
 
 }

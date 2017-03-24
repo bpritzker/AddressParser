@@ -40,22 +40,4 @@ public class StreetNamePostOther extends ComponentBase {
 		return getValueNormalized();
 	}
 
-//	public Object getNormalizedValue() {
-//
-//		List<Split> tempSplits = getSplitterIndecies();
-//		if (tempSplits == null || tempSplits.size() == 0) {
-//			return "";
-//		}
-//		
-//		StringBuilder resultSb = new StringBuilder();
-//		String joinerStr = "";
-//		for (Split currSplit : tempSplits) {
-//			resultSb.append(joinerStr).append(currSplit.getValue());
-//			joinerStr = " ";
-//		}
-//		return resultSb.toString();
-//		
-//	}
-	
-	
 }

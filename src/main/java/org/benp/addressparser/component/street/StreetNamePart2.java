@@ -16,7 +16,7 @@ public class StreetNamePart2 extends ComponentBase {
 		return streetPostOther.getValueNormalized();
 	}
 	
-	// TODO: Might want to take a look at this.
+
 	@Override
 	public String getValueDefault() {
 		if (streetPostOther == null) {
