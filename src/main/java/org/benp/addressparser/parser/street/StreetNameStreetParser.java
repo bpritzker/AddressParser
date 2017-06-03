@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.benp.addressparser.AddressParserConfig;
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.AddressParserConfig;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.component.Directional;
 import org.benp.addressparser.component.street.StreetNameStreet;
 import org.benp.addressparser.data.DirectionalEnum;

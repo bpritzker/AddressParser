@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.component.City;
 import org.benp.addressparser.data.Split;
 import org.benp.addressparser.data.normalize.MapperMock;

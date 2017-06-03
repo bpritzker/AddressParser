@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.benp.addressparser.AddressParserConfig;
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.AddressParserConfig;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.component.ZipCode;
 import org.benp.addressparser.data.Split;
 import org.slf4j.Logger;

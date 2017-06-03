@@ -3,6 +3,17 @@ package org.benp.addressparser.component.street;
 import org.apache.commons.lang3.text.WordUtils;
 import org.benp.addressparser.component.ComponentMultiPart;
 
+
+/**
+ * This class holds the basic Street Name parts that are standard over
+ * most street names.
+ * It does NOT include things like apartment and building numbers.
+ * 
+ * 
+ * 
+ * @author Ben P
+ *
+ */
 public class StreetNamePart1 extends ComponentMultiPart {
 	
 	private StreetNameNumber addressNumber;

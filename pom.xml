@@ -1,16 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.benp</groupId>
 	<artifactId>addressparser</artifactId>
-	<version>0.9.5</version>
+	<version>0.9.6</version>
 	<packaging>jar</packaging>
-	
+
 	<name>BenP Address Parser</name>
 	<description>Library that will parse and normalize addresses</description>
-	<url>http://maven.apache.org</url>	
+	<url>http://maven.apache.org</url>
 
 	<licenses>
 		<license>
@@ -24,29 +27,20 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
+			<version>3.5</version>
 		</dependency>
 
-<!-- 
+		<!-- <dependency> <groupId>org.apache.logging.log4j</groupId> <artifactId>log4j-api</artifactId> 
+			<version>2.2</version> </dependency> <dependency> <groupId>org.apache.logging.log4j</groupId> 
+			<artifactId>log4j-core</artifactId> <version>2.2</version> </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.2</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.2</version>
-		</dependency>
- -->
- 
-		 <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-api</artifactId>
-		    <version>1.7.24</version>
-		</dependency>
- 
+
 
 
 		<dependency>
@@ -77,28 +71,31 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
-			
+
 		</dependency>
 	</dependencies>
 
 
 
 	<build>
-	
-    <resources>
-      <resource>
 
-        <directory>src/main/resources</directory>
-        <includes>
-          <include>**/data/*</include>
-        </includes>
-      </resource>
-    </resources>	
-	
-	
-	
-	
+		<resources>
+			<resource>
+
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/data/*</include>
+				</includes>
+			</resource>
+		</resources>
+
+
+
+
 		<plugins>
+
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -108,6 +105,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+<!--   Need to get this working for maven distribution 		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
@@ -122,56 +120,47 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-source-plugin</artifactId>
-  <executions>
-    <execution>
-      <id>attach-sources</id>
-      <goals>
-        <goal>jar</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>			
-	
-	
-<!-- 			
-			<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-javadoc-plugin</artifactId>
-  <executions>
-    <execution>
-      <id>attach-javadocs</id>
-      <goals>
-        <goal>jar</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
  -->
+ 
+ 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
+				<executions> <execution> <id>attach-javadocs</id> <goals> <goal>jar</goal> 
+				</goals> </execution> </executions> </plugin> -->
 
 
 
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-source-plugin</artifactId>
-  <version>2.2.1</version>
-  <executions>
-    <execution>
-      <id>attach-sources</id>
-      <phase>build</phase>
-      <goals>
-        <goal>jar-no-fork</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>build</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 
 
-			
+
 		</plugins>
 	</build>
 

@@ -1,10 +1,9 @@
 package org.benp.addressparser.data.normalize;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,8 +13,8 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
-import org.benp.addressparser.AddressParserConfig;
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.AddressParserConfig;
+import org.benp.addressparser.common.ApException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.supercsv.io.CsvListReader;
@@ -107,16 +106,22 @@ public class Mapper {
 	private List<List<String>> loadMappingValues(String inMappingFileName) throws ApException {
 
 		List<List<String>> resultValues = new ArrayList<>();
-		Reader fileReader;
+//		Reader fileReader;
 		
 //		File mappingFile = 
 //				new File(Mapper.class.getProtectionDomain().getCodeSource().getLocation().getPath().toString() 
 //				+ "org/benp/addressparser/data/normalize/" + inMappingFileName);
 
-		ClassLoader classLoader = getClass().getClassLoader();
-		File mappingFile;
+//		ClassLoader classLoader = getClass().getClassLoader();
+//		File mappingFile;
+		InputStream mappingFileIs;
+		
 		try {
-			mappingFile = new File(classLoader.getResource("data/" + inMappingFileName).getFile());
+			
+			mappingFileIs = this.getClass().getClassLoader().getResourceAsStream("data/" + inMappingFileName);
+			
+			
+//			mappingFile = new File(classLoader.getResource("data/" + inMappingFileName).getFile());
 		} catch (Exception e) {
 			logger.debug("ERROR: Could not find mapping file!! <{}>", inMappingFileName );
 			throw new ApException("Error, Could not find File <" + inMappingFileName + ">", e);
@@ -124,8 +129,8 @@ public class Mapper {
 		
 		CsvListReader csvReader = null;
 		try {
-			fileReader = new FileReader(mappingFile);
-			csvReader = new CsvListReader(fileReader, CsvPreference.STANDARD_PREFERENCE);
+			InputStreamReader inputStreamReader = new InputStreamReader(mappingFileIs);
+			csvReader = new CsvListReader(inputStreamReader, CsvPreference.STANDARD_PREFERENCE);
 			List<String> currLine = csvReader.read();
 			while (currLine != null) {
 				resultValues.add(currLine);

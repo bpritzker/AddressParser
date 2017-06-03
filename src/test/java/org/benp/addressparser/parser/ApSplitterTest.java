@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import java.util.List;
 import java.util.Map;
 
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.data.Split;
 import org.junit.Test;
 

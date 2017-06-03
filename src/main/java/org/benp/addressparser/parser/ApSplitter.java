@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.data.Split;
 
 public class ApSplitter {

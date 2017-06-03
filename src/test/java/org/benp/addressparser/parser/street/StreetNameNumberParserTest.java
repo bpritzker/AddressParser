@@ -3,7 +3,7 @@ package org.benp.addressparser.parser.street;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import org.benp.addressparser.AddressParserConfig;
+import org.benp.addressparser.common.AddressParserConfig;
 import org.benp.addressparser.component.street.StreetNameNumber;
 import org.benp.addressparser.component.street.StreetNameNumberPair;
 import org.benp.addressparser.parser.ApSplitter;

@@ -1,7 +1,7 @@
 package org.benp.addressparser.parser;
 
-import org.benp.addressparser.AddressParserConfig;
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.AddressParserConfig;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.component.State;
 import org.benp.addressparser.data.StateValue;
 import org.benp.addressparser.data.StateValues;

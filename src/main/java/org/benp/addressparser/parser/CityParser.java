@@ -2,10 +2,11 @@ package org.benp.addressparser.parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import org.benp.addressparser.AddressParserConfig;
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.AddressParserConfig;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.component.City;
 import org.benp.addressparser.data.Split;
 import org.benp.addressparser.data.normalize.Mapper;
@@ -55,23 +56,24 @@ public class CityParser extends ParserBase {
 	private City getApCity(ApSplitter splitter, int valuesToTry) throws ApException {
 		List<List<Split>> tryValues = buildTryValues(splitter, valuesToTry);
 		
-		// We want to try with i = 0
+		City resultCity = null;
+		// i is the try values index. we start at the largest values and move down to the smallest
 		for (int i=tryValues.size()-1; i > -1 ; i--) {
 			
 			StringBuilder cityNameToFindBuilder = new StringBuilder();
-			String prefix = "";
+			String nameSeperator = "";
 			for (Split currValueIndex : tryValues.get(i)) {
 				
 				String normalizedCityName = normalize(currValueIndex.getValue());
 				
-				cityNameToFindBuilder.append(prefix).append(normalizedCityName);
-				prefix = " ";
+				cityNameToFindBuilder.append(nameSeperator).append(normalizedCityName);
+				nameSeperator = " ";
 			}
 			String cityNameToFind =  cityNameToFindBuilder.toString();
 			
 			
 			// When debugging city, put breakpoint on line below.
-			City resultCity = null;
+			
 			MappingValue tempCityStates = findCityMappingValue(cityNameToFind);
 			
 			if (tempCityStates != null) {
@@ -85,13 +87,14 @@ public class CityParser extends ParserBase {
 			}
 			
 		}
-		return null;
+		return resultCity;
 	}
 
 
 	protected MappingValue findCityMappingValue(String cityNameToFind) throws ApException {
 
-		MappingValue resultCityStates = mapper.getCity().getMappings().get(cityNameToFind);
+		Map<String, MappingValue> nameToMappingValue = mapper.getCity().getMappings();
+ 		MappingValue resultCityStates = nameToMappingValue.get(cityNameToFind);
 
 		// If we did not find the city name in the normal mapping see if we can find it 
 		//     in a business mapping

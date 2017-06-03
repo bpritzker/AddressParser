@@ -1,6 +1,6 @@
 package org.benp.addressparser.component;
 
-import org.benp.addressparser.ErrorCode;
+import org.benp.addressparser.common.ErrorCode;
 import org.benp.addressparser.component.street.Street;
 
 

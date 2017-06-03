@@ -40,12 +40,10 @@ https://www.fgdc.gov/standards/projects/FGDC-standards-projects/street-address/0
 
 You can get the list of all zip codes from: http://federalgovernmentzipcodes.us/
 
-Help with normalizations and abbrivations: http://pe.usps.gov/text/pub28/28c2_002.htm
+Help with normalizations and abbreviations: http://pe.usps.gov/text/pub28/28c2_002.htm
 
 States to names: http://en.wikipedia.org/wiki/List_of_U.S._state_abbreviations
 
-List of all Cities:
-http://www.opengeocode.org/download.php  -- Use the "US State/Cities Dataset" dataset
 
 
 For GeoCoding... add this much later...

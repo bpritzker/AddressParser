@@ -1,5 +1,6 @@
 package org.benp.addressparser;
 
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.component.Address;
 
 /**

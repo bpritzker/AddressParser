@@ -1,6 +1,6 @@
 package org.benp.addressparser.data.normalize;
 
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.ApException;
 
 public class MapperMock extends Mapper {
 	

@@ -1,6 +1,6 @@
 package org.benp.addressparser.parser;
 
-import org.benp.addressparser.AddressParserConfig;
+import org.benp.addressparser.common.AddressParserConfig;
 
 public abstract class ParserBase {
 	

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.benp.addressparser.common.AddressParserConfig;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.component.Address;
 import org.benp.addressparser.data.DirectionalEnum;
 import org.benp.addressparser.parser.CityParser;

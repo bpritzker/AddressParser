@@ -1,8 +1,8 @@
 package org.benp.addressparser.parser.street;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.benp.addressparser.AddressParserConfig;
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.AddressParserConfig;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.component.street.StreetNameNumber;
 import org.benp.addressparser.component.street.StreetNameNumberPair;
 import org.benp.addressparser.data.Split;

@@ -3,7 +3,7 @@ package org.benp.addressparser.parser.street;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.benp.addressparser.ApException;
+import org.benp.addressparser.common.ApException;
 import org.benp.addressparser.component.street.Street;
 import org.benp.addressparser.component.street.StreetNamePostType;
 import org.benp.addressparser.data.DirectionalEnum;

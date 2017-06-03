@@ -1,5 +1,8 @@
 package org.benp.addressparser;
 
+import org.benp.addressparser.common.AddressParserConfig;
+import org.benp.addressparser.common.ApException;
+import org.benp.addressparser.common.ErrorCode;
 import org.benp.addressparser.component.Address;
 import org.benp.addressparser.component.City;
 import org.benp.addressparser.component.SimpleAddress;
@@ -13,6 +16,15 @@ import org.benp.addressparser.parser.StateParser;
 import org.benp.addressparser.parser.ZipCodeParser;
 import org.benp.addressparser.parser.street.StreetParser;
 
+
+/**
+ * 
+ * 
+ * 
+ * 
+ * @author Ben P
+ *
+ */
 public class AddressParser {
 	
 	private StreetParser streetParser;

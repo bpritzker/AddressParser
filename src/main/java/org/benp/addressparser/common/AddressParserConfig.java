@@ -1,4 +1,4 @@
-package org.benp.addressparser;
+package org.benp.addressparser.common;
 
 import java.io.File;
 
